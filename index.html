@@ -1,108 +1,352 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="vi" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Young Go - Trải nghiệm Trekking & Cắm trại</title>
+    <title>Young Go - Đánh thức bản năng khám phá</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        forest: {
+                            50: '#f2f7f4',
+                            100: '#e1efe6',
+                            500: '#34d399',
+                            700: '#15803d',
+                            800: '#166534',
+                            900: '#14532d',
+                        },
+                        sunset: '#ea580c',
+                    }
+                }
+            }
+        }
+    </script>
     <style>
-        /* Phần này là CSS - Dùng để trang trí website */
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f7f6;
-            color: #333;
+        body { font-family: 'Inter', sans-serif; }
+        
+        .hero-bg {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed; /* Parallax effect */
         }
-        header {
-            background-color: #2c5e3b; /* Màu xanh lá rừng đặc trưng cho thiên nhiên */
-            color: white;
-            text-align: center;
-            padding: 4rem 1rem;
-            border-bottom: 5px solid #e67e22; /* Đường viền cam tạo điểm nhấn */
+
+        .card-image-wrapper {
+            overflow: hidden;
         }
-        header h1 {
-            margin: 0;
-            font-size: 3rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
+
+        .card-image {
+            transition: transform 0.5s ease;
         }
-        header p {
-            font-size: 1.2rem;
-            opacity: 0.9;
-            margin-top: 10px;
+
+        .tour-card:hover .card-image {
+            transform: scale(1.1);
         }
-        .container {
-            max-width: 800px;
-            margin: 2rem auto;
-            padding: 0 1.5rem;
+
+        /* Float animation cho các icon */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
         }
-        h2 {
-            text-align: center;
-            color: #2c5e3b;
-            font-size: 2rem;
-            margin-bottom: 2rem;
+        .animate-float {
+            animation: float 3s ease-in-out infinite;
         }
-        .tour-card {
-            background: white;
-            border-radius: 10px;
-            padding: 1.5rem;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            margin-bottom: 1.5rem;
-            border-left: 5px solid #2c5e3b;
-            transition: transform 0.3s ease;
-        }
-        .tour-card:hover {
-            transform: translateY(-5px); /* Hiệu ứng nổi lên khi rê chuột vào */
-        }
-        .tour-card h3 {
-            color: #2c5e3b;
-            margin-top: 0;
-            font-size: 1.4rem;
-        }
-        .tour-card p {
-            line-height: 1.6;
-            color: #555;
-        }
-        .btn {
-            display: inline-block;
-            background-color: #e67e22; /* Màu cam dã ngoại */
-            color: white;
-            padding: 10px 24px;
-            text-decoration: none;
-            border-radius: 5px;
-            font-weight: bold;
-            border: none;
-            cursor: pointer;
-            transition: background 0.3s;
-            margin-top: 10px;
-        }
-        .btn:hover {
-            background-color: #d35400;
+
+        /* Modal Overlay */
+        #bookingModal {
+            backdrop-filter: blur(5px);
         }
     </style>
 </head>
-<body>
-    <header>
-        <h1>Young Go</h1>
-        <p>Đánh thức bản năng khám phá - Chuyên gia Trekking & Cắm trại</p>
+<body class="bg-gray-50 text-gray-800 antialiased selection:bg-forest-500 selection:text-white">
+
+    <nav class="fixed w-full z-50 transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex-shrink-0 flex items-center gap-2 cursor-pointer" onclick="window.scrollTo(0,0)">
+                    <i class="fa-solid fa-mountain-sun text-sunset text-3xl"></i>
+                    <span class="font-extrabold text-2xl text-white tracking-wider" id="logoText">YOUNG GO</span>
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#about" class="text-white hover:text-sunset transition font-semibold">Về chúng tôi</a>
+                    <a href="#tours" class="text-white hover:text-sunset transition font-semibold">Lịch trình</a>
+                    <a href="#contact" class="bg-sunset text-white px-6 py-2 rounded-full font-bold hover:bg-orange-700 transition transform hover:scale-105 shadow-lg">Liên hệ</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <header class="hero-bg h-screen flex items-center justify-center relative">
+        <div class="text-center px-4 max-w-4xl">
+            <h1 class="text-5xl md:text-7xl font-extrabold text-white mb-6 tracking-tight drop-shadow-2xl opacity-0 translate-y-10 transition-all duration-1000 ease-out" id="heroTitle">
+                VƯỢT GIỚI HẠN <br><span class="text-sunset">CHẠM THIÊN NHIÊN</span>
+            </h1>
+            <p class="text-xl md:text-2xl text-gray-200 mb-10 drop-shadow-md opacity-0 translate-y-10 transition-all duration-1000 delay-300 ease-out" id="heroDesc">
+                Trải nghiệm Trekking & Cắm trại đẳng cấp. Đánh thức bản năng khám phá trong bạn.
+            </p>
+            <div class="opacity-0 translate-y-10 transition-all duration-1000 delay-500 ease-out" id="heroBtn">
+                <a href="#tours" class="inline-flex items-center gap-2 bg-forest-700 text-white px-8 py-4 rounded-full text-lg font-bold hover:bg-forest-800 transition transform hover:-translate-y-1 shadow-[0_10px_20px_rgba(21,128,61,0.4)]">
+                    Khám phá ngay <i class="fa-solid fa-arrow-down animate-bounce mt-1"></i>
+                </a>
+            </div>
+        </div>
+        
+        <!-- Curved bottom wave separator -->
+        <div class="absolute bottom-0 w-full overflow-hidden leading-none">
+            <svg class="relative block w-full h-[50px] md:h-[100px]" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V120H0V95.8C59.71,118,130.9,127,201.2,118.89,243.6,114,285.8,100,321.39,56.44Z" fill="#f9fafb"></path>
+            </svg>
+        </div>
     </header>
 
-    <div class="container">
-        <h2>Lịch trình nổi bật</h2>
-        
-        <!-- Khối thông tin tour số 1 -->
-        <div class="tour-card">
-            <h3>Trekking Tà Năng - Phan Dũng (2 Ngày 1 Đêm)</h3>
-            <p>Khám phá cung đường trekking đẹp nhất Việt Nam. Trọn gói dịch vụ dẫn đường, porter mang vác đồ, lều trại tiêu chuẩn và thực đơn BBQ giữa rừng thông bao la.</p>
-            <button class="btn">Xem chi tiết & Đặt tour</button>
-        </div>
+    <section id="about" class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-extrabold text-forest-900 mb-4">Tại sao chọn Young Go?</h2>
+                <div class="w-24 h-1 bg-sunset mx-auto rounded-full"></div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+                <div class="bg-white p-8 rounded-2xl shadow-sm hover:shadow-xl transition duration-300 border border-gray-100 text-center group">
+                    <div class="w-20 h-20 mx-auto bg-forest-100 rounded-full flex items-center justify-center mb-6 group-hover:bg-forest-700 transition">
+                        <i class="fa-solid fa-map-location-dot text-3xl text-forest-700 group-hover:text-white transition animate-float"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Lịch trình Độc quyền</h3>
+                    <p class="text-gray-600">Khảo sát kỹ lưỡng, những cung đường hoang sơ ít người biết đến, đảm bảo trải nghiệm chân thực nhất.</p>
+                </div>
+                
+                <div class="bg-white p-8 rounded-2xl shadow-sm hover:shadow-xl transition duration-300 border border-gray-100 text-center group">
+                    <div class="w-20 h-20 mx-auto bg-forest-100 rounded-full flex items-center justify-center mb-6 group-hover:bg-forest-700 transition">
+                        <i class="fa-solid fa-shield-halved text-3xl text-forest-700 group-hover:text-white transition animate-float" style="animation-delay: 0.5s"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">An toàn Tuyệt đối</h3>
+                    <p class="text-gray-600">Đội ngũ guide chuyên nghiệp, trang thiết bị chuẩn quốc tế và bảo hiểm du lịch mức cao nhất cho mọi thành viên.</p>
+                </div>
 
-        <!-- Khối thông tin tour số 2 -->
-        <div class="tour-card">
-            <h3>Cắm trại săn mây Đỉnh Lảo Thẩn (2 Ngày 1 Đêm)</h3>
-            <p>Trải nghiệm ngủ lều giữa biển mây Y Tý, đón bình minh trên độ cao 2.860m. Lịch trình thiết kế phù hợp cho cả những người mới bắt đầu trekking.</p>
-            <button class="btn">Xem chi tiết & Đặt tour</button>
+                <div class="bg-white p-8 rounded-2xl shadow-sm hover:shadow-xl transition duration-300 border border-gray-100 text-center group">
+                    <div class="w-20 h-20 mx-auto bg-forest-100 rounded-full flex items-center justify-center mb-6 group-hover:bg-forest-700 transition">
+                        <i class="fa-solid fa-utensils text-3xl text-forest-700 group-hover:text-white transition animate-float" style="animation-delay: 1s"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Ẩm thực Rừng núi</h3>
+                    <p class="text-gray-600">Không chỉ là mỳ tôm! Thưởng thức menu BBQ nướng đá, lẩu gà bản lá é ngay giữa rừng già đại ngàn.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="tours" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-extrabold text-forest-900 mb-4">Các cung đường Huyền Thoại</h2>
+                <div class="w-24 h-1 bg-sunset mx-auto rounded-full mb-6"></div>
+                <p class="text-gray-600 max-w-2xl mx-auto text-lg">Chọn cho mình một thử thách phù hợp để tái tạo năng lượng sau những ngày dài làm việc.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Tour 1 -->
+                <div class="tour-card bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-2xl transition duration-300 border border-gray-100 flex flex-col h-full cursor-pointer" onclick="openBooking('Tà Năng - Phan Dũng', '2.850.000đ')">
+                    <div class="card-image-wrapper h-64 relative">
+                        <img src="https://images.unsplash.com/photo-1551632811-561732d1e306?q=80&w=2070&auto=format&fit=crop" alt="Tà Năng Phan Dũng" class="card-image w-full h-full object-cover">
+                        <div class="absolute top-4 right-4 bg-sunset text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide">Bán chạy</div>
+                    </div>
+                    <div class="p-6 flex-grow flex flex-col">
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="text-sm text-forest-700 font-bold bg-forest-50 px-2 py-1 rounded"><i class="fa-regular fa-clock mr-1"></i> 2N1Đ</span>
+                            <span class="text-sm text-gray-500"><i class="fa-solid fa-shoe-prints mr-1"></i> Level: Trung bình</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">Trekking Tà Năng - Phan Dũng</h3>
+                        <p class="text-gray-600 text-sm mb-4 flex-grow">Khám phá cung đường trekking xuyên rừng đẹp nhất Việt Nam, đi qua 3 tỉnh Lâm Đồng, Ninh Thuận, Bình Thuận.</p>
+                        <div class="pt-4 border-t border-gray-100 flex justify-between items-center mt-auto">
+                            <div class="text-sunset font-extrabold text-xl">2.850.000đ</div>
+                            <button class="text-forest-700 hover:text-white border border-forest-700 hover:bg-forest-700 font-semibold px-4 py-2 rounded-lg transition">Chi tiết <i class="fa-solid fa-arrow-right ml-1"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tour 2 -->
+                <div class="tour-card bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-2xl transition duration-300 border border-gray-100 flex flex-col h-full cursor-pointer" onclick="openBooking('Đỉnh Lảo Thẩn', '3.100.000đ')">
+                    <div class="card-image-wrapper h-64 relative">
+                        <img src="https://images.unsplash.com/photo-1454496522488-7a8e488e8606?q=80&w=2076&auto=format&fit=crop" alt="Đỉnh Lảo Thẩn" class="card-image w-full h-full object-cover">
+                        <div class="absolute top-4 right-4 bg-forest-700 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide">Mới</div>
+                    </div>
+                    <div class="p-6 flex-grow flex flex-col">
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="text-sm text-forest-700 font-bold bg-forest-50 px-2 py-1 rounded"><i class="fa-regular fa-clock mr-1"></i> 2N1Đ</span>
+                            <span class="text-sm text-gray-500"><i class="fa-solid fa-shoe-prints mr-1"></i> Level: Dễ</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">Săn mây Đỉnh Lảo Thẩn (Y Tý)</h3>
+                        <p class="text-gray-600 text-sm mb-4 flex-grow">Chinh phục nóc nhà Y Tý, đón bình minh rực rỡ trên biển mây cuồn cuộn ở độ cao 2.860m.</p>
+                        <div class="pt-4 border-t border-gray-100 flex justify-between items-center mt-auto">
+                            <div class="text-sunset font-extrabold text-xl">3.100.000đ</div>
+                            <button class="text-forest-700 hover:text-white border border-forest-700 hover:bg-forest-700 font-semibold px-4 py-2 rounded-lg transition">Chi tiết <i class="fa-solid fa-arrow-right ml-1"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tour 3 -->
+                <div class="tour-card bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-2xl transition duration-300 border border-gray-100 flex flex-col h-full cursor-pointer" onclick="openBooking('Cực Đông', '3.500.000đ')">
+                    <div class="card-image-wrapper h-64 relative">
+                        <img src="https://images.unsplash.com/photo-1505118380757-91f5f5632de0?q=80&w=1952&auto=format&fit=crop" alt="Cực Đông" class="card-image w-full h-full object-cover">
+                    </div>
+                    <div class="p-6 flex-grow flex flex-col">
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="text-sm text-forest-700 font-bold bg-forest-50 px-2 py-1 rounded"><i class="fa-regular fa-clock mr-1"></i> 3N2Đ</span>
+                            <span class="text-sm text-gray-500"><i class="fa-solid fa-shoe-prints mr-1"></i> Level: Khó</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">Trekking Mũi Đôi - Cực Đông</h3>
+                        <p class="text-gray-600 text-sm mb-4 flex-grow">Hành trình thử thách thể lực qua cồn cát thiêu đốt và nhảy ghềnh đá để chạm tay vào chóp inox điểm Cực Đông Tổ Quốc.</p>
+                        <div class="pt-4 border-t border-gray-100 flex justify-between items-center mt-auto">
+                            <div class="text-sunset font-extrabold text-xl">3.500.000đ</div>
+                            <button class="text-forest-700 hover:text-white border border-forest-700 hover:bg-forest-700 font-semibold px-4 py-2 rounded-lg transition">Chi tiết <i class="fa-solid fa-arrow-right ml-1"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="py-16 bg-forest-900 text-white relative overflow-hidden">
+        <div class="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none" style="background-image: url('data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'#ffffff\' fill-opacity=\'1\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');"></div>
+        <div class="max-w-4xl mx-auto px-4 text-center relative z-10">
+            <h2 class="text-3xl md:text-4xl font-extrabold mb-6">Sẵn sàng cho chuyến đi để đời?</h2>
+            <p class="text-forest-100 mb-8 text-lg">Để lại thông tin, guide của chúng tôi sẽ tư vấn lộ trình và bài tập thể lực phù hợp riêng cho bạn.</p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <input type="text" placeholder="Số điện thoại / Zalo của bạn" class="px-6 py-4 rounded-full text-gray-900 w-full sm:w-96 focus:outline-none focus:ring-4 focus:ring-sunset/50">
+                <button class="bg-sunset text-white px-8 py-4 rounded-full font-bold hover:bg-orange-700 transition transform hover:scale-105 shadow-lg whitespace-nowrap">Nhận tư vấn ngay <i class="fa-solid fa-paper-plane ml-2"></i></button>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-gray-900 text-gray-400 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-3 gap-8 border-b border-gray-800 pb-8 mb-8">
+            <div>
+                <div class="flex items-center gap-2 mb-4">
+                    <i class="fa-solid fa-mountain-sun text-sunset text-2xl"></i>
+                    <span class="font-extrabold text-xl text-white tracking-wider">YOUNG GO</span>
+                </div>
+                <p class="text-sm">Đơn vị tổ chức trekking chuyên nghiệp, mang thiên nhiên đến gần hơn với cuộc sống hiện đại.</p>
+            </div>
+            <div>
+                <h4 class="text-white font-bold mb-4 uppercase text-sm tracking-wide">Liên hệ</h4>
+                <ul class="space-y-2 text-sm">
+                    <li><i class="fa-solid fa-phone mr-2 text-forest-500"></i> Hotline: 0900.123.456</li>
+                    <li><i class="fa-solid fa-envelope mr-2 text-forest-500"></i> Email: hi@younggo.vn</li>
+                    <li><i class="fa-solid fa-location-dot mr-2 text-forest-500"></i> Quận 1, TP. Hồ Chí Minh</li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-white font-bold mb-4 uppercase text-sm tracking-wide">Mạng xã hội</h4>
+                <div class="flex gap-4">
+                    <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-sunset text-white transition"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-sunset text-white transition"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-sunset text-white transition"><i class="fa-brands fa-tiktok"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="text-center text-sm">
+            &copy; 2024 Young Go. All rights reserved.
+        </div>
+    </footer>
+
+    <!-- Modal Đặt Tour (Ẩn mặc định) -->
+    <div id="bookingModal" class="fixed inset-0 bg-black/60 z-[100] hidden flex items-center justify-center opacity-0 transition-opacity duration-300">
+        <div class="bg-white rounded-2xl w-full max-w-md mx-4 overflow-hidden transform scale-95 transition-transform duration-300 relative" id="modalContent">
+            <!-- Nút đóng -->
+            <button onclick="closeBooking()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-800 transition">
+                <i class="fa-solid fa-xmark text-2xl"></i>
+            </button>
+            
+            <div class="bg-forest-700 p-6 text-white text-center">
+                <h3 class="text-2xl font-bold mb-1">Xác nhận Đặt chỗ</h3>
+                <p class="text-forest-100 text-sm">Vui lòng để lại thông tin liên lạc</p>
+            </div>
+            
+            <div class="p-6">
+                <div class="mb-4 pb-4 border-b border-gray-100">
+                    <div class="text-sm text-gray-500">Tên Tour:</div>
+                    <div id="modalTourName" class="font-bold text-gray-900 text-lg">...</div>
+                    <div class="text-sm text-gray-500 mt-2">Giá tham khảo:</div>
+                    <div id="modalTourPrice" class="font-bold text-sunset text-lg">...</div>
+                </div>
+                
+                <form onsubmit="event.preventDefault(); alert('Cảm ơn bạn! Yêu cầu đặt tour của bạn đã được ghi nhận. Chúng tôi sẽ liên hệ trong 24h tới.'); closeBooking();">
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Họ và tên</label>
+                            <input type="text" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-forest-500 focus:border-forest-500 outline-none transition" placeholder="Nhập tên của bạn">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Số điện thoại</label>
+                            <input type="tel" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-forest-500 focus:border-forest-500 outline-none transition" placeholder="09xxxxxxx">
+                        </div>
+                    </div>
+                    <button type="submit" class="w-full mt-6 bg-sunset text-white font-bold py-3 rounded-lg hover:bg-orange-700 transition">
+                        Gửi Yêu Cầu Đặt Tour
+                    </button>
+                </form>
+            </div>
         </div>
     </div>
-</body>
-</html>
+
+    <script>
+        // Hiệu ứng khởi động (Fade in) cho Hero Section
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('heroTitle').classList.remove('opacity-0', 'translate-y-10');
+            }, 100);
+            setTimeout(() => {
+                document.getElementById('heroDesc').classList.remove('opacity-0', 'translate-y-10');
+            }, 300);
+            setTimeout(() => {
+                document.getElementById('heroBtn').classList.remove('opacity-0', 'translate-y-10');
+            }, 500);
+        });
+
+        // Đổi màu thanh điều hướng khi cuộn trang
+        const navbar = document.getElementById('navbar');
+        const logoText = document.getElementById('logoText');
+        const navLinks = navbar.querySelectorAll('a:not(.bg-sunset)');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('bg-white', 'shadow-md');
+                navbar.classList.remove('py-2');
+                logoText.classList.replace('text-white', 'text-forest-900');
+                navLinks.forEach(link => {
+                    link.classList.replace('text-white', 'text-gray-700');
+                });
+            } else {
+                navbar.classList.remove('bg-white', 'shadow-md');
+                navbar.classList.add('py-2');
+                logoText.classList.replace('text-forest-900', 'text-white');
+                navLinks.forEach(link => {
+                    link.classList.replace('text-gray-700', 'text-white');
+                });
+            }
+        });
+
+        // Logic xử lý Modal (Popup Đặt tour)
+        const modal = document.getElementById('bookingModal');
+        const modalContent = document.getElementById('modalContent');
+        const mTourName = document.getElementById('modalTourName');
+        const mTourPrice = document.getElementById('modalTourPrice');
+
+        function openBooking(tourName, price) {
+            // Cập nhật thông tin vào modal
+            mTourName.textContent = tourName;
+            mTourPrice.textContent = price;
+            
+            // Hiển thị modal
+            modal.classList.remove('hidden');
+            // Timeout nhỏ để đảm bảo CSS transition hoạt động mượt mà
+            setTimeout(() => {
