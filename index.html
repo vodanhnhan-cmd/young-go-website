@@ -1,21 +1,108 @@
 <!DOCTYPE html>
-<html>
+<html lang="vi">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Young Go - Trải nghiệm Trekking & Cắm trại</title>
+    <style>
+        /* Phần này là CSS - Dùng để trang trí website */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f7f6;
+            color: #333;
+        }
+        header {
+            background-color: #2c5e3b; /* Màu xanh lá rừng đặc trưng cho thiên nhiên */
+            color: white;
+            text-align: center;
+            padding: 4rem 1rem;
+            border-bottom: 5px solid #e67e22; /* Đường viền cam tạo điểm nhấn */
+        }
+        header h1 {
+            margin: 0;
+            font-size: 3rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-top: 10px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+        }
+        h2 {
+            text-align: center;
+            color: #2c5e3b;
+            font-size: 2rem;
+            margin-bottom: 2rem;
+        }
+        .tour-card {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            margin-bottom: 1.5rem;
+            border-left: 5px solid #2c5e3b;
+            transition: transform 0.3s ease;
+        }
+        .tour-card:hover {
+            transform: translateY(-5px); /* Hiệu ứng nổi lên khi rê chuột vào */
+        }
+        .tour-card h3 {
+            color: #2c5e3b;
+            margin-top: 0;
+            font-size: 1.4rem;
+        }
+        .tour-card p {
+            line-height: 1.6;
+            color: #555;
+        }
+        .btn {
+            display: inline-block;
+            background-color: #e67e22; /* Màu cam dã ngoại */
+            color: white;
+            padding: 10px 24px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            transition: background 0.3s;
+            margin-top: 10px;
+        }
+        .btn:hover {
+            background-color: #d35400;
+        }
+    </style>
 </head>
 <body>
     <header>
-        <h1>Khám phá thiên nhiên cùng Young Go</h1>
-        <p>Chuyên cung cấp các tour trekking và sự kiện cắm trại trọn gói.</p>
+        <h1>Young Go</h1>
+        <p>Đánh thức bản năng khám phá - Chuyên gia Trekking & Cắm trại</p>
     </header>
 
-    <section>
+    <div class="container">
         <h2>Lịch trình nổi bật</h2>
-        <ul>
-            <li>Trekking Tà Năng - Phan Dũng (2 Ngày 1 Đêm)</li>
-            <li>Cắm trại săn mây cuối tuần</li>
-        </ul>
-        <button>Liên hệ đặt tour</button>
-    </section>
+        
+        <!-- Khối thông tin tour số 1 -->
+        <div class="tour-card">
+            <h3>Trekking Tà Năng - Phan Dũng (2 Ngày 1 Đêm)</h3>
+            <p>Khám phá cung đường trekking đẹp nhất Việt Nam. Trọn gói dịch vụ dẫn đường, porter mang vác đồ, lều trại tiêu chuẩn và thực đơn BBQ giữa rừng thông bao la.</p>
+            <button class="btn">Xem chi tiết & Đặt tour</button>
+        </div>
+
+        <!-- Khối thông tin tour số 2 -->
+        <div class="tour-card">
+            <h3>Cắm trại săn mây Đỉnh Lảo Thẩn (2 Ngày 1 Đêm)</h3>
+            <p>Trải nghiệm ngủ lều giữa biển mây Y Tý, đón bình minh trên độ cao 2.860m. Lịch trình thiết kế phù hợp cho cả những người mới bắt đầu trekking.</p>
+            <button class="btn">Xem chi tiết & Đặt tour</button>
+        </div>
+    </div>
 </body>
 </html>
