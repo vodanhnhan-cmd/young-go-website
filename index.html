@@ -16,337 +16,403 @@
                         sans: ['Inter', 'sans-serif'],
                     },
                     colors: {
+                        // Using your existing color palette but enhancing the structure
                         forest: {
                             50: '#f2f7f4',
                             100: '#e1efe6',
                             500: '#34d399',
-                            700: '#15803d',
+                            700: '#2c5e3b', // Updated to match the refined green
                             800: '#166534',
                             900: '#14532d',
                         },
-                        sunset: '#ea580c',
+                        sunset: '#e67e22', // Updated to match the refined orange
                     }
                 }
             }
         }
     </script>
+    
     <style>
         body { font-family: 'Inter', sans-serif; }
         
+        /* Modern Hero Background with Parallax */
         .hero-bg {
-            background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=2070&auto=format&fit=crop');
+            background-image: linear-gradient(to right, rgba(20, 83, 45, 0.8), rgba(0, 0, 0, 0.3)), url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=2070&auto=format&fit=crop');
             background-size: cover;
             background-position: center;
-            background-attachment: fixed; /* Parallax effect */
+            background-attachment: fixed;
         }
 
+        /* Card Image Zoom Effect */
         .card-image-wrapper {
             overflow: hidden;
         }
-
         .card-image {
-            transition: transform 0.5s ease;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
         }
-
         .tour-card:hover .card-image {
-            transform: scale(1.1);
+            transform: scale(1.08);
         }
 
-        /* Float animation cho các icon */
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-            100% { transform: translateY(0px); }
-        }
-        .animate-float {
-            animation: float 3s ease-in-out infinite;
-        }
-
-        /* Modal Overlay */
+        /* Modal Overlay Blur */
         #bookingModal {
-            backdrop-filter: blur(5px);
+            backdrop-filter: blur(8px);
+        }
+        
+        /* Smooth Fade In utility */
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .fade-in-up.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800 antialiased selection:bg-forest-500 selection:text-white">
 
-    <nav class="fixed w-full z-50 transition-all duration-300" id="navbar">
+    <nav class="fixed w-full z-50 transition-all duration-300 py-4" id="navbar">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-20">
-                <div class="flex-shrink-0 flex items-center gap-2 cursor-pointer" onclick="window.scrollTo(0,0)">
-                    <i class="fa-solid fa-mountain-sun text-sunset text-3xl"></i>
-                    <span class="font-extrabold text-2xl text-white tracking-wider" id="logoText">YOUNG GO</span>
+            <div class="flex justify-between items-center">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center gap-2 cursor-pointer group" onclick="window.scrollTo(0,0)">
+                    <div class="bg-sunset p-2 rounded-lg group-hover:scale-105 transition-transform">
+                        <i class="fa-solid fa-mountain-sun text-white text-2xl"></i>
+                    </div>
+                    <span class="font-extrabold text-2xl text-white tracking-wide transition-colors duration-300" id="logoText">YOUNG GO</span>
                 </div>
-                <div class="hidden md:flex space-x-8">
-                    <a href="#about" class="text-white hover:text-sunset transition font-semibold">Về chúng tôi</a>
-                    <a href="#tours" class="text-white hover:text-sunset transition font-semibold">Lịch trình</a>
-                    <a href="#contact" class="bg-sunset text-white px-6 py-2 rounded-full font-bold hover:bg-orange-700 transition transform hover:scale-105 shadow-lg">Liên hệ</a>
+                <!-- Nav Links -->
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="#about" class="text-white hover:text-sunset transition font-semibold nav-link">Về chúng tôi</a>
+                    <a href="#tours" class="text-white hover:text-sunset transition font-semibold nav-link">Lịch trình</a>
+                    <a href="#contact" class="bg-sunset text-white px-6 py-2.5 rounded-md font-bold hover:bg-orange-600 transition shadow-lg hover:shadow-xl">Liên hệ</a>
                 </div>
             </div>
         </div>
     </nav>
 
-    <header class="hero-bg h-screen flex items-center justify-center relative">
-        <div class="text-center px-4 max-w-4xl">
-            <h1 class="text-5xl md:text-7xl font-extrabold text-white mb-6 tracking-tight drop-shadow-2xl opacity-0 translate-y-10 transition-all duration-1000 ease-out" id="heroTitle">
-                VƯỢT GIỚI HẠN <br><span class="text-sunset">CHẠM THIÊN NHIÊN</span>
-            </h1>
-            <p class="text-xl md:text-2xl text-gray-200 mb-10 drop-shadow-md opacity-0 translate-y-10 transition-all duration-1000 delay-300 ease-out" id="heroDesc">
-                Trải nghiệm Trekking & Cắm trại đẳng cấp. Đánh thức bản năng khám phá trong bạn.
-            </p>
-            <div class="opacity-0 translate-y-10 transition-all duration-1000 delay-500 ease-out" id="heroBtn">
-                <a href="#tours" class="inline-flex items-center gap-2 bg-forest-700 text-white px-8 py-4 rounded-full text-lg font-bold hover:bg-forest-800 transition transform hover:-translate-y-1 shadow-[0_10px_20px_rgba(21,128,61,0.4)]">
-                    Khám phá ngay <i class="fa-solid fa-arrow-down animate-bounce mt-1"></i>
-                </a>
+    <header class="hero-bg h-[80vh] min-h-[600px] flex items-center relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+            <div class="max-w-2xl">
+                <span class="inline-block py-1 px-3 rounded-full bg-forest-700/80 text-white text-sm font-semibold mb-4 border border-forest-500 fade-in-up">Chuyên gia tổ chức Trekking & Cắm trại</span>
+                <h1 class="text-5xl md:text-6xl font-extrabold text-white mb-6 leading-tight fade-in-up" style="transition-delay: 100ms;">
+                    Đánh Thức <br><span class="text-sunset">Bản Năng Khám Phá</span>
+                </h1>
+                <p class="text-lg md:text-xl text-gray-200 mb-10 max-w-xl fade-in-up" style="transition-delay: 200ms;">
+                    Hành trình an toàn, dịch vụ chuyên nghiệp. Cùng bạn vượt qua giới hạn bản thân để hòa mình trọn vẹn vào thiên nhiên.
+                </p>
+                <div class="fade-in-up" style="transition-delay: 300ms;">
+                    <a href="#tours" class="inline-flex items-center justify-center gap-2 bg-sunset text-white px-8 py-4 rounded-md text-lg font-bold hover:bg-orange-600 transition shadow-[0_4px_14px_0_rgba(230,126,34,0.39)] hover:shadow-[0_6px_20px_rgba(230,126,34,0.23)] hover:-translate-y-0.5">
+                        Xem Các Cung Đường
+                    </a>
+                </div>
             </div>
-        </div>
-        
-        <!-- Curved bottom wave separator -->
-        <div class="absolute bottom-0 w-full overflow-hidden leading-none">
-            <svg class="relative block w-full h-[50px] md:h-[100px]" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
-                <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V120H0V95.8C59.71,118,130.9,127,201.2,118.89,243.6,114,285.8,100,321.39,56.44Z" fill="#f9fafb"></path>
-            </svg>
         </div>
     </header>
 
-    <section id="about" class="py-20 bg-gray-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-4xl font-extrabold text-forest-900 mb-4">Tại sao chọn Young Go?</h2>
-                <div class="w-24 h-1 bg-sunset mx-auto rounded-full"></div>
+    <section id="about" class="py-16 bg-white relative -mt-16 z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 rounded-t-3xl">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Feature 1 -->
+            <div class="bg-gray-50 p-8 rounded-xl border border-gray-100 flex flex-col items-center text-center group hover:bg-forest-50 transition-colors duration-300">
+                <div class="w-16 h-16 bg-white rounded-full shadow-sm flex items-center justify-center mb-6 text-forest-700 group-hover:bg-forest-700 group-hover:text-white transition-colors duration-300">
+                    <i class="fa-solid fa-map-location-dot text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 mb-3">Lịch trình Độc quyền</h3>
+                <p class="text-gray-600 text-sm">Khảo sát kỹ lưỡng, chọn lọc những cung đường hoang sơ ít người biết, đảm bảo trải nghiệm chân thực.</p>
             </div>
             
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
-                <div class="bg-white p-8 rounded-2xl shadow-sm hover:shadow-xl transition duration-300 border border-gray-100 text-center group">
-                    <div class="w-20 h-20 mx-auto bg-forest-100 rounded-full flex items-center justify-center mb-6 group-hover:bg-forest-700 transition">
-                        <i class="fa-solid fa-map-location-dot text-3xl text-forest-700 group-hover:text-white transition animate-float"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-3">Lịch trình Độc quyền</h3>
-                    <p class="text-gray-600">Khảo sát kỹ lưỡng, những cung đường hoang sơ ít người biết đến, đảm bảo trải nghiệm chân thực nhất.</p>
+            <!-- Feature 2 -->
+            <div class="bg-gray-50 p-8 rounded-xl border border-gray-100 flex flex-col items-center text-center group hover:bg-forest-50 transition-colors duration-300">
+                <div class="w-16 h-16 bg-white rounded-full shadow-sm flex items-center justify-center mb-6 text-forest-700 group-hover:bg-forest-700 group-hover:text-white transition-colors duration-300">
+                    <i class="fa-solid fa-shield-halved text-2xl"></i>
                 </div>
-                
-                <div class="bg-white p-8 rounded-2xl shadow-sm hover:shadow-xl transition duration-300 border border-gray-100 text-center group">
-                    <div class="w-20 h-20 mx-auto bg-forest-100 rounded-full flex items-center justify-center mb-6 group-hover:bg-forest-700 transition">
-                        <i class="fa-solid fa-shield-halved text-3xl text-forest-700 group-hover:text-white transition animate-float" style="animation-delay: 0.5s"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-3">An toàn Tuyệt đối</h3>
-                    <p class="text-gray-600">Đội ngũ guide chuyên nghiệp, trang thiết bị chuẩn quốc tế và bảo hiểm du lịch mức cao nhất cho mọi thành viên.</p>
-                </div>
+                <h3 class="text-xl font-bold text-gray-900 mb-3">An toàn Tuyệt đối</h3>
+                <p class="text-gray-600 text-sm">Đội ngũ guide chuyên nghiệp, trang bị y tế đầy đủ và bảo hiểm du lịch mức cao nhất cho mọi thành viên.</p>
+            </div>
 
-                <div class="bg-white p-8 rounded-2xl shadow-sm hover:shadow-xl transition duration-300 border border-gray-100 text-center group">
-                    <div class="w-20 h-20 mx-auto bg-forest-100 rounded-full flex items-center justify-center mb-6 group-hover:bg-forest-700 transition">
-                        <i class="fa-solid fa-utensils text-3xl text-forest-700 group-hover:text-white transition animate-float" style="animation-delay: 1s"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-3">Ẩm thực Rừng núi</h3>
-                    <p class="text-gray-600">Không chỉ là mỳ tôm! Thưởng thức menu BBQ nướng đá, lẩu gà bản lá é ngay giữa rừng già đại ngàn.</p>
+            <!-- Feature 3 -->
+            <div class="bg-gray-50 p-8 rounded-xl border border-gray-100 flex flex-col items-center text-center group hover:bg-forest-50 transition-colors duration-300">
+                <div class="w-16 h-16 bg-white rounded-full shadow-sm flex items-center justify-center mb-6 text-forest-700 group-hover:bg-forest-700 group-hover:text-white transition-colors duration-300">
+                    <i class="fa-solid fa-fire-burner text-2xl"></i>
                 </div>
+                <h3 class="text-xl font-bold text-gray-900 mb-3">Ẩm thực Giữa Rừng</h3>
+                <p class="text-gray-600 text-sm">Phục vụ các bữa ăn nóng sốt, menu đa dạng từ BBQ đến lẩu, đảm bảo dinh dưỡng để phục hồi thể lực.</p>
             </div>
         </div>
     </section>
 
-    <section id="tours" class="py-20 bg-white">
+    <section id="tours" class="py-20 bg-gray-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-4xl font-extrabold text-forest-900 mb-4">Các cung đường Huyền Thoại</h2>
-                <div class="w-24 h-1 bg-sunset mx-auto rounded-full mb-6"></div>
-                <p class="text-gray-600 max-w-2xl mx-auto text-lg">Chọn cho mình một thử thách phù hợp để tái tạo năng lượng sau những ngày dài làm việc.</p>
+            <div class="flex justify-between items-end mb-10">
+                <div>
+                    <h2 class="text-3xl md:text-4xl font-extrabold text-gray-900 mb-2">Lịch trình Nổi bật</h2>
+                    <div class="w-16 h-1 bg-sunset rounded-full"></div>
+                </div>
+                <a href="#" class="hidden md:inline-flex items-center text-forest-700 font-semibold hover:text-forest-900 transition">Xem tất cả <i class="fa-solid fa-chevron-right ml-1 text-sm"></i></a>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <!-- Tour 1 -->
-                <div class="tour-card bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-2xl transition duration-300 border border-gray-100 flex flex-col h-full cursor-pointer" onclick="openBooking('Tà Năng - Phan Dũng', '2.850.000đ')">
-                    <div class="card-image-wrapper h-64 relative">
+                <div class="tour-card bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-200 flex flex-col h-full">
+                    <div class="card-image-wrapper h-56 relative cursor-pointer" onclick="openBooking('Tà Năng - Phan Dũng', '2.850.000đ')">
                         <img src="https://images.unsplash.com/photo-1551632811-561732d1e306?q=80&w=2070&auto=format&fit=crop" alt="Tà Năng Phan Dũng" class="card-image w-full h-full object-cover">
-                        <div class="absolute top-4 right-4 bg-sunset text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide">Bán chạy</div>
-                    </div>
-                    <div class="p-6 flex-grow flex flex-col">
-                        <div class="flex justify-between items-center mb-3">
-                            <span class="text-sm text-forest-700 font-bold bg-forest-50 px-2 py-1 rounded"><i class="fa-regular fa-clock mr-1"></i> 2N1Đ</span>
-                            <span class="text-sm text-gray-500"><i class="fa-solid fa-shoe-prints mr-1"></i> Level: Trung bình</span>
+                        <div class="absolute top-4 left-4 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded shadow-md">-15% HOT</div>
+                        <div class="absolute bottom-0 left-0 w-full h-1/2 bg-gradient-to-t from-black/70 to-transparent"></div>
+                        <div class="absolute bottom-4 left-4 text-white">
+                            <div class="text-sm font-semibold mb-1"><i class="fa-solid fa-location-dot mr-1 text-sunset"></i> Lâm Đồng - Bình Thuận</div>
                         </div>
-                        <h3 class="text-xl font-bold text-gray-900 mb-2">Trekking Tà Năng - Phan Dũng</h3>
-                        <p class="text-gray-600 text-sm mb-4 flex-grow">Khám phá cung đường trekking xuyên rừng đẹp nhất Việt Nam, đi qua 3 tỉnh Lâm Đồng, Ninh Thuận, Bình Thuận.</p>
+                    </div>
+                    <div class="p-5 flex-grow flex flex-col">
+                        <h3 class="text-lg font-bold text-gray-900 mb-2 line-clamp-2 cursor-pointer hover:text-forest-700 transition" onclick="openBooking('Tà Năng - Phan Dũng', '2.850.000đ')">Trekking Xuyên Rừng Tà Năng - Phan Dũng</h3>
+                        
+                        <div class="flex items-center gap-4 text-sm text-gray-600 mb-4">
+                            <span class="flex items-center"><i class="fa-regular fa-clock mr-1.5 text-gray-400"></i> 2N1Đ</span>
+                            <span class="flex items-center"><i class="fa-solid fa-shoe-prints mr-1.5 text-gray-400"></i> Trung bình</span>
+                        </div>
+                        
+                        <p class="text-gray-500 text-sm mb-4 flex-grow line-clamp-3">Trọn gói dịch vụ dẫn đường, porter mang vác đồ, lều trại tiêu chuẩn và thực đơn BBQ giữa đồi cỏ bao la.</p>
+                        
                         <div class="pt-4 border-t border-gray-100 flex justify-between items-center mt-auto">
-                            <div class="text-sunset font-extrabold text-xl">2.850.000đ</div>
-                            <button class="text-forest-700 hover:text-white border border-forest-700 hover:bg-forest-700 font-semibold px-4 py-2 rounded-lg transition">Chi tiết <i class="fa-solid fa-arrow-right ml-1"></i></button>
+                            <div>
+                                <div class="text-xs text-gray-400 line-through">3.350.000đ</div>
+                                <div class="text-red-600 font-extrabold text-lg">2.850.000đ</div>
+                            </div>
+                            <button onclick="openBooking('Tà Năng - Phan Dũng', '2.850.000đ')" class="bg-forest-700 text-white px-4 py-2 rounded-md text-sm font-semibold hover:bg-forest-800 transition">Đặt Ngay</button>
                         </div>
                     </div>
                 </div>
 
                 <!-- Tour 2 -->
-                <div class="tour-card bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-2xl transition duration-300 border border-gray-100 flex flex-col h-full cursor-pointer" onclick="openBooking('Đỉnh Lảo Thẩn', '3.100.000đ')">
-                    <div class="card-image-wrapper h-64 relative">
+                <div class="tour-card bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-200 flex flex-col h-full">
+                    <div class="card-image-wrapper h-56 relative cursor-pointer" onclick="openBooking('Đỉnh Lảo Thẩn', '3.100.000đ')">
                         <img src="https://images.unsplash.com/photo-1454496522488-7a8e488e8606?q=80&w=2076&auto=format&fit=crop" alt="Đỉnh Lảo Thẩn" class="card-image w-full h-full object-cover">
-                        <div class="absolute top-4 right-4 bg-forest-700 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide">Mới</div>
-                    </div>
-                    <div class="p-6 flex-grow flex flex-col">
-                        <div class="flex justify-between items-center mb-3">
-                            <span class="text-sm text-forest-700 font-bold bg-forest-50 px-2 py-1 rounded"><i class="fa-regular fa-clock mr-1"></i> 2N1Đ</span>
-                            <span class="text-sm text-gray-500"><i class="fa-solid fa-shoe-prints mr-1"></i> Level: Dễ</span>
+                        <div class="absolute top-4 left-4 bg-forest-500 text-white text-xs font-bold px-2 py-1 rounded shadow-md">MỚI</div>
+                        <div class="absolute bottom-0 left-0 w-full h-1/2 bg-gradient-to-t from-black/70 to-transparent"></div>
+                        <div class="absolute bottom-4 left-4 text-white">
+                            <div class="text-sm font-semibold mb-1"><i class="fa-solid fa-location-dot mr-1 text-sunset"></i> Y Tý, Lào Cai</div>
                         </div>
-                        <h3 class="text-xl font-bold text-gray-900 mb-2">Săn mây Đỉnh Lảo Thẩn (Y Tý)</h3>
-                        <p class="text-gray-600 text-sm mb-4 flex-grow">Chinh phục nóc nhà Y Tý, đón bình minh rực rỡ trên biển mây cuồn cuộn ở độ cao 2.860m.</p>
+                    </div>
+                    <div class="p-5 flex-grow flex flex-col">
+                        <h3 class="text-lg font-bold text-gray-900 mb-2 line-clamp-2 cursor-pointer hover:text-forest-700 transition" onclick="openBooking('Đỉnh Lảo Thẩn', '3.100.000đ')">Cắm Trại Săn Mây Đỉnh Lảo Thẩn</h3>
+                        
+                        <div class="flex items-center gap-4 text-sm text-gray-600 mb-4">
+                            <span class="flex items-center"><i class="fa-regular fa-clock mr-1.5 text-gray-400"></i> 2N1Đ</span>
+                            <span class="flex items-center"><i class="fa-solid fa-shoe-prints mr-1.5 text-gray-400"></i> Dễ</span>
+                        </div>
+                        
+                        <p class="text-gray-500 text-sm mb-4 flex-grow line-clamp-3">Trải nghiệm ngủ lều giữa biển mây, đón bình minh rực rỡ trên độ cao 2.860m. Lịch trình thiết kế phù hợp cho người mới.</p>
+                        
                         <div class="pt-4 border-t border-gray-100 flex justify-between items-center mt-auto">
-                            <div class="text-sunset font-extrabold text-xl">3.100.000đ</div>
-                            <button class="text-forest-700 hover:text-white border border-forest-700 hover:bg-forest-700 font-semibold px-4 py-2 rounded-lg transition">Chi tiết <i class="fa-solid fa-arrow-right ml-1"></i></button>
+                            <div>
+                                <div class="text-xs text-transparent">.</div>
+                                <div class="text-red-600 font-extrabold text-lg">3.100.000đ</div>
+                            </div>
+                            <button onclick="openBooking('Đỉnh Lảo Thẩn', '3.100.000đ')" class="border border-forest-700 text-forest-700 px-4 py-2 rounded-md text-sm font-semibold hover:bg-forest-50 transition">Đặt Ngay</button>
                         </div>
                     </div>
                 </div>
 
                 <!-- Tour 3 -->
-                <div class="tour-card bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-2xl transition duration-300 border border-gray-100 flex flex-col h-full cursor-pointer" onclick="openBooking('Cực Đông', '3.500.000đ')">
-                    <div class="card-image-wrapper h-64 relative">
+                <div class="tour-card bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-200 flex flex-col h-full">
+                    <div class="card-image-wrapper h-56 relative cursor-pointer" onclick="openBooking('Cực Đông', '3.500.000đ')">
                         <img src="https://images.unsplash.com/photo-1505118380757-91f5f5632de0?q=80&w=1952&auto=format&fit=crop" alt="Cực Đông" class="card-image w-full h-full object-cover">
-                    </div>
-                    <div class="p-6 flex-grow flex flex-col">
-                        <div class="flex justify-between items-center mb-3">
-                            <span class="text-sm text-forest-700 font-bold bg-forest-50 px-2 py-1 rounded"><i class="fa-regular fa-clock mr-1"></i> 3N2Đ</span>
-                            <span class="text-sm text-gray-500"><i class="fa-solid fa-shoe-prints mr-1"></i> Level: Khó</span>
+                        <div class="absolute bottom-0 left-0 w-full h-1/2 bg-gradient-to-t from-black/70 to-transparent"></div>
+                        <div class="absolute bottom-4 left-4 text-white">
+                            <div class="text-sm font-semibold mb-1"><i class="fa-solid fa-location-dot mr-1 text-sunset"></i> Khánh Hòa</div>
                         </div>
-                        <h3 class="text-xl font-bold text-gray-900 mb-2">Trekking Mũi Đôi - Cực Đông</h3>
-                        <p class="text-gray-600 text-sm mb-4 flex-grow">Hành trình thử thách thể lực qua cồn cát thiêu đốt và nhảy ghềnh đá để chạm tay vào chóp inox điểm Cực Đông Tổ Quốc.</p>
+                    </div>
+                    <div class="p-5 flex-grow flex flex-col">
+                        <h3 class="text-lg font-bold text-gray-900 mb-2 line-clamp-2 cursor-pointer hover:text-forest-700 transition" onclick="openBooking('Cực Đông', '3.500.000đ')">Hành Trình Chinh Phục Cực Đông Mũi Đôi</h3>
+                        
+                        <div class="flex items-center gap-4 text-sm text-gray-600 mb-4">
+                            <span class="flex items-center"><i class="fa-regular fa-clock mr-1.5 text-gray-400"></i> 3N2Đ</span>
+                            <span class="flex items-center"><i class="fa-solid fa-shoe-prints mr-1.5 text-gray-400"></i> Khó</span>
+                        </div>
+                        
+                        <p class="text-gray-500 text-sm mb-4 flex-grow line-clamp-3">Hành trình thử thách thể lực qua cồn cát thiêu đốt và nhảy ghềnh đá để chạm tay vào chóp inox điểm Cực Đông Tổ Quốc.</p>
+                        
                         <div class="pt-4 border-t border-gray-100 flex justify-between items-center mt-auto">
-                            <div class="text-sunset font-extrabold text-xl">3.500.000đ</div>
-                            <button class="text-forest-700 hover:text-white border border-forest-700 hover:bg-forest-700 font-semibold px-4 py-2 rounded-lg transition">Chi tiết <i class="fa-solid fa-arrow-right ml-1"></i></button>
+                            <div>
+                                <div class="text-xs text-transparent">.</div>
+                                <div class="text-red-600 font-extrabold text-lg">3.500.000đ</div>
+                            </div>
+                            <button onclick="openBooking('Cực Đông', '3.500.000đ')" class="border border-forest-700 text-forest-700 px-4 py-2 rounded-md text-sm font-semibold hover:bg-forest-50 transition">Đặt Ngay</button>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
-
-    <section id="contact" class="py-16 bg-forest-900 text-white relative overflow-hidden">
-        <div class="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none" style="background-image: url('data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'#ffffff\' fill-opacity=\'1\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');"></div>
-        <div class="max-w-4xl mx-auto px-4 text-center relative z-10">
-            <h2 class="text-3xl md:text-4xl font-extrabold mb-6">Sẵn sàng cho chuyến đi để đời?</h2>
-            <p class="text-forest-100 mb-8 text-lg">Để lại thông tin, guide của chúng tôi sẽ tư vấn lộ trình và bài tập thể lực phù hợp riêng cho bạn.</p>
-            <div class="flex flex-col sm:flex-row justify-center gap-4">
-                <input type="text" placeholder="Số điện thoại / Zalo của bạn" class="px-6 py-4 rounded-full text-gray-900 w-full sm:w-96 focus:outline-none focus:ring-4 focus:ring-sunset/50">
-                <button class="bg-sunset text-white px-8 py-4 rounded-full font-bold hover:bg-orange-700 transition transform hover:scale-105 shadow-lg whitespace-nowrap">Nhận tư vấn ngay <i class="fa-solid fa-paper-plane ml-2"></i></button>
+            
+            <div class="mt-8 text-center md:hidden">
+                 <a href="#" class="inline-flex items-center justify-center w-full bg-white border border-gray-300 text-gray-700 font-semibold py-3 rounded-md hover:bg-gray-50 transition">Xem tất cả lịch trình</a>
             </div>
         </div>
     </section>
 
-    <footer class="bg-gray-900 text-gray-400 py-12">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-3 gap-8 border-b border-gray-800 pb-8 mb-8">
-            <div>
-                <div class="flex items-center gap-2 mb-4">
-                    <i class="fa-solid fa-mountain-sun text-sunset text-2xl"></i>
-                    <span class="font-extrabold text-xl text-white tracking-wider">YOUNG GO</span>
+    <footer class="bg-[#1a1a1a] text-gray-400 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                <div class="md:col-span-2">
+                    <div class="flex items-center gap-2 mb-4">
+                        <i class="fa-solid fa-mountain-sun text-sunset text-xl"></i>
+                        <span class="font-extrabold text-xl text-white tracking-wider">YOUNG GO</span>
+                    </div>
+                    <p class="text-sm leading-relaxed max-w-sm mb-4">Đơn vị tổ chức trekking chuyên nghiệp. Chúng tôi cam kết mang đến những hành trình khám phá thiên nhiên an toàn, trọn vẹn và đáng nhớ nhất.</p>
+                    <div class="flex gap-3">
+                        <a href="#" class="w-8 h-8 rounded bg-gray-800 flex items-center justify-center hover:bg-forest-700 text-white transition"><i class="fa-brands fa-facebook-f text-sm"></i></a>
+                        <a href="#" class="w-8 h-8 rounded bg-gray-800 flex items-center justify-center hover:bg-forest-700 text-white transition"><i class="fa-brands fa-instagram text-sm"></i></a>
+                    </div>
                 </div>
-                <p class="text-sm">Đơn vị tổ chức trekking chuyên nghiệp, mang thiên nhiên đến gần hơn với cuộc sống hiện đại.</p>
-            </div>
-            <div>
-                <h4 class="text-white font-bold mb-4 uppercase text-sm tracking-wide">Liên hệ</h4>
-                <ul class="space-y-2 text-sm">
-                    <li><i class="fa-solid fa-phone mr-2 text-forest-500"></i> Hotline: 0900.123.456</li>
-                    <li><i class="fa-solid fa-envelope mr-2 text-forest-500"></i> Email: hi@younggo.vn</li>
-                    <li><i class="fa-solid fa-location-dot mr-2 text-forest-500"></i> Quận 1, TP. Hồ Chí Minh</li>
-                </ul>
-            </div>
-            <div>
-                <h4 class="text-white font-bold mb-4 uppercase text-sm tracking-wide">Mạng xã hội</h4>
-                <div class="flex gap-4">
-                    <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-sunset text-white transition"><i class="fa-brands fa-facebook-f"></i></a>
-                    <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-sunset text-white transition"><i class="fa-brands fa-instagram"></i></a>
-                    <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-sunset text-white transition"><i class="fa-brands fa-tiktok"></i></a>
+                
+                <div>
+                    <h4 class="text-white font-bold mb-4 uppercase text-sm">Về Young Go</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="hover:text-sunset transition">Câu chuyện thương hiệu</a></li>
+                        <li><a href="#" class="hover:text-sunset transition">Đội ngũ Guide</a></li>
+                        <li><a href="#" class="hover:text-sunset transition">Tin tức & Kinh nghiệm</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-white font-bold mb-4 uppercase text-sm">Liên Hệ</h4>
+                    <ul class="space-y-3 text-sm">
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-location-dot mt-1 text-forest-500"></i> <span>Tầng 3, Tòa nhà Beta, Quận 1, TP. HCM</span></li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-phone text-forest-500"></i> <span class="font-semibold text-white">0900.123.456</span></li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-envelope text-forest-500"></i> <span>hi@younggo.vn</span></li>
+                    </ul>
                 </div>
             </div>
-        </div>
-        <div class="text-center text-sm">
-            &copy; 2024 Young Go. All rights reserved.
+            
+            <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center text-xs">
+                <p>&copy; 2024 Young Go. Bản quyền thuộc về Công ty TNHH Young Go.</p>
+                <div class="mt-4 md:mt-0 space-x-4">
+                    <a href="#" class="hover:text-white transition">Điều khoản sử dụng</a>
+                    <a href="#" class="hover:text-white transition">Chính sách bảo mật</a>
+                </div>
+            </div>
         </div>
     </footer>
 
-    <!-- Modal Đặt Tour (Ẩn mặc định) -->
-    <div id="bookingModal" class="fixed inset-0 bg-black/60 z-[100] hidden flex items-center justify-center opacity-0 transition-opacity duration-300">
-        <div class="bg-white rounded-2xl w-full max-w-md mx-4 overflow-hidden transform scale-95 transition-transform duration-300 relative" id="modalContent">
-            <!-- Nút đóng -->
-            <button onclick="closeBooking()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-800 transition">
-                <i class="fa-solid fa-xmark text-2xl"></i>
+    <!-- Modal Đặt Tour -->
+    <div id="bookingModal" class="fixed inset-0 bg-gray-900/60 z-[100] hidden flex items-center justify-center opacity-0 transition-opacity duration-300">
+        <div class="bg-white rounded-xl w-full max-w-md mx-4 overflow-hidden transform scale-95 transition-transform duration-300 relative shadow-2xl" id="modalContent">
+            
+            <!-- Close Button -->
+            <button onclick="closeBooking()" class="absolute top-3 right-3 text-white/80 hover:text-white transition z-10 bg-black/20 hover:bg-black/40 rounded-full w-8 h-8 flex items-center justify-center">
+                <i class="fa-solid fa-xmark"></i>
             </button>
             
-            <div class="bg-forest-700 p-6 text-white text-center">
-                <h3 class="text-2xl font-bold mb-1">Xác nhận Đặt chỗ</h3>
-                <p class="text-forest-100 text-sm">Vui lòng để lại thông tin liên lạc</p>
+            <div class="bg-forest-700 p-6 text-white">
+                <h3 class="text-xl font-bold mb-1">Yêu Cầu Tư Vấn Lịch Trình</h3>
+                <p class="text-forest-100 text-sm">Vui lòng để lại thông tin, Guide sẽ liên hệ bạn ngay.</p>
             </div>
             
             <div class="p-6">
-                <div class="mb-4 pb-4 border-b border-gray-100">
-                    <div class="text-sm text-gray-500">Tên Tour:</div>
-                    <div id="modalTourName" class="font-bold text-gray-900 text-lg">...</div>
-                    <div class="text-sm text-gray-500 mt-2">Giá tham khảo:</div>
-                    <div id="modalTourPrice" class="font-bold text-sunset text-lg">...</div>
+                <div class="mb-5 p-3 bg-gray-50 rounded-lg border border-gray-100">
+                    <div class="text-xs text-gray-500 mb-1 uppercase font-semibold">Bạn đang quan tâm:</div>
+                    <div id="modalTourName" class="font-bold text-gray-900">...</div>
+                    <div id="modalTourPrice" class="font-bold text-red-600 mt-1">...</div>
                 </div>
                 
                 <form onsubmit="event.preventDefault(); alert('Cảm ơn bạn! Yêu cầu đặt tour của bạn đã được ghi nhận. Chúng tôi sẽ liên hệ trong 24h tới.'); closeBooking();">
                     <div class="space-y-4">
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Họ và tên</label>
-                            <input type="text" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-forest-500 focus:border-forest-500 outline-none transition" placeholder="Nhập tên của bạn">
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Họ và tên *</label>
+                            <input type="text" required class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-forest-500 focus:border-forest-500 outline-none transition text-sm" placeholder="Nhập tên của bạn">
                         </div>
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Số điện thoại</label>
-                            <input type="tel" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-forest-500 focus:border-forest-500 outline-none transition" placeholder="09xxxxxxx">
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Số điện thoại *</label>
+                            <input type="tel" required class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-forest-500 focus:border-forest-500 outline-none transition text-sm" placeholder="Ví dụ: 0912345678">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Số khách dự kiến</label>
+                            <select class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-forest-500 focus:border-forest-500 outline-none transition text-sm bg-white">
+                                <option>1 người</option>
+                                <option>2 - 4 người</option>
+                                <option>5 - 10 người</option>
+                                <option>Trên 10 người</option>
+                            </select>
                         </div>
                     </div>
-                    <button type="submit" class="w-full mt-6 bg-sunset text-white font-bold py-3 rounded-lg hover:bg-orange-700 transition">
-                        Gửi Yêu Cầu Đặt Tour
+                    <button type="submit" class="w-full mt-6 bg-sunset text-white font-bold py-3 rounded-md hover:bg-orange-600 transition shadow-md">
+                        Gửi Yêu Cầu
                     </button>
+                    <p class="text-center text-xs text-gray-400 mt-3"><i class="fa-solid fa-lock mr-1"></i> Thông tin của bạn được bảo mật an toàn</p>
                 </form>
             </div>
         </div>
     </div>
 
     <script>
-        // Hiệu ứng khởi động (Fade in) cho Hero Section
+        // Trigger fade-in animations on load
         window.addEventListener('load', () => {
-            setTimeout(() => {
-                document.getElementById('heroTitle').classList.remove('opacity-0', 'translate-y-10');
-            }, 100);
-            setTimeout(() => {
-                document.getElementById('heroDesc').classList.remove('opacity-0', 'translate-y-10');
-            }, 300);
-            setTimeout(() => {
-                document.getElementById('heroBtn').classList.remove('opacity-0', 'translate-y-10');
-            }, 500);
+            const elements = document.querySelectorAll('.fade-in-up');
+            elements.forEach(el => el.classList.add('visible'));
         });
 
-        // Đổi màu thanh điều hướng khi cuộn trang
+        // Navbar Scroll Effect (Transparent to White Glassmorphism)
         const navbar = document.getElementById('navbar');
         const logoText = document.getElementById('logoText');
-        const navLinks = navbar.querySelectorAll('a:not(.bg-sunset)');
+        const navLinks = navbar.querySelectorAll('.nav-link');
 
         window.addEventListener('scroll', () => {
             if (window.scrollY > 50) {
-                navbar.classList.add('bg-white', 'shadow-md');
-                navbar.classList.remove('py-2');
-                logoText.classList.replace('text-white', 'text-forest-900');
+                navbar.classList.add('bg-white/95', 'backdrop-blur-sm', 'shadow-sm');
+                navbar.classList.remove('py-4');
+                navbar.classList.add('py-2');
+                logoText.classList.replace('text-white', 'text-forest-700');
                 navLinks.forEach(link => {
                     link.classList.replace('text-white', 'text-gray-700');
+                    link.classList.replace('hover:text-sunset', 'hover:text-forest-700');
                 });
             } else {
-                navbar.classList.remove('bg-white', 'shadow-md');
-                navbar.classList.add('py-2');
-                logoText.classList.replace('text-forest-900', 'text-white');
+                navbar.classList.remove('bg-white/95', 'backdrop-blur-sm', 'shadow-sm');
+                navbar.classList.add('py-4');
+                navbar.classList.remove('py-2');
+                logoText.classList.replace('text-forest-700', 'text-white');
                 navLinks.forEach(link => {
                     link.classList.replace('text-gray-700', 'text-white');
+                    link.classList.replace('hover:text-forest-700', 'hover:text-sunset');
                 });
             }
         });
 
-        // Logic xử lý Modal (Popup Đặt tour)
+        // Modal Logic
         const modal = document.getElementById('bookingModal');
         const modalContent = document.getElementById('modalContent');
         const mTourName = document.getElementById('modalTourName');
         const mTourPrice = document.getElementById('modalTourPrice');
 
         function openBooking(tourName, price) {
-            // Cập nhật thông tin vào modal
             mTourName.textContent = tourName;
             mTourPrice.textContent = price;
             
-            // Hiển thị modal
             modal.classList.remove('hidden');
-            // Timeout nhỏ để đảm bảo CSS transition hoạt động mượt mà
+            // Small timeout to allow display:block to apply before animating opacity
             setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                modalContent.classList.remove('scale-95');
+                modalContent.classList.add('scale-100');
+            }, 10);
+        }
+
+        function closeBooking() {
+            modal.classList.add('opacity-0');
+            modalContent.classList.remove('scale-100');
+            modalContent.classList.add('scale-95');
+            
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
+        }
+
+        // Close modal when clicking outside
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                closeBooking();
+            }
+        });
+    </script>
+</body>
+</html>
