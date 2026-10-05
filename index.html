@@ -92,6 +92,17 @@
             opacity: 1 !important;
             transform: scale(1) translateY(0) !important;
         }
+
+        /* Thêm Hiệu ứng Scroll Reveal (Trượt lên khi cuộn trang) */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800 antialiased selection:bg-forest-500 selection:text-white">
@@ -99,11 +110,9 @@
     <nav class="fixed w-full z-40 transition-all duration-300 py-4" id="navbar">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center">
-                <div class="flex-shrink-0 flex items-center gap-2 cursor-pointer group" onclick="window.scrollTo(0,0)">
-                    <div class="bg-sunset p-2 rounded-lg group-hover:scale-105 transition-transform">
-                        <i class="fa-solid fa-mountain-sun text-white text-2xl"></i>
-                    </div>
-                    <span class="font-extrabold text-2xl text-white tracking-wide transition-colors duration-300" id="logoText">YOUNG GO</span>
+                <!-- Cập nhật Logo bằng hình ảnh -->
+                <div class="flex-shrink-0 flex items-center cursor-pointer group" onclick="window.scrollTo(0,0)">
+                    <img src="image_b27027.png" alt="Young Go Logo" class="h-16 w-auto transition-transform duration-300 group-hover:scale-105 filter drop-shadow-md">
                 </div>
                 <div class="hidden md:flex space-x-8 items-center">
                     <a href="#about" class="text-white hover:text-sunset transition font-semibold nav-link">Về chúng tôi</a>
@@ -166,7 +175,8 @@
     <section id="tours" class="py-20 bg-gray-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-end mb-12">
-                <div>
+                <!-- Thêm hiệu ứng reveal cho tiêu đề -->
+                <div class="reveal">
                     <h2 class="text-3xl md:text-4xl font-extrabold text-gray-900 mb-3">Lịch trình Nổi bật</h2>
                     <div class="w-20 h-1.5 bg-sunset rounded-full"></div>
                 </div>
@@ -183,10 +193,12 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
                 <div>
-                    <div class="flex items-center gap-2 mb-6">
-                        <div class="bg-sunset p-2 rounded-lg"><i class="fa-solid fa-mountain-sun text-white text-xl"></i></div>
-                        <span class="font-extrabold text-2xl text-white tracking-wide">YOUNG GO</span>
+                    <!-- Cập nhật Logo dưới Footer -->
+                    <div class="flex items-center mb-6">
+                        <img src="image_b27027.png" alt="Young Go Logo" class="h-24 w-auto bg-white/10 p-2 rounded-xl backdrop-blur-sm border border-gray-700">
                     </div>
+                    <p class="text-gray-400 text-sm leading-relaxed mb-6">Chúng tôi mang đến những chuyến đi không chỉ là khám phá vùng đất mới, mà còn là hành trình thấu hiểu bản thân thông qua những trải nghiệm thiên nhiên đích thực.</p>
+                </div>
                     <p class="text-gray-400 text-sm leading-relaxed mb-6">Chúng tôi mang đến những chuyến đi không chỉ là khám phá vùng đất mới, mà còn là hành trình thấu hiểu bản thân.</p>
                 </div>
                 <div>
@@ -348,7 +360,7 @@
     </div>
 
     <script>
-        // Data Mẫu Trọn Bộ Các Tour 
+        // Data Mẫu Trọn Bộ Các Tour (Đã được viết lại chi tiết chuẩn Công ty Lữ Hành)
         const tourData = [
             {
                 id: 'tanang',
@@ -358,17 +370,29 @@
                 badge: { text: '-15% HOT', color: 'bg-red-500' },
                 duration: '2N1Đ',
                 level: 'Trung bình',
-                desc: 'Trọn gói dịch vụ dẫn đường, porter mang vác đồ, lều trại tiêu chuẩn và thực đơn BBQ giữa đồi cỏ bao la.',
+                desc: 'Chinh phục cung đường trekking đẹp nhất Việt Nam. Trải nghiệm bước đi trên những sống lưng khủng long ngợp cỏ, săn mây và thưởng thức BBQ giữa núi rừng đại ngàn.',
                 price: '2.850.000đ',
                 oldPrice: '3.350.000đ',
                 itinerary: [
-                    { day: 'Ngày 1: Chạm ngõ Tà Năng - Đồi Lính', content: '06h00: Tập trung tại điểm hẹn, ăn sáng.\n08h30: Bắt đầu trekking dọc theo các đồi thông, qua đồi trọc.\n12h00: Ăn trưa dã ngoại tại suối nhỏ.\n16h00: Đến bãi hạ trại (Đồi Lính). Ngắm hoàng hôn.\n18h00: Thưởng thức BBQ giữa rừng, giao lưu lửa trại.' },
-                    { day: 'Ngày 2: Đón bình minh - Tiến về Phan Dũng', content: '05h30: Thức dậy săn mây, đón bình minh, uống cà phê sáng.\n07h30: Thu dọn hành lý, tiếp tục trekking đi xuống dốc tiến về khu rừng Khộp rụng lá đặc trưng Phan Dũng.\n12h00: Ăn trưa.\n15h00: Ra khỏi cửa rừng, xe đưa đón về lại TP.HCM.' }
+                    { day: 'Ngày 1: Chạm ngõ Tà Năng - Hạ trại Đồi Lính (Sáng/Trưa/Tối)', content: '06h00: Đón khách tại điểm hẹn Tà Năng (Đức Trọng). Đoàn dùng điểm tâm sáng đặc sản địa phương (Bún bò/Hủ tiếu) và thưởng thức cafe sáng.\n08h30: Phổ biến quy tắc an toàn, khởi động. Bắt đầu hành trình trekking băng qua những đồi thông rì rào và ruộng bậc thang của người Chu Ru.\n12h00: Dừng chân tại Suối lớn. Quý khách dùng bữa trưa dã ngoại (Cơm nắm, chả lụa, thịt nướng, trái cây).\n14h00: Chinh phục sống lưng khủng long - đoạn đường đẹp nhất với những đồi cỏ xanh ngút ngàn. Tự do chụp hình check-in.\n16h30: Đến bãi hạ trại (Đồi Lính). Quý khách nghỉ ngơi, ngắm hoàng hôn tuyệt đẹp rớt xuống thung lũng.\n18h30: Thưởng thức Tiệc BBQ giữa rừng (Gà nướng sa lửa, thịt heo bản nướng xiên, cháo gà nóng, khoai/bắp nướng). Giao lưu lửa trại.' },
+                    { day: 'Ngày 2: Săn mây - Băng rừng Khộp Phan Dũng (Sáng/Trưa)', content: '05h00: Thức dậy đón bình minh rực rỡ, săn biển mây bồng bềnh. Nhâm nhi ly cafe nóng và dùng bữa sáng (Mì tôm xúc xích/Trứng ốp la).\n08h00: Thu dọn hành lý, dọn rác. Tiếp tục hành trình đổ dốc hướng về phía Phan Dũng (Bình Thuận).\n09h30: Cảnh quan chuyển từ đồi cỏ sang rừng Khộp rụng lá đặc trưng. Băng qua các con suối nhỏ.\n12h30: Ra khỏi bìa rừng, xe máy cày của người dân địa phương đón đoàn di chuyển ra UBND xã Phan Dũng.\n13h30: Dùng bữa trưa tại quán ăn địa phương, tắm rửa thay đồ.\n15h00: Lên xe giường nằm khởi hành về lại điểm đón ban đầu. Kết thúc hành trình.' }
                 ],
-                includes: ['Xe khách giường nằm 2 chiều', 'Xe ôm di chuyển vào bìa rừng', 'Các bữa ăn theo lịch trình (1 sáng, 2 trưa, 1 BBQ tối)', 'Lều trại (2-3 người/lều), túi ngủ', 'Bảo hiểm du lịch (100.000.000đ/vụ)', 'Porter mang đồ chung (3 khách/1 porter)'],
-                excludes: ['Thuế VAT 8%', 'Chi phí cá nhân ngoài chương trình', 'Tiền tip cho Hướng dẫn viên và Porter'],
-                bookingRule: 'Quý khách cần có sức khỏe cơ bản, không mắc các bệnh về tim mạch, huyết áp. Đặt cọc 50% tổng giá trị tour ngay khi chốt đăng ký. Thanh toán 50% còn lại trước ngày khởi hành 3 ngày.',
-                cancelRule: '- Hủy trước 10 ngày: Hoàn 100% tiền cọc.\n- Hủy từ 5 - 9 ngày: Chuyển ngày miễn phí 1 lần hoặc mất cọc.\n- Hủy dưới 5 ngày: Phạt 100% giá trị tour.'
+                includes: [
+                    'Xe khách giường nằm 2 chiều Sài Gòn - Điểm trek',
+                    'Xe ôm/Xe máy cày trung chuyển vào bìa rừng',
+                    'Ăn uống: 2 Bữa sáng, 2 Bữa trưa, 1 Bữa tiệc BBQ Tối (Nước suối 3 lít/người/ngày)',
+                    'Lều trại tiêu chuẩn (2-3 người/lều, có lớp chống mưa), Tấm cách nhiệt, Túi ngủ ấm',
+                    'Bảo hiểm du lịch mức bồi thường tối đa 100.000.000 VNĐ/vụ',
+                    'Hướng dẫn viên chuyên nghiệp (Có chứng chỉ sơ cấp cứu) và Porter mang vác đồ chung (Tỉ lệ 1 Porter : 3 Khách)',
+                    'Dụng cụ y tế cơ bản, bộ đàm liên lạc'
+                ],
+                excludes: [
+                    'Thuế VAT (8% nếu xuất hóa đơn)',
+                    'Chi phí cá nhân (Nước ngọt, bia, đồ ăn vặt mua thêm)',
+                    'Tiền bồi dưỡng (Tip) cho HDV và Porter (Không bắt buộc nhưng khuyến khích)'
+                ],
+                bookingRule: 'Đăng ký: Quý khách cần có sức khỏe cơ bản, không mắc bệnh tim mạch, hen suyễn nặng hoặc các bệnh xương khớp nghiêm trọng.\nThanh toán: Chuyển khoản đặt cọc 50% ngay khi chốt chỗ. Thanh toán 50% còn lại trước ngày khởi hành 03 ngày.',
+                cancelRule: '- Hủy trước 15 ngày: Hoàn 100% tiền cọc.\n- Hủy từ 07 - 14 ngày: Phí phạt 50% tiền cọc.\n- Hủy từ 03 - 06 ngày: Phí phạt 100% tiền cọc (Được phép chuyển nhượng cho người khác 1 lần miễn phí).\n- Hủy trong vòng 48h hoặc không có mặt: Phạt 100% giá trị tour.\n*Lưu ý: Trong trường hợp thời tiết cực đoan (bão lũ) được kiểm lâm cảnh báo, Young Go sẽ chủ động dời ngày hoặc hoàn 100% chi phí cho khách hàng.'
             },
             {
                 id: 'laothan',
@@ -378,17 +402,95 @@
                 badge: { text: 'MỚI', color: 'bg-forest-500' },
                 duration: '2N1Đ',
                 level: 'Dễ',
-                desc: 'Trải nghiệm ngủ lều giữa biển mây, đón bình minh rực rỡ trên độ cao 2.860m. Lịch trình thiết kế phù hợp cho người mới.',
+                desc: 'Được mệnh danh là "Nơi mặt trời mọc sớm nhất và đi ngủ muộn nhất Y Tý". Trải nghiệm ngủ lán gỗ giữa biển mây, đón bình minh rực rỡ trên độ cao 2.860m. Rất phù hợp cho người mới leo núi.',
                 price: '3.100.000đ',
                 oldPrice: null,
                 itinerary: [
-                    { day: 'Ngày 1: Y Tý - Chân Núi - Bãi Trại 2400m', content: 'Đón khách tại Sapa, di chuyển đi Y Tý. Gặp gỡ Porter, bắt đầu hành trình men theo sườn đồi thoai thoải. Ăn trưa dọc đường. Chiều đến lán nghỉ 2400m. Chụp ảnh hoàng hôn, ăn lẩu cá tầm.' },
-                    { day: 'Ngày 2: Chạm đỉnh Lảo Thẩn (2860m) - Sapa', content: '04h30 thức dậy leo lên đỉnh săn bình minh và biển mây tuyệt đẹp. Check-in chóp Lảo Thẩn. Về lại lán ăn sáng, thu dọn và xuống núi. Chiều tắm lá thuốc người Dao đỏ tại Sapa.' }
+                    { day: 'Ngày 1: Sapa - Y Tý - Trekking lên lán 2400m (Trưa/Tối)', content: '06h30: Xe 16 chỗ đón đoàn tại trung tâm Sapa, di chuyển theo đường đèo hùng vĩ đi Y Tý.\n10h30: Đến chân núi (Trang trại rau Y Tý). Gặp gỡ đội ngũ Porter người bản địa, phân chia đồ đạc.\n11h00: Bắt đầu hành trình leo núi. Đường đi chủ yếu là đồi cỏ tranh thoai thoải, cảnh quan thoáng đãng.\n12h30: Nghỉ chân ăn trưa dọc đường (Xôi nếp nương, gà luộc, giò chả).\n16h00: Đến lán nghỉ ở độ cao 2400m. Quý khách nhận chỗ ngủ. Tự do leo lên mỏm đá gần lán để chụp ảnh cùng ánh hoàng hôn rực lửa.\n18h30: Quây quần bên mâm cơm nóng hổi giữa tiết trời se lạnh (Lẩu cá tầm/Lẩu gà đen, thịt lợn bản xào, rau rừng). Nghỉ ngơi sớm.' },
+                    { day: 'Ngày 2: Chạm đỉnh Lảo Thẩn (2860m) - Tắm lá thuốc (Sáng/Trưa)', content: '04h30: Báo thức. Đoàn mặc áo ấm, dùng bữa sáng nhẹ, bật đèn pin đội đầu bắt đầu chinh phục chặng cuối lên đỉnh.\n06h00: Chạm tay vào chóp inox Lảo Thẩn (2860m). Đón khoảnh khắc bình minh ngoạn mục và biển mây cuồn cuộn dưới chân. Thoải mái check-in với cây xích đu và mỏm đá sống ảo.\n08h00: Quay trở lại lán thu dọn hành lý, di chuyển xuống núi theo đường cũ.\n12h00: Về đến chân núi. Xe đưa đoàn về thị trấn Sapa.\n14h00: Quý khách trải nghiệm tắm lá thuốc cổ truyền của người Dao Đỏ để phục hồi sinh lực (Đã bao gồm trong giá tour).\n16h00: Chia tay đoàn tại Sapa.' }
                 ],
-                includes: ['Xe giường nằm Hà Nội - Sapa khứ hồi', 'Xe 16 chỗ Sapa - Y Tý', 'Các bữa ăn trên núi', 'Chi phí lán nghỉ (có chăn ấm)', 'Porter vác đồ chung', 'Bảo hiểm'],
-                excludes: ['VAT', 'Chi phí cá nhân', 'Đồ uống gọi thêm'],
-                bookingRule: 'Phù hợp với người mới bắt đầu leo núi. Trang bị quần áo ấm do thời tiết lạnh. Cọc 1.500.000đ/người khi đăng ký.',
-                cancelRule: '- Hủy trước 7 ngày: Hoàn cọc.\n- Hủy dưới 7 ngày: Không hoàn cọc.'
+                includes: [
+                    'Xe 16 chỗ/Limousine di chuyển Sapa - Y Tý khứ hồi',
+                    'Chi phí lưu trú: Lán gỗ kiên cố trên núi (Có chăn bông ấm, lớp cách nhiệt)',
+                    'Các bữa ăn: 1 Sáng, 2 Trưa, 1 Tối (Đặc sản Tây Bắc)',
+                    'Porter bản địa mang đồ chung và dẫn đường (Tỉ lệ 2 Khách : 1 Porter)',
+                    'Vé tắm lá thuốc người Dao Đỏ tại Sapa',
+                    'Bảo hiểm du lịch, đồ y tế cơ bản, găng tay leo núi'
+                ],
+                excludes: [
+                    'Vé xe khách khứ hồi Hà Nội - Sapa (Công ty có hỗ trợ đặt hộ)',
+                    'Thuế VAT',
+                    'Chi phí thuê Porter vác đồ cá nhân (Nếu có nhu cầu: ~600.000đ/chuyến)'
+                ],
+                bookingRule: 'Lưu ý thời tiết: Nhiệt độ trên núi ban đêm rất lạnh (có thể xuống 5-8 độ), quý khách bắt buộc phải trang bị áo khoác phao, miếng dán giữ nhiệt, tất dày.\nĐặt cọc: 1.500.000đ/khách khi đăng ký.',
+                cancelRule: '- Hủy trước 10 ngày: Hoàn 100% tiền cọc.\n- Hủy từ 05 - 09 ngày: Mất cọc (Hoặc bảo lưu sang tour khác trong vòng 3 tháng).\n- Hủy dưới 05 ngày: Phạt 100% giá trị tour.'
+            },
+            {
+                id: 'k50',
+                title: 'Khám Phá Nàng Tiên Rừng K50 (Hang Én)',
+                location: 'K\'Bang, Gia Lai',
+                img: 'https://images.unsplash.com/photo-1433086966358-54859d0ed716?q=80&w=2070&auto=format&fit=crop',
+                badge: { text: 'ĐÁNG TRẢI NGHIỆM', color: 'bg-sunset' },
+                duration: '3N2Đ',
+                level: 'Khó',
+                desc: 'Hành trình đậm chất thám hiểm xuyên Khu bảo tồn thiên nhiên Kon Chư Răng. Băng qua rừng rậm nhiệt đới, lội suối để chiêm ngưỡng vòm thác K50 hùng vĩ bậc nhất Tây Nguyên.',
+                price: '3.890.000đ',
+                oldPrice: null,
+                itinerary: [
+                    { day: 'Ngày 1: TP.HCM - K\'Bang (Di chuyển đêm)', content: '18h30: Tập trung tại Bến xe Miền Đông. Lên xe giường nằm VIP di chuyển đi thị trấn K\'Bang (Gia Lai). Quý khách nghỉ đêm trên xe.' },
+                    { day: 'Ngày 2: Trải nghiệm Xe máy cày - Xuyên rừng nguyên sinh (Sáng/Trưa/Tối)', content: '06h30: Đến K\'Bang. Đoàn vệ sinh cá nhân, ăn sáng đặc sản và nhâm nhi cafe.\n08h30: Di chuyển đến Trạm kiểm lâm Khu bảo tồn Kon Chư Răng. Xuất trình CMND/CCCD để làm thủ tục vào rừng.\n09h30: Trải nghiệm cảm giác mạnh: Ngồi trên xe máy cày (công nông) chuyên dụng của người bản địa vượt qua những cung đường sình lầy sâu trong bìa rừng (Khoảng 1 tiếng).\n10h30: Bắt đầu trekking. Tuyến đường len lỏi qua thảm thực vật rừng mưa nhiệt đới đa dạng, những gốc cây cổ thụ ôm trọn vách đá.\n12h30: Ăn trưa dã ngoại bên bờ suối.\n15h30: Đặt chân đến Thác K50. Cảm nhận hơi nước mát lạnh mịt mù. Đoàn hạ trại tại bãi đất phẳng đối diện thác.\n18h00: Thưởng thức bữa tối BBQ thịnh soạn giữa tiếng thác đổ: Heo đồng bào nướng, gà sa lửa, lẩu rau rừng, nhâm nhi rượu cần Tây Nguyên.' },
+                    { day: 'Ngày 3: Khám phá vòm Hang Én - Trở về (Sáng/Trưa)', content: '06h00: Thức dậy đón ánh nắng xuyên qua tán lá. Ăn sáng (Mì tôm bò/Nui xào).\n07h30: Mặc áo phao, HDV dẫn đoàn luồn qua những vách đá trơn trượt để đi vào phía sau bức rèm nước của Thác K50 (Hang Én). Chụp những bức ảnh "để đời" với cầu vồng thường xuyên xuất hiện tại thác.\n10h00: Quay lại bãi trại thu dọn hành lý.\n11h30: Trekking ngược trở ra theo con đường mòn khác. Ăn trưa nhẹ trong rừng.\n14h30: Lên xe máy cày trở ra trạm kiểm lâm. Lên xe trung chuyển về lại thị trấn tắm rửa.\n17h30: Ăn tối (Tự túc) và lên xe giường nằm về lại TP.HCM. Sáng hôm sau có mặt.' }
+                ],
+                includes: [
+                    'Vé xe giường nằm VIP khứ hồi TP.HCM - Gia Lai',
+                    'Chi phí xin giấy phép vào Khu bảo tồn (Bắt buộc)',
+                    'Xe công nông/xe máy chuyên dụng trung chuyển đường rừng',
+                    'Cán bộ kiểm lâm đi cùng giám sát an toàn',
+                    'Ăn uống: 2 Sáng, 2 Trưa, 1 Tối BBQ cao cấp',
+                    'Lều trại chống mưa lớn (2 người/lều), nệm êm, túi ngủ cá nhân',
+                    'HDV và Porter địa phương (Vác đồ chung, tỉ lệ 1:2)',
+                    'Bảo hiểm du lịch, thuốc xịt vắt, đồ y tế'
+                ],
+                excludes: [
+                    'Thuế VAT',
+                    'Bữa tối ngày về tại thị trấn',
+                    'Tiền Tip',
+                    'Đồ mang vác cá nhân (Nếu thuê porter vác riêng: 350.000đ/ngày)'
+                ],
+                bookingRule: 'Quy định nghiêm ngặt: Rừng Kon Chư Răng là khu vực bảo tồn cấp quốc gia. BẮT BUỘC chụp ảnh CCCD/Passport gửi cho Young Go trước ít nhất 07 ngày để xin giấy phép. Trong quá trình đi không xả rác, không tự ý tách đoàn.\nCảnh báo: Đường đi ẩm ướt, nhiều vắt. Cần mang giày bám dính tốt, bọc ống chân chống vắt.',
+                cancelRule: 'Do tính chất phải xin phép trước với cơ quan chức năng:\n- Hủy trước 15 ngày: Hoàn cọc (Trừ 200k phí làm hồ sơ).\n- Hủy từ 08 - 14 ngày: Phạt 50% tiền cọc.\n- Hủy dưới 07 ngày (khi đã lên danh sách kiểm lâm): Phạt 100% giá trị tour.'
+            },
+            {
+                id: 'easno',
+                title: 'Cắm Trại & Chèo SUP Hồ Núi Lửa Ea Snô',
+                location: 'Krông Nô, Đắk Nông',
+                img: 'https://images.unsplash.com/photo-1543880951-40b925b6d510?q=80&w=2070&auto=format&fit=crop',
+                badge: { text: 'THƯ GIÃN (GLAMPING)', color: 'bg-blue-500' },
+                duration: '2N1Đ',
+                level: 'Rất Dễ',
+                desc: 'Hành trình chữa lành đích thực. Thả mình trên thuyền SUP giữa làn nước tĩnh lặng của hồ núi lửa tự nhiên, bao bọc bởi rừng đặc dụng và những bãi đá bazan hàng triệu năm tuổi.',
+                price: '2.200.000đ',
+                oldPrice: '2.500.000đ',
+                itinerary: [
+                    { day: 'Ngày 1: Xuyên rừng cao su - Hạ trại Glamping ven hồ (Trưa/Tối)', content: '07h00: Khởi hành từ TP.HCM đi Đắk Nông bằng xe Limousine.\n11h30: Dùng bữa trưa tại nhà hàng địa phương (Gia Nghĩa).\n13h00: Chuyển sang xe đặc chủng di chuyển sâu vào khu vực Hồ Ea Snô. Băng qua những cánh rừng cao su thẳng tắp, tuyệt đẹp như phim điện ảnh.\n14h30: Đến bãi cắm trại sát mép nước. Quý khách nhận lều Glamping (Lều mông cổ lớn, có quạt, nệm êm).\n15h30: Hướng dẫn kỹ thuật chèo SUP an toàn. Quý khách tự do chèo SUP khám phá các ngóc ngách của hồ núi lửa, bơi lội trong làn nước xanh biếc (Bắt buộc mặc áo phao).\n18h00: Ngắm hoàng hôn phản chiếu trên mặt hồ.\n19h00: Tiệc BBQ Tây Nguyên thịnh soạn: Gà đồng bào nướng ống tre, heo rừng lai nướng tảng, sườn sụn, salad, trái cây. Quây quần bên lửa trại kể chuyện đêm khuya.' },
+                    { day: 'Ngày 2: Cafe bình minh - Về lại phố thị (Sáng/Trưa)', content: '05h30: Dậy sớm hít thở không khí trong vắt. Ngắm lớp sương mù lãng đãng bay trên mặt hồ. Thưởng thức ly cafe rang xay tại chỗ và bữa sáng (Bún bò/Bánh mì ốp la xúc xích).\n08h00: Tự do chèo SUP, chụp ảnh bằng Flycam (HDV hỗ trợ chụp).\n10h00: Dọn dẹp hành lý. Lên xe di chuyển ra khỏi rừng.\n12h00: Dùng cơm trưa tại nhà hàng.\n13h00: Lên đường về lại TP.HCM. Dự kiến 19h00 về tới nơi.' }
+                ],
+                includes: [
+                    'Xe Limousine khứ hồi từ TP.HCM',
+                    'Xe trung chuyển gầm cao vào tận bãi trại',
+                    'Hệ thống lều Glamping cao cấp (Dựng sẵn, 2-3 người/lều, có nệm hơi, quạt, đèn)',
+                    'Thuyền SUP (Stand-up Paddleboard), áo phao, mái chèo (2 người/1 ván)',
+                    'Ăn uống: 1 Sáng, 2 Trưa, 1 Tối BBQ',
+                    'Hỗ trợ chụp ảnh/quay phim bằng Flycam',
+                    'HDV kinh nghiệm dưới nước, cứu hộ',
+                    'Bảo hiểm du lịch 100.000.000đ'
+                ],
+                excludes: [
+                    'VAT',
+                    'Chi phí cá nhân ngoài chương trình'
+                ],
+                bookingRule: 'Phù hợp cho mọi lứa tuổi, kể cả trẻ em từ 8 tuổi trở lên (đi cùng bố mẹ) và người không biết bơi (được trang bị áo phao chuẩn). Đặt cọc 50% để giữ chỗ.',
+                cancelRule: '- Hủy trước 07 ngày: Hoàn 100% tiền cọc.\n- Hủy từ 03 - 06 ngày: Phạt 50% tiền cọc.\n- Hủy dưới 3 ngày: Phạt 100% giá trị tour.'
             },
             {
                 id: 'cucdong',
@@ -398,59 +500,30 @@
                 badge: null,
                 duration: '3N2Đ',
                 level: 'Khó',
-                desc: 'Hành trình thử thách thể lực qua cồn cát thiêu đốt và nhảy ghềnh đá để chạm tay vào chóp inox điểm Cực Đông Tổ Quốc.',
+                desc: 'Thử thách giới hạn bản thân qua tiểu sa mạc cát thiêu đốt và nhảy ghềnh đá. Tự hào chạm tay vào chóp inox - nơi đón ánh nắng mặt trời đầu tiên trên đất liền Tổ quốc.',
                 price: '3.500.000đ',
                 oldPrice: null,
                 itinerary: [
-                    { day: 'Ngày 1: Sài Gòn - Đầm Môn', content: 'Tối tập trung tại bến xe, lên xe giường nằm đi Đầm Môn, Vạn Ninh.' },
-                    { day: 'Ngày 2: Xuyên sa mạc cát - Cắm trại Bãi Rạng', content: 'Ăn sáng. Bắt đầu hành trình trekking qua sa mạc cát dài và nóng. Xuyên qua rừng bụi. Chiều đến Bãi Rạng, cắm trại sát bờ biển, tắm biển trong vắt. Tối BBQ hải sản tươi.' },
-                    { day: 'Ngày 3: Nhảy ghềnh chạm chóp - Tàu cano về', content: '04h00 dậy sớm nhảy qua các ghềnh đá lớn. Đón tia nắng đầu tiên của Tổ quốc tại chóp Cực Đông. Lên cano chạy thẳng về Đầm Môn. Lên xe về TP.HCM.' }
+                    { day: 'Ngày 1: TP.HCM - Vạn Ninh (Di chuyển đêm)', content: '20h00: Tập trung tại bến xe, lên xe giường nằm khởi hành đi Đầm Môn (Vạn Ninh, Khánh Hòa). Nghỉ đêm trên xe.' },
+                    { day: 'Ngày 2: Xuyên sa mạc cát - Cắm trại Bãi Rạng (Sáng/Trưa/Tối)', content: '06h00: Đến Đầm Môn. Ăn sáng, chuẩn bị nước uống (rất quan trọng).\n08h00: Bắt đầu hành trình thử thách: Băng qua đồi cát mênh mông dưới cái nắng gắt đặc trưng của miền Trung. Yêu cầu trang bị áo chống nắng, mũ rộng vành che gáy.\n11h00: Nghỉ ngơi dưới những tán rừng phi lao. Ăn trưa.\n14h00: Tiếp tục men theo đường ven biển, băng qua những khu rừng bụi thấp.\n16h30: Đến Bãi Rạng - một trong những bãi biển hoang sơ và trong vắt nhất. Đoàn dựng trại ngay sát mép biển, thỏa sức tắm mát.\n18h30: Mở tiệc nướng BBQ Hải sản tươi sống (Mực nang, tôm nướng, cá nướng giấy bạc, cháo hàu). Giao lưu âm nhạc bên bờ biển.' },
+                    { day: 'Ngày 3: Nhảy ghềnh chạm Cực Đông - Cano về đất liền (Sáng/Trưa)', content: '04h00: Dậy thật sớm khi trời còn tối. Bắt đầu chặng "nhảy ghềnh" - đu mình qua những tảng đá khổng lồ để ra mũi.\n05h30: Đặt chân lên Mũi Đôi. Cùng nhau chờ đón tia nắng đầu tiên của ngày mới ló rạng từ đường chân trời biển Đông. Chạm tay vào chóp Cực Đông.\n08h00: Quay lại Bãi Rạng ăn sáng, thu dọn lều.\n09h30: Không đi bộ về, đoàn sẽ lên Cano cao tốc chạy xé sóng biển xanh lướt thẳng về bờ Đầm Môn.\n11h30: Tắm nước ngọt, ăn trưa hải sản tại nhà hàng.\n13h00: Lên xe giường nằm về lại TP.HCM. Kết thúc hành trình đầy tự hào.' }
                 ],
-                includes: ['Xe giường nằm 2 chiều', 'Cano chiều về', 'Ăn uống đầy đủ (Hải sản BBQ)', 'Bảo hiểm', 'Lều trại, Y tế cơ bản'],
-                excludes: ['VAT', 'Chi phí cá nhân'],
-                bookingRule: 'Đòi hỏi thể lực tốt, khả năng chịu nắng nóng. Đăng ký trước 10 ngày.',
-                cancelRule: 'Hủy trước 7 ngày hoàn 50%. Hủy dưới 7 ngày mất 100% tiền cọc.'
-            },
-            {
-                id: 'easno',
-                title: 'Cắm Trại & Chèo SUP Hồ Ea Snô',
-                location: 'Krông Nô, Đắk Nông',
-                img: 'https://images.unsplash.com/photo-1527269534026-c86f4009eace?q=80&w=1000&auto=format&fit=crop',
-                badge: { text: 'THƯ GIÃN', color: 'bg-blue-500' },
-                duration: '2N1Đ',
-                level: 'Dễ',
-                desc: 'Thả mình giữa làn nước tĩnh lặng của hồ núi lửa tự nhiên, chèo SUP đón hoàng hôn và quây quần bên bếp lửa nướng BBQ trứ danh.',
-                price: '2.200.000đ',
-                oldPrice: '2.500.000đ',
-                itinerary: [
-                    { day: 'Ngày 1: Rừng cao su - Trại ven hồ', content: 'Khởi hành từ TP.HCM đi Đắk Nông. Đi xe máy cày xuyên rừng cao su vào hồ Ea Snô. Nhận lều trại. Buổi chiều trải nghiệm chèo SUP giữa hồ núi lửa xanh biếc, bơi lội. Tối thưởng thức Gà nướng, cơm lam, rượu cần.' },
-                    { day: 'Ngày 2: Cafe sáng - Về lại phố thị', content: 'Dậy sớm ngắm sương giăng trên mặt hồ. Thưởng thức cafe, ăn sáng. Tự do chèo SUP. Trưa dọn dẹp và lên đường về.' }
+                includes: [
+                    'Xe giường nằm 2 chiều',
+                    'Tàu/Cano cao tốc chiều về (Rút ngắn thời gian đi bộ, trải nghiệm biển đảo)',
+                    'Ăn uống: 2 Sáng, 2 Trưa, 1 Tối BBQ Hải sản',
+                    'Lều trại, bạt lót, túi ngủ',
+                    'Nước uống: 4 lít/người/ngày (Porter vác)',
+                    'HDV và Porter chuyên nghiệp am hiểu địa hình',
+                    'Bảo hiểm du lịch, đồ y tế'
                 ],
-                includes: ['Xe di chuyển', 'Xe máy cày vào rừng', 'Thuyền SUP', 'Lều trại Glamping', 'Ăn uống (BBQ đặc sản)', 'Bảo hiểm'],
-                excludes: ['VAT', 'Chi phí cá nhân'],
-                bookingRule: 'Phù hợp gia đình, nhóm bạn trẻ tìm kiếm sự thư giãn. Cọc 50%.',
-                cancelRule: 'Hủy trước 5 ngày hoàn 100%. Hủy dưới 5 ngày mất cọc.'
-            },
-            {
-                id: 'k50',
-                title: 'Khám Phá Nàng Tiên Giữa Rừng K50',
-                location: 'K\'Bang, Gia Lai',
-                img: 'https://images.unsplash.com/photo-1600011689032-8b628b8a8747?q=80&w=1000&auto=format&fit=crop',
-                badge: { text: 'ĐÁNG TRẢI NGHIỆM', color: 'bg-sunset' },
-                duration: '3N2Đ',
-                level: 'Trung bình',
-                desc: 'Băng rừng rậm nhiệt đới Khu bảo tồn Kon Chư Răng, chiêm ngưỡng vẻ đẹp hùng vĩ của một trong những thác nước đẹp nhất Tây Nguyên.',
-                price: '3.890.000đ',
-                oldPrice: null,
-                itinerary: [
-                    { day: 'Ngày 1: Di chuyển - Rừng Cấm', content: 'Tập trung tại bến xe đi Gia Lai. Tới bìa rừng bảo tồn Kon Chư Răng. Trung chuyển bằng xe máy rừng chuyên dụng để tới điểm trekking.' },
-                    { day: 'Ngày 2: Băng rừng - Thác K50', content: 'Trekking băng qua hệ sinh thái rừng rậm. Tới Thác Hang Én (K50). Chiêm ngưỡng cầu vồng qua dòng thác cuồn cuộn. Cắm trại bên suối.' },
-                    { day: 'Ngày 3: Khám phá Hang Én - Về', content: 'Trải nghiệm đi vào trong lòng hang phía sau dòng thác. Ăn trưa, trekking ngược ra bìa rừng. Lên xe về.' }
+                excludes: [
+                    'VAT',
+                    'Chi phí cá nhân',
+                    'Tiền Tip'
                 ],
-                includes: ['Xe giường nằm khứ hồi', 'Xe máy rừng trung chuyển', 'Kiểm lâm dẫn đường', 'Ăn uống 3 bữa/ngày', 'Lều trại chuẩn', 'Bảo hiểm'],
-                excludes: ['VAT', 'Chi phí cá nhân'],
-                bookingRule: 'Yêu cầu kiểm tra danh tính để vào khu bảo tồn. Cọc 2.000.000đ',
-                cancelRule: 'Do tính chất xin phép kiểm lâm, hủy tour trước 15 ngày mất 50% cọc. Dưới 10 ngày mất 100% cọc.'
+                bookingRule: 'Đòi hỏi thể lực TỐT, khả năng chịu đựng cái nóng bức của đồi cát và sự khéo léo khi nhảy ghềnh. Không phù hợp với người sợ độ cao, có vấn đề xương khớp. Đặt cọc 50% trước 10 ngày.',
+                cancelRule: 'Hủy trước 10 ngày hoàn 100%. Hủy từ 5-9 ngày phạt 50%. Hủy dưới 5 ngày mất 100% cọc.'
             }
         ];
 
@@ -458,14 +531,15 @@
         
         function renderTours() {
             let html = '';
-            tourData.forEach(tour => {
-                let badgeHtml = tour.badge ? `<div class="absolute top-4 left-4 ${tour.badge.color} text-white text-xs font-bold px-2.5 py-1 rounded shadow-md">${tour.badge.text}</div>` : '';
+            tourData.forEach((tour, index) => {
+                let badgeHtml = tour.badge ? `<div class="absolute top-4 left-4 ${tour.badge.color} text-white text-xs font-bold px-2.5 py-1 rounded shadow-md z-10">${tour.badge.text}</div>` : '';
                 let priceHtml = tour.oldPrice 
                     ? `<div class="text-xs text-gray-400 line-through">${tour.oldPrice}</div><div class="text-red-600 font-extrabold text-lg">${tour.price}</div>` 
                     : `<div class="text-xs text-transparent">.</div><div class="text-red-600 font-extrabold text-lg">${tour.price}</div>`;
 
+                // Thêm class 'reveal' cho mọi card tour
                 html += `
-                <div class="tour-card bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 flex flex-col h-full">
+                <div class="tour-card reveal bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 flex flex-col h-full">
                     <div class="card-image-wrapper h-56 relative cursor-pointer" onclick="openModal('${tour.id}')">
                         <img src="${tour.img}" alt="${tour.title}" class="card-image w-full h-full object-cover">
                         ${badgeHtml}
@@ -506,21 +580,40 @@
         // Khởi chạy render
         renderTours();
 
+        // Xử lý hiệu ứng Scroll Reveal (Trượt phần tử lên khi cuộn trang)
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 100; // Khoảng cách từ dưới màn hình lên để bắt đầu hiện
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+        window.addEventListener("scroll", reveal);
+        // Kích hoạt ngay lần đầu tiên load trang cho các phần tử trên cùng
+        setTimeout(reveal, 200);
+
         window.addEventListener('load', () => {
             const elements = document.querySelectorAll('.fade-in-up');
             elements.forEach(el => el.classList.add('visible'));
         });
 
         const navbar = document.getElementById('navbar');
-        const logoText = document.getElementById('logoText');
+        // Không dùng logoText nữa vì đã đổi thành Logo Ảnh
         const navLinks = navbar.querySelectorAll('.nav-link');
+        const logoImg = document.querySelector('#navbar img'); // Trỏ vào logo ảnh trong navbar
 
         window.addEventListener('scroll', () => {
             if (window.scrollY > 50) {
                 navbar.classList.add('bg-white/95', 'backdrop-blur-sm', 'shadow-sm');
                 navbar.classList.remove('py-4');
                 navbar.classList.add('py-2');
-                logoText.classList.replace('text-white', 'text-forest-700');
+                // Có thể làm mờ/thu nhỏ logo nếu muốn khi scroll
+                logoImg.classList.add('scale-90');
+                
                 navLinks.forEach(link => {
                     link.classList.replace('text-white', 'text-gray-700');
                     link.classList.replace('hover:text-sunset', 'hover:text-forest-700');
@@ -529,7 +622,8 @@
                 navbar.classList.remove('bg-white/95', 'backdrop-blur-sm', 'shadow-sm');
                 navbar.classList.add('py-4');
                 navbar.classList.remove('py-2');
-                logoText.classList.replace('text-forest-700', 'text-white');
+                logoImg.classList.remove('scale-90');
+
                 navLinks.forEach(link => {
                     link.classList.replace('text-gray-700', 'text-white');
                     link.classList.replace('hover:text-forest-700', 'hover:text-sunset');
