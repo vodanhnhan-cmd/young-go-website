@@ -4,11 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Young Go - Đánh thức bản năng khám phá</title>
-    <!-- Tailwind CSS -->
+    
+    <!-- Cài đặt Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts -->
+    
+    <!-- Cài đặt Font chữ Inter và FontAwesome -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <!-- FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <script>
@@ -22,12 +23,14 @@
                         forest: {
                             50: '#f2f7f4',
                             100: '#e1efe6',
-                            500: '#34d399',
-                            700: '#2c5e3b',
+                            200: '#c3dfcd',
+                            500: '#34d399', /* Xanh lá sáng - nhấn */
+                            600: '#2f855a',
+                            700: '#2c5e3b', /* Xanh thương hiệu Young Go */
                             800: '#166534',
                             900: '#14532d',
                         },
-                        sunset: '#e67e22',
+                        sunset: '#e67e22', /* Màu cam dã ngoại */
                     }
                 }
             }
@@ -37,6 +40,7 @@
     <style>
         body { font-family: 'Inter', sans-serif; }
         
+        /* Hình nền Hero Section */
         .hero-bg {
             background-image: linear-gradient(to right, rgba(20, 83, 45, 0.85), rgba(0, 0, 0, 0.4)), url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=2070&auto=format&fit=crop');
             background-size: cover;
@@ -44,56 +48,33 @@
             background-attachment: fixed;
         }
 
-        .card-image-wrapper {
-            overflow: hidden;
-        }
-        
-        .card-image {
-            transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        
-        .tour-card:hover .card-image {
-            transform: scale(1.1);
-        }
+        /* Hiệu ứng Zoom ảnh Card */
+        .card-image-wrapper { overflow: hidden; }
+        .card-image { transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1); }
+        .tour-card:hover .card-image { transform: scale(1.1); }
 
+        /* Animation xuất hiện lúc load trang */
         .fade-in-up {
             opacity: 0;
             transform: translateY(20px);
             transition: opacity 0.8s ease-out, transform 0.8s ease-out;
         }
-        
         .fade-in-up.visible {
             opacity: 1;
             transform: translateY(0);
         }
 
-        /* Custom Scrollbar for Modal */
-        .custom-scrollbar::-webkit-scrollbar {
-            width: 6px;
-        }
-        .custom-scrollbar::-webkit-scrollbar-track {
-            background: #f1f1f1; 
-        }
-        .custom-scrollbar::-webkit-scrollbar-thumb {
-            background: #c1c1c1; 
-            border-radius: 10px;
-        }
-        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-            background: #a8a8a8; 
-        }
+        /* Tùy chỉnh thanh cuộn cho Modal */
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #f1f1f1; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #c1c1c1; border-radius: 10px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #a8a8a8; }
         
         /* Modal Transition classes */
-        .modal-active {
-            opacity: 1 !important;
-            pointer-events: auto !important;
-        }
-        
-        .modal-panel-active {
-            opacity: 1 !important;
-            transform: scale(1) translateY(0) !important;
-        }
+        .modal-active { opacity: 1 !important; pointer-events: auto !important; }
+        .modal-panel-active { opacity: 1 !important; transform: scale(1) translateY(0) !important; }
 
-        /* Thêm Hiệu ứng Scroll Reveal (Trượt lên khi cuộn trang) */
+        /* Hiệu ứng Scroll Reveal (Trượt lên khi cuộn trang) */
         .reveal {
             opacity: 0;
             transform: translateY(40px);
@@ -110,21 +91,21 @@
     <nav class="fixed w-full z-40 transition-all duration-300 py-4" id="navbar">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center">
-                <!-- Cập nhật Logo bằng hình ảnh -->
+                <!-- Sửa lỗi hiển thị Logo: Dùng chính xác tên file -->
                 <div class="flex-shrink-0 flex items-center cursor-pointer group" onclick="window.scrollTo(0,0)">
-                    <img src="image_b27027.png" alt="Young Go Logo" class="h-16 w-auto transition-transform duration-300 group-hover:scale-105 filter drop-shadow-md">
+                    <img src="image_b27027.png" alt="Young Go Logo" class="h-16 w-auto transition-transform duration-300 group-hover:scale-105 drop-shadow-lg bg-white/10 rounded-xl px-2 py-1 backdrop-blur-sm" onerror="this.src='https://placehold.co/200x80/2c5e3b/ffffff?text=Young+Go'">
                 </div>
                 <div class="hidden md:flex space-x-8 items-center">
                     <a href="#about" class="text-white hover:text-sunset transition font-semibold nav-link">Về chúng tôi</a>
                     <a href="#tours" class="text-white hover:text-sunset transition font-semibold nav-link">Lịch trình</a>
-                    <a href="#contact" class="bg-sunset text-white px-6 py-2.5 rounded-md font-bold hover:bg-orange-600 transition shadow-lg hover:shadow-xl">Liên hệ</a>
+                    <a href="#contact" class="bg-sunset text-white px-6 py-2.5 rounded-md font-bold hover:bg-orange-600 transition shadow-lg hover:shadow-xl hover:-translate-y-0.5">Liên hệ</a>
                 </div>
             </div>
         </div>
     </nav>
 
-    <header class="hero-bg h-[80vh] min-h-[600px] flex items-center relative">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full mt-16">
+    <header class="hero-bg h-[85vh] min-h-[600px] flex items-center relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full mt-16 pb-20"> <!-- Thêm pb-20 để đẩy nội dung lên, nhường chỗ cho section dưới -->
             <div class="max-w-2xl">
                 <span class="inline-block py-1.5 px-4 rounded-full bg-forest-700/80 text-white text-sm font-semibold mb-6 border border-forest-500/50 backdrop-blur-sm fade-in-up">
                     <i class="fa-solid fa-leaf mr-2"></i>Chuyên gia tổ chức Trekking & Cắm trại
@@ -133,7 +114,7 @@
                     Đánh Thức <br><span class="text-sunset">Bản Năng Khám Phá</span>
                 </h1>
                 <p class="text-lg md:text-xl text-gray-200 mb-10 max-w-xl fade-in-up" style="transition-delay: 200ms;">
-                    Hành trình an toàn, dịch vụ chuyên nghiệp. Cùng bạn vượt qua giới hạn bản thân để hòa mình trọn vẹn vào thiên nhiên.
+                    Hành trình an toàn, dịch vụ chuyên nghiệp. Cùng bạn vượt qua giới hạn bản thân để hòa mình trọn vẹn vào thiên nhiên hùng vĩ.
                 </p>
                 <div class="fade-in-up" style="transition-delay: 300ms;">
                     <a href="#tours" class="inline-flex items-center justify-center gap-2 bg-sunset text-white px-8 py-4 rounded-md text-lg font-bold hover:bg-orange-600 transition shadow-[0_4px_14px_0_rgba(230,126,34,0.39)] hover:shadow-[0_6px_20px_rgba(230,126,34,0.23)] hover:-translate-y-0.5">
@@ -144,10 +125,11 @@
         </div>
     </header>
 
-    <section id="about" class="py-16 bg-white relative -mt-16 z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 rounded-t-3xl shadow-sm">
+    <!-- Sử dụng rounded-t-3xl và shadow-xl kết hợp relative z-10 để tạo cảm giác khối này nổi bồng bềnh lên trên Hero image một cách mượt mà -->
+    <section id="about" class="py-12 bg-white relative -mt-20 z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 rounded-t-3xl shadow-xl border-t border-gray-100">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div class="bg-gray-50 p-8 rounded-xl border border-gray-100 flex flex-col items-center text-center group hover:bg-forest-50 transition-colors duration-300">
-                <div class="w-16 h-16 bg-white rounded-full shadow-sm flex items-center justify-center mb-6 text-forest-700 group-hover:bg-forest-700 group-hover:text-white transition-colors duration-300">
+                <div class="w-16 h-16 bg-white rounded-full shadow-md flex items-center justify-center mb-6 text-forest-700 group-hover:bg-forest-700 group-hover:text-white transition-colors duration-300 transform group-hover:-translate-y-1">
                     <i class="fa-solid fa-map-location-dot text-2xl"></i>
                 </div>
                 <h3 class="text-xl font-bold text-gray-900 mb-3">Lịch trình Độc quyền</h3>
@@ -155,7 +137,7 @@
             </div>
             
             <div class="bg-gray-50 p-8 rounded-xl border border-gray-100 flex flex-col items-center text-center group hover:bg-forest-50 transition-colors duration-300">
-                <div class="w-16 h-16 bg-white rounded-full shadow-sm flex items-center justify-center mb-6 text-forest-700 group-hover:bg-forest-700 group-hover:text-white transition-colors duration-300">
+                <div class="w-16 h-16 bg-white rounded-full shadow-md flex items-center justify-center mb-6 text-forest-700 group-hover:bg-forest-700 group-hover:text-white transition-colors duration-300 transform group-hover:-translate-y-1">
                     <i class="fa-solid fa-shield-halved text-2xl"></i>
                 </div>
                 <h3 class="text-xl font-bold text-gray-900 mb-3">An toàn Tuyệt đối</h3>
@@ -163,7 +145,7 @@
             </div>
 
             <div class="bg-gray-50 p-8 rounded-xl border border-gray-100 flex flex-col items-center text-center group hover:bg-forest-50 transition-colors duration-300">
-                <div class="w-16 h-16 bg-white rounded-full shadow-sm flex items-center justify-center mb-6 text-forest-700 group-hover:bg-forest-700 group-hover:text-white transition-colors duration-300">
+                <div class="w-16 h-16 bg-white rounded-full shadow-md flex items-center justify-center mb-6 text-forest-700 group-hover:bg-forest-700 group-hover:text-white transition-colors duration-300 transform group-hover:-translate-y-1">
                     <i class="fa-solid fa-fire-burner text-2xl"></i>
                 </div>
                 <h3 class="text-xl font-bold text-gray-900 mb-3">Ẩm thực Giữa Rừng</h3>
@@ -175,16 +157,15 @@
     <section id="tours" class="py-20 bg-gray-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-end mb-12">
-                <!-- Thêm hiệu ứng reveal cho tiêu đề -->
                 <div class="reveal">
                     <h2 class="text-3xl md:text-4xl font-extrabold text-gray-900 mb-3">Lịch trình Nổi bật</h2>
                     <div class="w-20 h-1.5 bg-sunset rounded-full"></div>
                 </div>
             </div>
 
-            <!-- Grid Container -->
+            <!-- Grid Container cho Tours -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="tourGrid">
-                <!-- Các thẻ Tour sẽ được render bằng Javascript để tái sử dụng Data -->
+                <!-- Nội dung được render từ JavaScript -->
             </div>
         </div>
     </section>
@@ -193,13 +174,11 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
                 <div>
-                    <!-- Cập nhật Logo dưới Footer -->
+                    <!-- Logo chân trang -->
                     <div class="flex items-center mb-6">
-                        <img src="image_b27027.png" alt="Young Go Logo" class="h-24 w-auto bg-white/10 p-2 rounded-xl backdrop-blur-sm border border-gray-700">
+                        <img src="image_b27027.png" alt="Young Go Logo" class="h-24 w-auto bg-white rounded-xl p-2" onerror="this.src='https://placehold.co/200x80/ffffff/2c5e3b?text=Young+Go'">
                     </div>
                     <p class="text-gray-400 text-sm leading-relaxed mb-6">Chúng tôi mang đến những chuyến đi không chỉ là khám phá vùng đất mới, mà còn là hành trình thấu hiểu bản thân thông qua những trải nghiệm thiên nhiên đích thực.</p>
-                </div>
-                    <p class="text-gray-400 text-sm leading-relaxed mb-6">Chúng tôi mang đến những chuyến đi không chỉ là khám phá vùng đất mới, mà còn là hành trình thấu hiểu bản thân.</p>
                 </div>
                 <div>
                     <h4 class="text-lg font-bold mb-6 text-white uppercase tracking-wider">Liên hệ</h4>
@@ -224,35 +203,35 @@
         </div>
     </footer>
 
-    <div id="tourModal" class="fixed inset-0 z-[100] opacity-0 pointer-events-none transition-opacity duration-300 ease-in-out flex items-center justify-center p-4 sm:p-6">
+    <div id="tourModal" class="fixed inset-0 z-[100] opacity-0 pointer-events-none transition-opacity duration-300 ease-in-out flex items-center justify-center p-0 md:p-6">
         <!-- Backdrop -->
-        <div class="absolute inset-0 bg-gray-900/70 backdrop-blur-sm" onclick="closeModal()"></div>
+        <div class="absolute inset-0 bg-gray-900/80 backdrop-blur-sm" onclick="closeModal()"></div>
         
-        <!-- Modal Content Container -->
-        <div id="modalPanel" class="bg-white rounded-2xl w-full max-w-6xl max-h-[95vh] h-full overflow-hidden flex flex-col md:flex-row relative z-10 transform scale-95 translate-y-4 transition-all duration-300 ease-out shadow-2xl">
+        <!-- Cấu trúc Khung Modal 2 Cột -->
+        <div id="modalPanel" class="bg-white md:rounded-2xl w-full max-w-6xl max-h-[100vh] md:max-h-[90vh] h-full overflow-hidden flex flex-col md:flex-row relative z-10 transform scale-95 translate-y-4 transition-all duration-300 ease-out shadow-2xl">
             
-            <!-- Close Button -->
-            <button onclick="closeModal()" class="absolute top-4 right-4 z-50 w-10 h-10 bg-black/20 hover:bg-black/40 backdrop-blur-md rounded-full flex items-center justify-center text-white transition">
+            <!-- Nút Tắt Modal -->
+            <button onclick="closeModal()" class="absolute top-4 right-4 z-50 w-10 h-10 bg-black/40 hover:bg-black/70 backdrop-blur-md rounded-full flex items-center justify-center text-white transition">
                 <i class="fa-solid fa-xmark text-xl"></i>
             </button>
 
-            <!-- Cột Trái: Thông tin chi tiết (Scrollable) -->
+            <!-- CỘT TRÁI: Nội dung chi tiết cuộn được -->
             <div class="flex-1 overflow-y-auto custom-scrollbar bg-white relative">
                 <!-- Cover Image -->
-                <div class="h-64 sm:h-72 w-full relative">
+                <div class="h-64 sm:h-80 w-full relative">
                     <img id="modalImg" src="" alt="Cover" class="w-full h-full object-cover">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
                     <div class="absolute bottom-6 left-6 right-6">
                         <div class="flex items-center gap-2 text-white/90 text-sm mb-2 font-medium">
                             <i class="fa-solid fa-location-dot text-sunset"></i>
                             <span id="modalLocation"></span>
                         </div>
-                        <h2 id="modalTitle" class="text-3xl sm:text-4xl font-bold text-white"></h2>
+                        <h2 id="modalTitle" class="text-3xl sm:text-4xl font-bold text-white mb-2"></h2>
                     </div>
                 </div>
 
-                <!-- Info summary -->
                 <div class="p-6 md:p-8">
+                    <!-- Thông tin tóm tắt -->
                     <div class="flex flex-wrap gap-4 sm:gap-8 mb-8 pb-6 border-b border-gray-100">
                         <div class="flex items-center gap-3">
                             <div class="w-12 h-12 rounded-full bg-forest-50 text-forest-700 flex items-center justify-center text-xl"><i class="fa-regular fa-clock"></i></div>
@@ -270,26 +249,24 @@
                         </div>
                     </div>
 
-                    <!-- Tabs Navigation -->
+                    <!-- Hệ thống Tabs -->
                     <div class="flex gap-6 border-b border-gray-200 sticky top-0 bg-white z-10 pt-2 mb-6">
                         <button id="tabBtnItinerary" class="pb-3 text-base font-bold text-forest-700 border-b-2 border-forest-700 transition" onclick="switchTab('itinerary')">Lịch trình chi tiết</button>
                         <button id="tabBtnPolicy" class="pb-3 text-base font-semibold text-gray-500 hover:text-gray-800 transition border-b-2 border-transparent" onclick="switchTab('policy')">Điều kiện & Chính sách</button>
                     </div>
 
-                    <!-- Tab Lịch Trình -->
+                    <!-- Nội dung Tab Lịch Trình -->
                     <div id="tabItinerary" class="space-y-6 pb-6">
-                        <!-- Content will be injected by JS -->
+                        <!-- JS sẽ render lịch trình vào đây -->
                     </div>
 
-                    <!-- Tab Chính Sách -->
+                    <!-- Nội dung Tab Chính Sách -->
                     <div id="tabPolicy" class="hidden space-y-8 pb-6">
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
-                            <!-- Bao gồm -->
                             <div class="bg-forest-50/50 p-5 rounded-xl border border-forest-100">
                                 <h4 class="font-bold text-forest-800 mb-4 flex items-center gap-2"><i class="fa-solid fa-circle-check text-forest-500"></i> Tour bao gồm</h4>
                                 <ul class="space-y-2 text-sm text-gray-700" id="modalIncludes"></ul>
                             </div>
-                            <!-- Không bao gồm -->
                             <div class="bg-red-50/50 p-5 rounded-xl border border-red-100">
                                 <h4 class="font-bold text-red-800 mb-4 flex items-center gap-2"><i class="fa-solid fa-circle-xmark text-red-500"></i> Không bao gồm</h4>
                                 <ul class="space-y-2 text-sm text-gray-700" id="modalExcludes"></ul>
@@ -298,7 +275,7 @@
 
                         <div>
                             <h4 class="font-bold text-gray-900 text-lg mb-3 border-l-4 border-sunset pl-3">Điều kiện đăng ký</h4>
-                            <p class="text-sm text-gray-600 leading-relaxed bg-gray-50 p-4 rounded-lg" id="modalBookingRule"></p>
+                            <p class="text-sm text-gray-600 leading-relaxed bg-gray-50 p-4 rounded-lg whitespace-pre-line" id="modalBookingRule"></p>
                         </div>
 
                         <div>
@@ -309,26 +286,27 @@
                 </div>
             </div>
 
-            <!-- Cột Phải: Booking Form (Sticky/Fixed Side) -->
+            <!-- CỘT PHẢI: Form Đặt chỗ cố định (Sticky) -->
             <div class="w-full md:w-96 bg-gray-50 border-t md:border-t-0 md:border-l border-gray-200 p-6 flex flex-col shrink-0">
-                <div class="mb-6 bg-white p-4 rounded-xl border border-gray-100 shadow-sm text-center md:text-left">
-                    <p class="text-gray-500 text-sm font-medium mb-1">Giá chỉ từ</p>
-                    <div class="flex items-end justify-center md:justify-start gap-3">
+                <div class="mb-6 bg-white p-5 rounded-xl border border-forest-100 shadow-sm text-center md:text-left relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-16 h-16 bg-forest-50 rounded-bl-full -z-0"></div>
+                    <p class="text-gray-500 text-sm font-medium mb-1 relative z-10">Giá trọn gói chỉ từ</p>
+                    <div class="flex items-end justify-center md:justify-start gap-3 relative z-10">
                         <p class="text-3xl font-extrabold text-red-600" id="modalFinalPrice"></p>
-                        <p class="text-sm text-gray-400 line-through mb-1" id="modalOldPrice"></p>
+                        <p class="text-sm text-gray-400 line-through mb-1 font-medium" id="modalOldPrice"></p>
                     </div>
                 </div>
 
                 <div class="flex-1">
-                    <h3 class="text-lg font-bold text-gray-900 mb-4">Gửi Yêu Cầu Tư Vấn</h3>
+                    <h3 class="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2"><i class="fa-regular fa-calendar-check text-forest-600"></i> Gửi Yêu Cầu Tư Vấn</h3>
                     <form onsubmit="handleBooking(event)" class="space-y-4">
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-1">Họ và tên *</label>
-                            <input type="text" id="custName" required class="w-full px-4 py-2.5 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-forest-500 focus:border-forest-500 outline-none transition text-sm" placeholder="Nhập tên của bạn">
+                            <input type="text" required class="w-full px-4 py-2.5 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-forest-500 focus:border-forest-500 outline-none transition text-sm" placeholder="Nhập tên của bạn">
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-1">Số điện thoại *</label>
-                            <input type="tel" id="custPhone" required class="w-full px-4 py-2.5 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-forest-500 focus:border-forest-500 outline-none transition text-sm" placeholder="Ví dụ: 0912345678">
+                            <input type="tel" required class="w-full px-4 py-2.5 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-forest-500 focus:border-forest-500 outline-none transition text-sm" placeholder="Ví dụ: 0912345678">
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-1">Số khách dự kiến</label>
@@ -336,13 +314,13 @@
                                 <option>1 người</option>
                                 <option>2 - 4 người</option>
                                 <option>5 - 10 người</option>
-                                <option>Trên 10 người</option>
+                                <option>Đoàn trên 10 người (Có giá ưu đãi)</option>
                             </select>
                         </div>
                         <button type="submit" class="w-full mt-4 bg-sunset text-white font-bold py-3.5 rounded-lg hover:bg-orange-600 transition shadow-[0_4px_14px_0_rgba(230,126,34,0.39)] hover:shadow-lg active:scale-[0.98] flex items-center justify-center gap-2">
-                            Gửi Yêu Cầu <i class="fa-solid fa-paper-plane text-sm"></i>
+                            Gửi Yêu Cầu Ngay <i class="fa-solid fa-paper-plane text-sm"></i>
                         </button>
-                        <p class="text-center text-xs text-gray-500 mt-4"><i class="fa-solid fa-shield-halved text-forest-600 mr-1"></i> Thông tin của bạn được bảo mật tuyệt đối</p>
+                        <p class="text-center text-xs text-gray-500 mt-4"><i class="fa-solid fa-shield-halved text-forest-600 mr-1"></i> Thông tin của bạn được bảo mật tuyệt đối.</p>
                     </form>
                 </div>
             </div>
@@ -354,13 +332,13 @@
             <i class="fa-solid fa-circle-check text-forest-500 text-2xl"></i>
         </div>
         <div>
-            <h4 class="font-bold text-gray-900 text-sm mb-1">Yêu cầu thành công!</h4>
-            <p class="text-xs text-gray-600 leading-relaxed">Cảm ơn bạn. Bộ phận tư vấn của Young Go sẽ liên hệ lại trong thời gian sớm nhất.</p>
+            <h4 class="font-bold text-gray-900 text-sm mb-1">Gửi yêu cầu thành công!</h4>
+            <p class="text-xs text-gray-600 leading-relaxed">Cảm ơn bạn. Chuyên viên tư vấn của Young Go sẽ gọi lại theo số điện thoại bạn cung cấp trong vòng 15 phút tới.</p>
         </div>
     </div>
 
     <script>
-        // Data Mẫu Trọn Bộ Các Tour (Đã được viết lại chi tiết chuẩn Công ty Lữ Hành)
+        // Data Mẫu Trọn Bộ Các Tour - Cập nhật link ảnh xịn và chi tiết Lịch trình/Chính sách thực tế
         const tourData = [
             {
                 id: 'tanang',
@@ -368,31 +346,30 @@
                 location: 'Lâm Đồng - Bình Thuận',
                 img: 'https://images.unsplash.com/photo-1551632811-561732d1e306?q=80&w=2070&auto=format&fit=crop',
                 badge: { text: '-15% HOT', color: 'bg-red-500' },
-                duration: '2N1Đ',
+                duration: '2 Ngày 1 Đêm',
                 level: 'Trung bình',
                 desc: 'Chinh phục cung đường trekking đẹp nhất Việt Nam. Trải nghiệm bước đi trên những sống lưng khủng long ngợp cỏ, săn mây và thưởng thức BBQ giữa núi rừng đại ngàn.',
                 price: '2.850.000đ',
                 oldPrice: '3.350.000đ',
                 itinerary: [
-                    { day: 'Ngày 1: Chạm ngõ Tà Năng - Hạ trại Đồi Lính (Sáng/Trưa/Tối)', content: '06h00: Đón khách tại điểm hẹn Tà Năng (Đức Trọng). Đoàn dùng điểm tâm sáng đặc sản địa phương (Bún bò/Hủ tiếu) và thưởng thức cafe sáng.\n08h30: Phổ biến quy tắc an toàn, khởi động. Bắt đầu hành trình trekking băng qua những đồi thông rì rào và ruộng bậc thang của người Chu Ru.\n12h00: Dừng chân tại Suối lớn. Quý khách dùng bữa trưa dã ngoại (Cơm nắm, chả lụa, thịt nướng, trái cây).\n14h00: Chinh phục sống lưng khủng long - đoạn đường đẹp nhất với những đồi cỏ xanh ngút ngàn. Tự do chụp hình check-in.\n16h30: Đến bãi hạ trại (Đồi Lính). Quý khách nghỉ ngơi, ngắm hoàng hôn tuyệt đẹp rớt xuống thung lũng.\n18h30: Thưởng thức Tiệc BBQ giữa rừng (Gà nướng sa lửa, thịt heo bản nướng xiên, cháo gà nóng, khoai/bắp nướng). Giao lưu lửa trại.' },
-                    { day: 'Ngày 2: Săn mây - Băng rừng Khộp Phan Dũng (Sáng/Trưa)', content: '05h00: Thức dậy đón bình minh rực rỡ, săn biển mây bồng bềnh. Nhâm nhi ly cafe nóng và dùng bữa sáng (Mì tôm xúc xích/Trứng ốp la).\n08h00: Thu dọn hành lý, dọn rác. Tiếp tục hành trình đổ dốc hướng về phía Phan Dũng (Bình Thuận).\n09h30: Cảnh quan chuyển từ đồi cỏ sang rừng Khộp rụng lá đặc trưng. Băng qua các con suối nhỏ.\n12h30: Ra khỏi bìa rừng, xe máy cày của người dân địa phương đón đoàn di chuyển ra UBND xã Phan Dũng.\n13h30: Dùng bữa trưa tại quán ăn địa phương, tắm rửa thay đồ.\n15h00: Lên xe giường nằm khởi hành về lại điểm đón ban đầu. Kết thúc hành trình.' }
+                    { day: 'Ngày 1: Chạm ngõ Tà Năng - Hạ trại Đồi Lính (Sáng/Trưa/Tối)', content: '06h00: Đón khách tại điểm hẹn Tà Năng. Điểm tâm sáng đặc sản và thưởng thức cafe.\n08h30: Phổ biến quy tắc an toàn. Bắt đầu hành trình trekking băng qua những đồi thông rì rào.\n12h00: Dừng chân tại Suối lớn. Quý khách dùng bữa trưa dã ngoại (Cơm nắm, chả lụa, thịt nướng).\n14h00: Chinh phục sống lưng khủng long - đoạn đường đẹp nhất. Tự do chụp hình check-in.\n16h30: Đến bãi hạ trại Đồi Lính. Nghỉ ngơi, ngắm hoàng hôn tuyệt đẹp rớt xuống thung lũng.\n18h30: Thưởng thức Tiệc BBQ giữa rừng (Gà nướng sa lửa, thịt heo bản, cháo nóng). Giao lưu lửa trại.' },
+                    { day: 'Ngày 2: Săn mây - Băng rừng Khộp Phan Dũng (Sáng/Trưa)', content: '05h00: Thức dậy đón bình minh rực rỡ, săn biển mây bồng bềnh. Ăn sáng nhẹ nhàng.\n08h00: Thu dọn hành lý. Tiếp tục hành trình đổ dốc hướng về phía Phan Dũng.\n09h30: Băng qua rừng Khộp rụng lá đặc trưng và các con suối nhỏ.\n12h30: Xe máy cày của người dân địa phương đón đoàn di chuyển ra UBND xã.\n13h30: Dùng bữa trưa tại quán ăn địa phương, tắm rửa thay đồ.\n15h00: Lên xe giường nằm khởi hành về lại điểm đón ban đầu. Kết thúc hành trình.' }
                 ],
                 includes: [
-                    'Xe khách giường nằm 2 chiều Sài Gòn - Điểm trek',
+                    'Xe khách giường nằm khứ hồi',
                     'Xe ôm/Xe máy cày trung chuyển vào bìa rừng',
-                    'Ăn uống: 2 Bữa sáng, 2 Bữa trưa, 1 Bữa tiệc BBQ Tối (Nước suối 3 lít/người/ngày)',
-                    'Lều trại tiêu chuẩn (2-3 người/lều, có lớp chống mưa), Tấm cách nhiệt, Túi ngủ ấm',
-                    'Bảo hiểm du lịch mức bồi thường tối đa 100.000.000 VNĐ/vụ',
-                    'Hướng dẫn viên chuyên nghiệp (Có chứng chỉ sơ cấp cứu) và Porter mang vác đồ chung (Tỉ lệ 1 Porter : 3 Khách)',
-                    'Dụng cụ y tế cơ bản, bộ đàm liên lạc'
+                    'Ăn uống đủ bữa theo lịch trình (1 BBQ Tối)',
+                    'Lều trại tiêu chuẩn (2-3 người/lều, tấm cách nhiệt, túi ngủ)',
+                    'Bảo hiểm du lịch mức 100.000.000 VNĐ/vụ',
+                    'Hướng dẫn viên và Porter (Tỉ lệ 1 Porter : 3 Khách)'
                 ],
                 excludes: [
-                    'Thuế VAT (8% nếu xuất hóa đơn)',
-                    'Chi phí cá nhân (Nước ngọt, bia, đồ ăn vặt mua thêm)',
-                    'Tiền bồi dưỡng (Tip) cho HDV và Porter (Không bắt buộc nhưng khuyến khích)'
+                    'Thuế VAT (8%)',
+                    'Chi phí cá nhân ngoài chương trình',
+                    'Tiền bồi dưỡng (Tip) cho HDV và Porter'
                 ],
-                bookingRule: 'Đăng ký: Quý khách cần có sức khỏe cơ bản, không mắc bệnh tim mạch, hen suyễn nặng hoặc các bệnh xương khớp nghiêm trọng.\nThanh toán: Chuyển khoản đặt cọc 50% ngay khi chốt chỗ. Thanh toán 50% còn lại trước ngày khởi hành 03 ngày.',
-                cancelRule: '- Hủy trước 15 ngày: Hoàn 100% tiền cọc.\n- Hủy từ 07 - 14 ngày: Phí phạt 50% tiền cọc.\n- Hủy từ 03 - 06 ngày: Phí phạt 100% tiền cọc (Được phép chuyển nhượng cho người khác 1 lần miễn phí).\n- Hủy trong vòng 48h hoặc không có mặt: Phạt 100% giá trị tour.\n*Lưu ý: Trong trường hợp thời tiết cực đoan (bão lũ) được kiểm lâm cảnh báo, Young Go sẽ chủ động dời ngày hoặc hoàn 100% chi phí cho khách hàng.'
+                bookingRule: 'Quý khách cần có sức khỏe cơ bản, không mắc bệnh tim mạch.\nThanh toán cọc 50% ngay khi chốt chỗ. Thanh toán 50% còn lại trước khởi hành 3 ngày.',
+                cancelRule: '- Hủy trước 15 ngày: Hoàn 100% tiền cọc.\n- Hủy từ 07 - 14 ngày: Phạt 50% cọc.\n- Hủy từ 03 - 06 ngày: Phạt 100% cọc.\n*Trường hợp thời tiết xấu (bão, lũ), Young Go sẽ hoàn 100% chi phí.'
             },
             {
                 id: 'laothan',
@@ -400,30 +377,30 @@
                 location: 'Y Tý, Lào Cai',
                 img: 'https://images.unsplash.com/photo-1454496522488-7a8e488e8606?q=80&w=2076&auto=format&fit=crop',
                 badge: { text: 'MỚI', color: 'bg-forest-500' },
-                duration: '2N1Đ',
+                duration: '2 Ngày 1 Đêm',
                 level: 'Dễ',
-                desc: 'Được mệnh danh là "Nơi mặt trời mọc sớm nhất và đi ngủ muộn nhất Y Tý". Trải nghiệm ngủ lán gỗ giữa biển mây, đón bình minh rực rỡ trên độ cao 2.860m. Rất phù hợp cho người mới leo núi.',
+                desc: 'Được mệnh danh là "Nơi mặt trời mọc sớm nhất Y Tý". Trải nghiệm ngủ lán gỗ giữa biển mây, đón bình minh rực rỡ trên độ cao 2.860m. Phù hợp cho người mới leo núi.',
                 price: '3.100.000đ',
                 oldPrice: null,
                 itinerary: [
-                    { day: 'Ngày 1: Sapa - Y Tý - Trekking lên lán 2400m (Trưa/Tối)', content: '06h30: Xe 16 chỗ đón đoàn tại trung tâm Sapa, di chuyển theo đường đèo hùng vĩ đi Y Tý.\n10h30: Đến chân núi (Trang trại rau Y Tý). Gặp gỡ đội ngũ Porter người bản địa, phân chia đồ đạc.\n11h00: Bắt đầu hành trình leo núi. Đường đi chủ yếu là đồi cỏ tranh thoai thoải, cảnh quan thoáng đãng.\n12h30: Nghỉ chân ăn trưa dọc đường (Xôi nếp nương, gà luộc, giò chả).\n16h00: Đến lán nghỉ ở độ cao 2400m. Quý khách nhận chỗ ngủ. Tự do leo lên mỏm đá gần lán để chụp ảnh cùng ánh hoàng hôn rực lửa.\n18h30: Quây quần bên mâm cơm nóng hổi giữa tiết trời se lạnh (Lẩu cá tầm/Lẩu gà đen, thịt lợn bản xào, rau rừng). Nghỉ ngơi sớm.' },
-                    { day: 'Ngày 2: Chạm đỉnh Lảo Thẩn (2860m) - Tắm lá thuốc (Sáng/Trưa)', content: '04h30: Báo thức. Đoàn mặc áo ấm, dùng bữa sáng nhẹ, bật đèn pin đội đầu bắt đầu chinh phục chặng cuối lên đỉnh.\n06h00: Chạm tay vào chóp inox Lảo Thẩn (2860m). Đón khoảnh khắc bình minh ngoạn mục và biển mây cuồn cuộn dưới chân. Thoải mái check-in với cây xích đu và mỏm đá sống ảo.\n08h00: Quay trở lại lán thu dọn hành lý, di chuyển xuống núi theo đường cũ.\n12h00: Về đến chân núi. Xe đưa đoàn về thị trấn Sapa.\n14h00: Quý khách trải nghiệm tắm lá thuốc cổ truyền của người Dao Đỏ để phục hồi sinh lực (Đã bao gồm trong giá tour).\n16h00: Chia tay đoàn tại Sapa.' }
+                    { day: 'Ngày 1: Sapa - Y Tý - Trekking lên lán 2400m (Trưa/Tối)', content: '06h30: Xe 16 chỗ đón đoàn tại Sapa, di chuyển đi Y Tý.\n11h00: Bắt đầu hành trình leo núi qua đồi cỏ tranh thoai thoải.\n12h30: Nghỉ chân ăn trưa dọc đường.\n16h00: Đến lán nghỉ ở độ cao 2400m. Tự do chụp ảnh hoàng hôn.\n18h30: Quây quần bên mâm cơm nóng hổi giữa tiết trời se lạnh (Lẩu lợn bản, rau rừng).' },
+                    { day: 'Ngày 2: Chạm đỉnh Lảo Thẩn (2860m) - Tắm lá thuốc (Sáng/Trưa)', content: '04h30: Báo thức, bật đèn pin bắt đầu chinh phục chặng cuối lên đỉnh.\n06h00: Chạm tay vào chóp inox Lảo Thẩn. Đón khoảnh khắc bình minh ngoạn mục.\n08h00: Quay trở lại lán thu dọn hành lý, di chuyển xuống núi.\n14h00: Quý khách trải nghiệm tắm lá thuốc cổ truyền Dao Đỏ tại Sapa.\n16h00: Chia tay đoàn.' }
                 ],
                 includes: [
                     'Xe 16 chỗ/Limousine di chuyển Sapa - Y Tý khứ hồi',
-                    'Chi phí lưu trú: Lán gỗ kiên cố trên núi (Có chăn bông ấm, lớp cách nhiệt)',
-                    'Các bữa ăn: 1 Sáng, 2 Trưa, 1 Tối (Đặc sản Tây Bắc)',
-                    'Porter bản địa mang đồ chung và dẫn đường (Tỉ lệ 2 Khách : 1 Porter)',
-                    'Vé tắm lá thuốc người Dao Đỏ tại Sapa',
-                    'Bảo hiểm du lịch, đồ y tế cơ bản, găng tay leo núi'
+                    'Lưu trú: Lán gỗ kiên cố trên núi',
+                    'Các bữa ăn: 1 Sáng, 2 Trưa, 1 Tối',
+                    'Porter bản địa mang đồ chung',
+                    'Vé tắm lá thuốc người Dao Đỏ',
+                    'Bảo hiểm du lịch'
                 ],
                 excludes: [
-                    'Vé xe khách khứ hồi Hà Nội - Sapa (Công ty có hỗ trợ đặt hộ)',
+                    'Vé xe khách từ các tỉnh đến Sapa',
                     'Thuế VAT',
-                    'Chi phí thuê Porter vác đồ cá nhân (Nếu có nhu cầu: ~600.000đ/chuyến)'
+                    'Chi phí thuê Porter vác đồ cá nhân (~600.000đ/chuyến)'
                 ],
-                bookingRule: 'Lưu ý thời tiết: Nhiệt độ trên núi ban đêm rất lạnh (có thể xuống 5-8 độ), quý khách bắt buộc phải trang bị áo khoác phao, miếng dán giữ nhiệt, tất dày.\nĐặt cọc: 1.500.000đ/khách khi đăng ký.',
-                cancelRule: '- Hủy trước 10 ngày: Hoàn 100% tiền cọc.\n- Hủy từ 05 - 09 ngày: Mất cọc (Hoặc bảo lưu sang tour khác trong vòng 3 tháng).\n- Hủy dưới 05 ngày: Phạt 100% giá trị tour.'
+                bookingRule: 'Nhiệt độ ban đêm rất lạnh (5-8 độ), bắt buộc trang bị áo khoác phao, miếng dán giữ nhiệt.\nĐặt cọc: 1.500.000đ/khách khi đăng ký.',
+                cancelRule: '- Hủy trước 10 ngày: Hoàn 100% tiền cọc.\n- Hủy từ 05 - 09 ngày: Mất cọc hoặc bảo lưu 3 tháng.\n- Hủy dưới 05 ngày: Phạt 100% giá trị tour.'
             },
             {
                 id: 'k50',
@@ -431,65 +408,60 @@
                 location: 'K\'Bang, Gia Lai',
                 img: 'https://images.unsplash.com/photo-1433086966358-54859d0ed716?q=80&w=2070&auto=format&fit=crop',
                 badge: { text: 'ĐÁNG TRẢI NGHIỆM', color: 'bg-sunset' },
-                duration: '3N2Đ',
+                duration: '3 Ngày 2 Đêm',
                 level: 'Khó',
-                desc: 'Hành trình đậm chất thám hiểm xuyên Khu bảo tồn thiên nhiên Kon Chư Răng. Băng qua rừng rậm nhiệt đới, lội suối để chiêm ngưỡng vòm thác K50 hùng vĩ bậc nhất Tây Nguyên.',
+                desc: 'Hành trình thám hiểm Khu bảo tồn Kon Chư Răng. Băng qua rừng rậm nhiệt đới, lội suối để chiêm ngưỡng vòm thác K50 hùng vĩ bậc nhất Tây Nguyên.',
                 price: '3.890.000đ',
                 oldPrice: null,
                 itinerary: [
-                    { day: 'Ngày 1: TP.HCM - K\'Bang (Di chuyển đêm)', content: '18h30: Tập trung tại Bến xe Miền Đông. Lên xe giường nằm VIP di chuyển đi thị trấn K\'Bang (Gia Lai). Quý khách nghỉ đêm trên xe.' },
-                    { day: 'Ngày 2: Trải nghiệm Xe máy cày - Xuyên rừng nguyên sinh (Sáng/Trưa/Tối)', content: '06h30: Đến K\'Bang. Đoàn vệ sinh cá nhân, ăn sáng đặc sản và nhâm nhi cafe.\n08h30: Di chuyển đến Trạm kiểm lâm Khu bảo tồn Kon Chư Răng. Xuất trình CMND/CCCD để làm thủ tục vào rừng.\n09h30: Trải nghiệm cảm giác mạnh: Ngồi trên xe máy cày (công nông) chuyên dụng của người bản địa vượt qua những cung đường sình lầy sâu trong bìa rừng (Khoảng 1 tiếng).\n10h30: Bắt đầu trekking. Tuyến đường len lỏi qua thảm thực vật rừng mưa nhiệt đới đa dạng, những gốc cây cổ thụ ôm trọn vách đá.\n12h30: Ăn trưa dã ngoại bên bờ suối.\n15h30: Đặt chân đến Thác K50. Cảm nhận hơi nước mát lạnh mịt mù. Đoàn hạ trại tại bãi đất phẳng đối diện thác.\n18h00: Thưởng thức bữa tối BBQ thịnh soạn giữa tiếng thác đổ: Heo đồng bào nướng, gà sa lửa, lẩu rau rừng, nhâm nhi rượu cần Tây Nguyên.' },
-                    { day: 'Ngày 3: Khám phá vòm Hang Én - Trở về (Sáng/Trưa)', content: '06h00: Thức dậy đón ánh nắng xuyên qua tán lá. Ăn sáng (Mì tôm bò/Nui xào).\n07h30: Mặc áo phao, HDV dẫn đoàn luồn qua những vách đá trơn trượt để đi vào phía sau bức rèm nước của Thác K50 (Hang Én). Chụp những bức ảnh "để đời" với cầu vồng thường xuyên xuất hiện tại thác.\n10h00: Quay lại bãi trại thu dọn hành lý.\n11h30: Trekking ngược trở ra theo con đường mòn khác. Ăn trưa nhẹ trong rừng.\n14h30: Lên xe máy cày trở ra trạm kiểm lâm. Lên xe trung chuyển về lại thị trấn tắm rửa.\n17h30: Ăn tối (Tự túc) và lên xe giường nằm về lại TP.HCM. Sáng hôm sau có mặt.' }
+                    { day: 'Ngày 1: TP.HCM - K\'Bang (Di chuyển đêm)', content: '18h30: Tập trung tại Bến xe Miền Đông. Lên xe giường nằm VIP di chuyển đi thị trấn K\'Bang.' },
+                    { day: 'Ngày 2: Xuyên rừng nguyên sinh - Hạ trại Thác K50 (Sáng/Trưa/Tối)', content: '09h30: Trải nghiệm ngồi xe máy cày vượt đường sình lầy sâu trong bìa rừng.\n10h30: Bắt đầu trekking len lỏi qua thảm thực vật rừng mưa nhiệt đới.\n15h30: Đặt chân đến Thác K50. Đoàn hạ trại tại bãi đất phẳng đối diện thác.\n18h00: Thưởng thức bữa tối BBQ thịnh soạn: Heo đồng bào nướng, gà sa lửa, nhâm nhi rượu cần.' },
+                    { day: 'Ngày 3: Khám phá vòm Hang Én - Trở về (Sáng/Trưa)', content: '07h30: Mặc áo phao luồn qua vách đá đi vào phía sau bức rèm nước của Thác K50 (Hang Én).\n10h00: Quay lại bãi trại thu dọn hành lý.\n11h30: Trekking ngược trở ra. Lên xe máy cày ra trạm kiểm lâm.\n17h30: Lên xe giường nằm về lại TP.HCM.' }
                 ],
                 includes: [
-                    'Vé xe giường nằm VIP khứ hồi TP.HCM - Gia Lai',
-                    'Chi phí xin giấy phép vào Khu bảo tồn (Bắt buộc)',
-                    'Xe công nông/xe máy chuyên dụng trung chuyển đường rừng',
-                    'Cán bộ kiểm lâm đi cùng giám sát an toàn',
-                    'Ăn uống: 2 Sáng, 2 Trưa, 1 Tối BBQ cao cấp',
-                    'Lều trại chống mưa lớn (2 người/lều), nệm êm, túi ngủ cá nhân',
-                    'HDV và Porter địa phương (Vác đồ chung, tỉ lệ 1:2)',
-                    'Bảo hiểm du lịch, thuốc xịt vắt, đồ y tế'
+                    'Vé giường nằm VIP khứ hồi TP.HCM - Gia Lai',
+                    'Chi phí giấy phép Khu bảo tồn (Bắt buộc)',
+                    'Xe máy cày trung chuyển đường rừng',
+                    'Cán bộ kiểm lâm giám sát an toàn',
+                    'Ăn uống đủ bữa, 1 Tối BBQ',
+                    'Bảo hiểm du lịch, thuốc xịt vắt'
                 ],
                 excludes: [
                     'Thuế VAT',
                     'Bữa tối ngày về tại thị trấn',
-                    'Tiền Tip',
-                    'Đồ mang vác cá nhân (Nếu thuê porter vác riêng: 350.000đ/ngày)'
+                    'Đồ mang vác cá nhân'
                 ],
-                bookingRule: 'Quy định nghiêm ngặt: Rừng Kon Chư Răng là khu vực bảo tồn cấp quốc gia. BẮT BUỘC chụp ảnh CCCD/Passport gửi cho Young Go trước ít nhất 07 ngày để xin giấy phép. Trong quá trình đi không xả rác, không tự ý tách đoàn.\nCảnh báo: Đường đi ẩm ướt, nhiều vắt. Cần mang giày bám dính tốt, bọc ống chân chống vắt.',
-                cancelRule: 'Do tính chất phải xin phép trước với cơ quan chức năng:\n- Hủy trước 15 ngày: Hoàn cọc (Trừ 200k phí làm hồ sơ).\n- Hủy từ 08 - 14 ngày: Phạt 50% tiền cọc.\n- Hủy dưới 07 ngày (khi đã lên danh sách kiểm lâm): Phạt 100% giá trị tour.'
+                bookingRule: 'Rừng Kon Chư Răng là khu bảo tồn. BẮT BUỘC cung cấp ảnh CCCD trước 07 ngày để xin giấy phép.\nCảnh báo: Đường trơn ướt, nhiều vắt.',
+                cancelRule: 'Do tính chất xin phép:\n- Hủy trước 15 ngày: Hoàn cọc (Trừ 200k phí hồ sơ).\n- Hủy từ 08 - 14 ngày: Phạt 50% cọc.\n- Hủy dưới 07 ngày: Phạt 100% giá trị tour.'
             },
             {
                 id: 'easno',
                 title: 'Cắm Trại & Chèo SUP Hồ Núi Lửa Ea Snô',
                 location: 'Krông Nô, Đắk Nông',
                 img: 'https://images.unsplash.com/photo-1543880951-40b925b6d510?q=80&w=2070&auto=format&fit=crop',
-                badge: { text: 'THƯ GIÃN (GLAMPING)', color: 'bg-blue-500' },
-                duration: '2N1Đ',
+                badge: { text: 'THƯ GIÃN', color: 'bg-blue-500' },
+                duration: '2 Ngày 1 Đêm',
                 level: 'Rất Dễ',
-                desc: 'Hành trình chữa lành đích thực. Thả mình trên thuyền SUP giữa làn nước tĩnh lặng của hồ núi lửa tự nhiên, bao bọc bởi rừng đặc dụng và những bãi đá bazan hàng triệu năm tuổi.',
+                desc: 'Hành trình chữa lành. Thả mình trên thuyền SUP giữa làn nước tĩnh lặng của hồ núi lửa tự nhiên, bao bọc bởi rừng đặc dụng và những bãi đá bazan hàng triệu năm tuổi.',
                 price: '2.200.000đ',
                 oldPrice: '2.500.000đ',
                 itinerary: [
-                    { day: 'Ngày 1: Xuyên rừng cao su - Hạ trại Glamping ven hồ (Trưa/Tối)', content: '07h00: Khởi hành từ TP.HCM đi Đắk Nông bằng xe Limousine.\n11h30: Dùng bữa trưa tại nhà hàng địa phương (Gia Nghĩa).\n13h00: Chuyển sang xe đặc chủng di chuyển sâu vào khu vực Hồ Ea Snô. Băng qua những cánh rừng cao su thẳng tắp, tuyệt đẹp như phim điện ảnh.\n14h30: Đến bãi cắm trại sát mép nước. Quý khách nhận lều Glamping (Lều mông cổ lớn, có quạt, nệm êm).\n15h30: Hướng dẫn kỹ thuật chèo SUP an toàn. Quý khách tự do chèo SUP khám phá các ngóc ngách của hồ núi lửa, bơi lội trong làn nước xanh biếc (Bắt buộc mặc áo phao).\n18h00: Ngắm hoàng hôn phản chiếu trên mặt hồ.\n19h00: Tiệc BBQ Tây Nguyên thịnh soạn: Gà đồng bào nướng ống tre, heo rừng lai nướng tảng, sườn sụn, salad, trái cây. Quây quần bên lửa trại kể chuyện đêm khuya.' },
-                    { day: 'Ngày 2: Cafe bình minh - Về lại phố thị (Sáng/Trưa)', content: '05h30: Dậy sớm hít thở không khí trong vắt. Ngắm lớp sương mù lãng đãng bay trên mặt hồ. Thưởng thức ly cafe rang xay tại chỗ và bữa sáng (Bún bò/Bánh mì ốp la xúc xích).\n08h00: Tự do chèo SUP, chụp ảnh bằng Flycam (HDV hỗ trợ chụp).\n10h00: Dọn dẹp hành lý. Lên xe di chuyển ra khỏi rừng.\n12h00: Dùng cơm trưa tại nhà hàng.\n13h00: Lên đường về lại TP.HCM. Dự kiến 19h00 về tới nơi.' }
+                    { day: 'Ngày 1: Xuyên rừng cao su - Hạ trại ven hồ (Trưa/Tối)', content: '07h00: Khởi hành từ TP.HCM đi Đắk Nông bằng xe Limousine.\n13h00: Chuyển sang xe đặc chủng băng qua rừng cao su vào Hồ Ea Snô.\n14h30: Đến bãi cắm trại sát mép nước. Nhận lều Glamping.\n15h30: Hướng dẫn kỹ thuật chèo SUP an toàn. Khám phá hồ núi lửa.\n19h00: Tiệc BBQ Tây Nguyên thịnh soạn bên lửa trại.' },
+                    { day: 'Ngày 2: Cafe bình minh - Về lại phố thị (Sáng/Trưa)', content: '05h30: Dậy sớm ngắm sương mù trên mặt hồ. Thưởng thức cafe rang xay và bữa sáng.\n08h00: Tự do chèo SUP, chụp ảnh Flycam.\n10h00: Dọn dẹp hành lý. Di chuyển ra khỏi rừng.\n13h00: Lên đường về lại TP.HCM.' }
                 ],
                 includes: [
                     'Xe Limousine khứ hồi từ TP.HCM',
-                    'Xe trung chuyển gầm cao vào tận bãi trại',
-                    'Hệ thống lều Glamping cao cấp (Dựng sẵn, 2-3 người/lều, có nệm hơi, quạt, đèn)',
-                    'Thuyền SUP (Stand-up Paddleboard), áo phao, mái chèo (2 người/1 ván)',
+                    'Lều Glamping cao cấp (Dựng sẵn, nệm hơi, quạt, đèn)',
+                    'Thuyền SUP, áo phao, HDV dưới nước',
                     'Ăn uống: 1 Sáng, 2 Trưa, 1 Tối BBQ',
-                    'Hỗ trợ chụp ảnh/quay phim bằng Flycam',
-                    'HDV kinh nghiệm dưới nước, cứu hộ',
-                    'Bảo hiểm du lịch 100.000.000đ'
+                    'Hỗ trợ chụp ảnh Flycam',
+                    'Bảo hiểm 100.000.000đ'
                 ],
                 excludes: [
-                    'VAT',
+                    'Thuế VAT',
                     'Chi phí cá nhân ngoài chương trình'
                 ],
-                bookingRule: 'Phù hợp cho mọi lứa tuổi, kể cả trẻ em từ 8 tuổi trở lên (đi cùng bố mẹ) và người không biết bơi (được trang bị áo phao chuẩn). Đặt cọc 50% để giữ chỗ.',
+                bookingRule: 'Phù hợp cho mọi lứa tuổi, người không biết bơi cũng có thể tham gia (mặc áo phao). Đặt cọc 50%.',
                 cancelRule: '- Hủy trước 07 ngày: Hoàn 100% tiền cọc.\n- Hủy từ 03 - 06 ngày: Phạt 50% tiền cọc.\n- Hủy dưới 3 ngày: Phạt 100% giá trị tour.'
             },
             {
@@ -498,76 +470,77 @@
                 location: 'Vạn Ninh, Khánh Hòa',
                 img: 'https://images.unsplash.com/photo-1505118380757-91f5f5632de0?q=80&w=1952&auto=format&fit=crop',
                 badge: null,
-                duration: '3N2Đ',
+                duration: '3 Ngày 2 Đêm',
                 level: 'Khó',
                 desc: 'Thử thách giới hạn bản thân qua tiểu sa mạc cát thiêu đốt và nhảy ghềnh đá. Tự hào chạm tay vào chóp inox - nơi đón ánh nắng mặt trời đầu tiên trên đất liền Tổ quốc.',
                 price: '3.500.000đ',
                 oldPrice: null,
                 itinerary: [
-                    { day: 'Ngày 1: TP.HCM - Vạn Ninh (Di chuyển đêm)', content: '20h00: Tập trung tại bến xe, lên xe giường nằm khởi hành đi Đầm Môn (Vạn Ninh, Khánh Hòa). Nghỉ đêm trên xe.' },
-                    { day: 'Ngày 2: Xuyên sa mạc cát - Cắm trại Bãi Rạng (Sáng/Trưa/Tối)', content: '06h00: Đến Đầm Môn. Ăn sáng, chuẩn bị nước uống (rất quan trọng).\n08h00: Bắt đầu hành trình thử thách: Băng qua đồi cát mênh mông dưới cái nắng gắt đặc trưng của miền Trung. Yêu cầu trang bị áo chống nắng, mũ rộng vành che gáy.\n11h00: Nghỉ ngơi dưới những tán rừng phi lao. Ăn trưa.\n14h00: Tiếp tục men theo đường ven biển, băng qua những khu rừng bụi thấp.\n16h30: Đến Bãi Rạng - một trong những bãi biển hoang sơ và trong vắt nhất. Đoàn dựng trại ngay sát mép biển, thỏa sức tắm mát.\n18h30: Mở tiệc nướng BBQ Hải sản tươi sống (Mực nang, tôm nướng, cá nướng giấy bạc, cháo hàu). Giao lưu âm nhạc bên bờ biển.' },
-                    { day: 'Ngày 3: Nhảy ghềnh chạm Cực Đông - Cano về đất liền (Sáng/Trưa)', content: '04h00: Dậy thật sớm khi trời còn tối. Bắt đầu chặng "nhảy ghềnh" - đu mình qua những tảng đá khổng lồ để ra mũi.\n05h30: Đặt chân lên Mũi Đôi. Cùng nhau chờ đón tia nắng đầu tiên của ngày mới ló rạng từ đường chân trời biển Đông. Chạm tay vào chóp Cực Đông.\n08h00: Quay lại Bãi Rạng ăn sáng, thu dọn lều.\n09h30: Không đi bộ về, đoàn sẽ lên Cano cao tốc chạy xé sóng biển xanh lướt thẳng về bờ Đầm Môn.\n11h30: Tắm nước ngọt, ăn trưa hải sản tại nhà hàng.\n13h00: Lên xe giường nằm về lại TP.HCM. Kết thúc hành trình đầy tự hào.' }
+                    { day: 'Ngày 1: TP.HCM - Vạn Ninh (Di chuyển đêm)', content: '20h00: Tập trung tại bến xe, khởi hành đi Đầm Môn (Khánh Hòa).' },
+                    { day: 'Ngày 2: Xuyên sa mạc cát - Cắm trại Bãi Rạng (Sáng/Trưa/Tối)', content: '08h00: Bắt đầu băng qua đồi cát mênh mông dưới cái nắng gắt.\n11h00: Nghỉ ngơi dưới tán rừng phi lao. Ăn trưa.\n16h30: Đến Bãi Rạng. Dựng trại ngay sát mép biển, thỏa sức tắm mát.\n18h30: Mở tiệc nướng BBQ Hải sản tươi sống. Giao lưu âm nhạc.' },
+                    { day: 'Ngày 3: Nhảy ghềnh chạm Cực Đông - Cano về đất liền (Sáng/Trưa)', content: '04h00: Bắt đầu chặng "nhảy ghềnh" - đu mình qua tảng đá khổng lồ.\n05h30: Đặt chân lên Mũi Đôi. Đón bình minh đầu tiên, chạm chóp Cực Đông.\n09h30: Lên Cano cao tốc chạy xé sóng biển lướt thẳng về bờ Đầm Môn.\n13h00: Lên xe giường nằm về lại TP.HCM.' }
                 ],
                 includes: [
-                    'Xe giường nằm 2 chiều',
-                    'Tàu/Cano cao tốc chiều về (Rút ngắn thời gian đi bộ, trải nghiệm biển đảo)',
-                    'Ăn uống: 2 Sáng, 2 Trưa, 1 Tối BBQ Hải sản',
-                    'Lều trại, bạt lót, túi ngủ',
-                    'Nước uống: 4 lít/người/ngày (Porter vác)',
-                    'HDV và Porter chuyên nghiệp am hiểu địa hình',
+                    'Xe giường nằm khứ hồi',
+                    'Tàu/Cano cao tốc chiều về',
+                    'Ăn uống: Đủ bữa, 1 Tối BBQ Hải sản',
+                    'Lều trại, bạt lót',
+                    'Nước uống: 4 lít/người/ngày',
                     'Bảo hiểm du lịch, đồ y tế'
                 ],
                 excludes: [
-                    'VAT',
-                    'Chi phí cá nhân',
-                    'Tiền Tip'
+                    'Thuế VAT',
+                    'Chi phí cá nhân'
                 ],
-                bookingRule: 'Đòi hỏi thể lực TỐT, khả năng chịu đựng cái nóng bức của đồi cát và sự khéo léo khi nhảy ghềnh. Không phù hợp với người sợ độ cao, có vấn đề xương khớp. Đặt cọc 50% trước 10 ngày.',
+                bookingRule: 'Đòi hỏi thể lực TỐT, chịu đựng nắng nóng. Không phù hợp người sợ độ cao.',
                 cancelRule: 'Hủy trước 10 ngày hoàn 100%. Hủy từ 5-9 ngày phạt 50%. Hủy dưới 5 ngày mất 100% cọc.'
             }
         ];
 
-        const tourGrid = document.getElementById('tourGrid');
-        
+        // Hàm render Tours ra màn hình
         function renderTours() {
+            const tourGrid = document.getElementById('tourGrid');
             let html = '';
-            tourData.forEach((tour, index) => {
-                let badgeHtml = tour.badge ? `<div class="absolute top-4 left-4 ${tour.badge.color} text-white text-xs font-bold px-2.5 py-1 rounded shadow-md z-10">${tour.badge.text}</div>` : '';
+            
+            tourData.forEach((tour) => {
+                let badgeHtml = tour.badge ? `<div class="absolute top-4 left-4 ${tour.badge.color} text-white text-xs font-bold px-3 py-1.5 rounded-md shadow-md z-10 tracking-wide">${tour.badge.text}</div>` : '';
+                
+                // Thủ thuật dùng chữ trong suốt (text-transparent) để căn bằng div giá
                 let priceHtml = tour.oldPrice 
-                    ? `<div class="text-xs text-gray-400 line-through">${tour.oldPrice}</div><div class="text-red-600 font-extrabold text-lg">${tour.price}</div>` 
-                    : `<div class="text-xs text-transparent">.</div><div class="text-red-600 font-extrabold text-lg">${tour.price}</div>`;
+                    ? `<div class="text-xs text-gray-400 line-through font-medium">${tour.oldPrice}</div><div class="text-red-600 font-extrabold text-xl">${tour.price}</div>` 
+                    : `<div class="text-xs text-transparent">.</div><div class="text-red-600 font-extrabold text-xl">${tour.price}</div>`;
 
-                // Thêm class 'reveal' cho mọi card tour
                 html += `
-                <div class="tour-card reveal bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 flex flex-col h-full">
+                <div class="tour-card reveal bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-2xl transition-all duration-300 border border-gray-100 flex flex-col h-full group">
                     <div class="card-image-wrapper h-56 relative cursor-pointer" onclick="openModal('${tour.id}')">
                         <img src="${tour.img}" alt="${tour.title}" class="card-image w-full h-full object-cover">
                         ${badgeHtml}
-                        <div class="absolute bottom-0 left-0 w-full h-[60%] bg-gradient-to-t from-gray-900/90 to-transparent"></div>
-                        <div class="absolute bottom-4 left-4 right-4 text-white">
-                            <div class="text-sm font-semibold mb-1 flex items-center"><i class="fa-solid fa-location-dot mr-1.5 text-sunset"></i> ${tour.location}</div>
+                        <div class="absolute inset-0 bg-gradient-to-t from-gray-900/90 via-gray-900/20 to-transparent opacity-80 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        <div class="absolute bottom-4 left-5 right-5 text-white">
+                            <div class="text-sm font-semibold flex items-center gap-1.5"><i class="fa-solid fa-location-dot text-sunset"></i> ${tour.location}</div>
                         </div>
                     </div>
+                    
                     <div class="p-6 flex-grow flex flex-col">
-                        <h3 class="text-lg font-bold text-gray-900 mb-3 line-clamp-2 cursor-pointer hover:text-forest-700 transition" onclick="openModal('${tour.id}')">${tour.title}</h3>
+                        <h3 class="text-[1.15rem] font-bold text-gray-900 mb-3 line-clamp-2 cursor-pointer hover:text-forest-700 transition leading-snug" onclick="openModal('${tour.id}')">${tour.title}</h3>
                         
-                        <div class="flex items-center gap-5 text-sm text-gray-600 mb-4 font-medium">
-                            <span class="flex items-center"><i class="fa-regular fa-clock mr-1.5 text-forest-600"></i> ${tour.duration}</span>
-                            <span class="flex items-center"><i class="fa-solid fa-shoe-prints mr-1.5 text-sunset"></i> ${tour.level}</span>
+                        <div class="flex items-center gap-5 text-sm text-gray-600 mb-4 font-medium bg-gray-50 p-3 rounded-lg">
+                            <span class="flex items-center gap-2"><i class="fa-regular fa-clock text-forest-600"></i> ${tour.duration}</span>
+                            <span class="text-gray-300">|</span>
+                            <span class="flex items-center gap-2"><i class="fa-solid fa-shoe-prints text-sunset"></i> ${tour.level}</span>
                         </div>
                         
                         <p class="text-gray-500 text-sm mb-6 flex-grow line-clamp-3 leading-relaxed">${tour.desc}</p>
                         
                         <div class="pt-5 border-t border-gray-100 flex flex-col gap-4 mt-auto">
                             <div class="flex justify-between items-end">
-                                <div class="text-gray-500 text-xs font-semibold uppercase tracking-wider mb-1">Giá Tour</div>
+                                <div class="text-gray-400 text-xs font-semibold uppercase tracking-wider mb-1">Trọn gói từ</div>
                                 <div class="text-right">
                                     ${priceHtml}
                                 </div>
                             </div>
-                            <!-- Đồng bộ Nút Đặt Ngay -->
-                            <button onclick="openModal('${tour.id}')" class="w-full bg-forest-700 text-white px-4 py-2.5 rounded-lg text-sm font-bold hover:bg-forest-800 transition shadow hover:shadow-md active:scale-95 flex justify-center items-center gap-2">
-                                Xem chi tiết & Đặt <i class="fa-solid fa-arrow-right text-xs"></i>
+                            <button onclick="openModal('${tour.id}')" class="w-full bg-forest-700 text-white px-4 py-3 rounded-xl text-sm font-bold hover:bg-forest-800 transition-all duration-300 shadow-md hover:shadow-lg active:scale-95 flex justify-center items-center gap-2 group/btn">
+                                Xem chi tiết & Đặt <i class="fa-solid fa-arrow-right text-xs transition-transform group-hover/btn:translate-x-1"></i>
                             </button>
                         </div>
                     </div>
@@ -577,52 +550,48 @@
             tourGrid.innerHTML = html;
         }
 
-        // Khởi chạy render
+        // Khởi chạy render dữ liệu ngay khi tải trang
         renderTours();
 
-        // Xử lý hiệu ứng Scroll Reveal (Trượt phần tử lên khi cuộn trang)
+        // Xử lý hiệu ứng Scroll Reveal mượt mà
         function reveal() {
             var reveals = document.querySelectorAll(".reveal");
             for (var i = 0; i < reveals.length; i++) {
                 var windowHeight = window.innerHeight;
                 var elementTop = reveals[i].getBoundingClientRect().top;
-                var elementVisible = 100; // Khoảng cách từ dưới màn hình lên để bắt đầu hiện
+                var elementVisible = 120;
                 if (elementTop < windowHeight - elementVisible) {
                     reveals[i].classList.add("active");
                 }
             }
         }
         window.addEventListener("scroll", reveal);
-        // Kích hoạt ngay lần đầu tiên load trang cho các phần tử trên cùng
-        setTimeout(reveal, 200);
+        setTimeout(reveal, 200); // Kích hoạt ngay lúc đầu cho các khối nằm trên màn hình
 
+        // Animation cho văn bản Hero Section
         window.addEventListener('load', () => {
             const elements = document.querySelectorAll('.fade-in-up');
             elements.forEach(el => el.classList.add('visible'));
         });
 
+        // Thanh menu đổi màu khi cuộn
         const navbar = document.getElementById('navbar');
-        // Không dùng logoText nữa vì đã đổi thành Logo Ảnh
         const navLinks = navbar.querySelectorAll('.nav-link');
-        const logoImg = document.querySelector('#navbar img'); // Trỏ vào logo ảnh trong navbar
 
         window.addEventListener('scroll', () => {
             if (window.scrollY > 50) {
-                navbar.classList.add('bg-white/95', 'backdrop-blur-sm', 'shadow-sm');
+                navbar.classList.add('bg-white/95', 'backdrop-blur-md', 'shadow-sm', 'border-b', 'border-gray-100');
                 navbar.classList.remove('py-4');
                 navbar.classList.add('py-2');
-                // Có thể làm mờ/thu nhỏ logo nếu muốn khi scroll
-                logoImg.classList.add('scale-90');
                 
                 navLinks.forEach(link => {
                     link.classList.replace('text-white', 'text-gray-700');
                     link.classList.replace('hover:text-sunset', 'hover:text-forest-700');
                 });
             } else {
-                navbar.classList.remove('bg-white/95', 'backdrop-blur-sm', 'shadow-sm');
+                navbar.classList.remove('bg-white/95', 'backdrop-blur-md', 'shadow-sm', 'border-b', 'border-gray-100');
                 navbar.classList.add('py-4');
                 navbar.classList.remove('py-2');
-                logoImg.classList.remove('scale-90');
 
                 navLinks.forEach(link => {
                     link.classList.replace('text-gray-700', 'text-white');
@@ -631,6 +600,7 @@
             }
         });
 
+        // Xử lý Modal (Cửa sổ thông tin Tour)
         const modal = document.getElementById('tourModal');
         const modalPanel = document.getElementById('modalPanel');
         
@@ -638,49 +608,45 @@
             const tour = tourData.find(t => t.id === id);
             if(!tour) return;
 
-            // Đổ dữ liệu vào Modal
+            // Truyền Data vào Header Modal
             document.getElementById('modalImg').src = tour.img;
             document.getElementById('modalLocation').textContent = tour.location;
             document.getElementById('modalTitle').textContent = tour.title;
             document.getElementById('modalDuration').textContent = tour.duration;
             document.getElementById('modalLevel').textContent = tour.level;
+            
+            // Truyền Data vào Cột Tính Tiền
             document.getElementById('modalFinalPrice').textContent = tour.price;
             document.getElementById('modalOldPrice').textContent = tour.oldPrice || '';
             
-            // Build Itinerary
+            // Render Tab Lịch trình dạng Timeline
             let itiHtml = '';
             tour.itinerary.forEach((day, index) => {
                 itiHtml += `
-                    <div class="relative pl-6 sm:pl-8 border-l-2 border-forest-200 ml-3 ${index === tour.itinerary.length - 1 ? '' : 'pb-6'}">
-                        <div class="absolute w-4 h-4 bg-forest-500 rounded-full -left-[9px] top-1 border-4 border-white shadow"></div>
-                        <h4 class="font-bold text-gray-900 text-lg mb-2">${day.day}</h4>
+                    <div class="relative pl-6 sm:pl-8 border-l-2 border-forest-200 ml-3 ${index === tour.itinerary.length - 1 ? '' : 'pb-8'}">
+                        <div class="absolute w-4 h-4 bg-forest-500 rounded-full -left-[9px] top-1.5 border-4 border-white shadow-sm"></div>
+                        <h4 class="font-bold text-gray-900 text-lg mb-3 text-forest-700">${day.day}</h4>
                         <p class="text-sm text-gray-600 leading-relaxed whitespace-pre-line">${day.content}</p>
                     </div>
                 `;
             });
             document.getElementById('tabItinerary').innerHTML = itiHtml;
 
-            // Build Policy
-            document.getElementById('modalIncludes').innerHTML = tour.includes.map(item => `<li><i class="fa-solid fa-check text-forest-500 mr-2 text-xs"></i> ${item}</li>`).join('');
-            document.getElementById('modalExcludes').innerHTML = tour.excludes.map(item => `<li><i class="fa-solid fa-xmark text-red-500 mr-2 text-xs"></i> ${item}</li>`).join('');
+            // Render Tab Chính Sách (Bao gồm/Không bao gồm)
+            document.getElementById('modalIncludes').innerHTML = tour.includes.map(item => `<li class="flex items-start gap-2"><i class="fa-solid fa-check text-forest-500 mt-1 text-xs"></i> <span>${item}</span></li>`).join('');
+            document.getElementById('modalExcludes').innerHTML = tour.excludes.map(item => `<li class="flex items-start gap-2"><i class="fa-solid fa-xmark text-red-500 mt-1 text-xs"></i> <span>${item}</span></li>`).join('');
             document.getElementById('modalBookingRule').textContent = tour.bookingRule;
             document.getElementById('modalCancelRule').textContent = tour.cancelRule;
 
-            // Reset tab về lịch trình
+            // Reset tab về tab mặc định là Lịch trình
             switchTab('itinerary');
             
-            // Reset form
-            document.getElementById('custName').value = '';
-            document.getElementById('custPhone').value = '';
-
-            // Hiển thị modal với hiệu ứng animation
+            // Hiển thị Modal
             modal.classList.remove('hidden');
-            // Force reflow
-            void modal.offsetWidth; 
+            void modal.offsetWidth; // Ép trình duyệt render để nhận hiệu ứng transition
             modal.classList.add('modal-active');
             modalPanel.classList.add('modal-panel-active');
-            
-            document.body.style.overflow = 'hidden'; // Ngăn cuộn trang nền
+            document.body.style.overflow = 'hidden'; // Khóa cuộn trang nền
         }
 
         function closeModal() {
@@ -689,17 +655,18 @@
             
             setTimeout(() => {
                 modal.classList.add('hidden');
-                document.body.style.overflow = '';
-            }, 300);
+                document.body.style.overflow = ''; // Mở khóa cuộn trang
+            }, 300); // Chờ animation kết thúc
         }
 
-        // Đóng modal bằng phím ESC
+        // Hỗ trợ đóng Modal bằng phím ESC
         document.addEventListener('keydown', function(event) {
             if (event.key === "Escape" && modal.classList.contains('modal-active')) {
                 closeModal();
             }
         });
 
+        // Hàm chuyển đổi qua lại giữa Tab Lịch trình và Tab Chính sách
         function switchTab(tabName) {
             const btnIti = document.getElementById('tabBtnItinerary');
             const btnPol = document.getElementById('tabBtnPolicy');
@@ -719,24 +686,25 @@
             }
         }
 
+        // Xử lý gửi Form Đặt Tour
         function handleBooking(event) {
-            event.preventDefault(); // Chặn hành vi submit mặc định
+            event.preventDefault(); // Chặn tải lại trang
             
-            // Đóng Modal hiện tại
-            closeModal();
+            closeModal(); // Đóng form lại
 
-            // Hiển thị Toast Message
+            // Hiển thị thông báo Toast góc màn hình
             const toast = document.getElementById('toastMessage');
-            
-            // Hiện
             toast.classList.remove('opacity-0', 'translate-y-20', 'pointer-events-none');
             toast.classList.add('opacity-100', 'translate-y-0');
 
-            // Tự động ẩn sau 4 giây
+            // Tự động ẩn thông báo sau 5 giây
             setTimeout(() => {
                 toast.classList.remove('opacity-100', 'translate-y-0');
                 toast.classList.add('opacity-0', 'translate-y-20', 'pointer-events-none');
-            }, 4000);
+            }, 5000);
+            
+            // Xóa rỗng các ô đã nhập để chuẩn bị cho lần nhập tiếp theo
+            event.target.reset();
         }
     </script>
 </body>
