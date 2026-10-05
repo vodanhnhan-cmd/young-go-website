@@ -4,8 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Young Go - Đánh thức bản năng khám phá</title>
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <script>
@@ -16,16 +19,15 @@
                         sans: ['Inter', 'sans-serif'],
                     },
                     colors: {
-                        // Using your existing color palette but enhancing the structure
                         forest: {
                             50: '#f2f7f4',
                             100: '#e1efe6',
                             500: '#34d399',
-                            700: '#2c5e3b', // Updated to match the refined green
+                            700: '#2c5e3b',
                             800: '#166534',
                             900: '#14532d',
                         },
-                        sunset: '#e67e22', // Updated to match the refined orange
+                        sunset: '#e67e22',
                     }
                 }
             }
@@ -35,55 +37,74 @@
     <style>
         body { font-family: 'Inter', sans-serif; }
         
-        /* Modern Hero Background with Parallax */
         .hero-bg {
-            background-image: linear-gradient(to right, rgba(20, 83, 45, 0.8), rgba(0, 0, 0, 0.3)), url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=2070&auto=format&fit=crop');
+            background-image: linear-gradient(to right, rgba(20, 83, 45, 0.85), rgba(0, 0, 0, 0.4)), url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=2070&auto=format&fit=crop');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
         }
 
-        /* Card Image Zoom Effect */
         .card-image-wrapper {
             overflow: hidden;
         }
+        
         .card-image {
-            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .tour-card:hover .card-image {
-            transform: scale(1.08);
-        }
-
-        /* Modal Overlay Blur */
-        #bookingModal {
-            backdrop-filter: blur(8px);
+            transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
-        /* Smooth Fade In utility */
+        .tour-card:hover .card-image {
+            transform: scale(1.1);
+        }
+
         .fade-in-up {
             opacity: 0;
             transform: translateY(20px);
             transition: opacity 0.8s ease-out, transform 0.8s ease-out;
         }
+        
         .fade-in-up.visible {
             opacity: 1;
             transform: translateY(0);
+        }
+
+        /* Custom Scrollbar for Modal */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f1f1; 
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #c1c1c1; 
+            border-radius: 10px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #a8a8a8; 
+        }
+        
+        /* Modal Transition classes */
+        .modal-active {
+            opacity: 1 !important;
+            pointer-events: auto !important;
+        }
+        
+        .modal-panel-active {
+            opacity: 1 !important;
+            transform: scale(1) translateY(0) !important;
         }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800 antialiased selection:bg-forest-500 selection:text-white">
 
-    <nav class="fixed w-full z-50 transition-all duration-300 py-4" id="navbar">
+    <nav class="fixed w-full z-40 transition-all duration-300 py-4" id="navbar">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center">
-                <!-- Logo -->
                 <div class="flex-shrink-0 flex items-center gap-2 cursor-pointer group" onclick="window.scrollTo(0,0)">
                     <div class="bg-sunset p-2 rounded-lg group-hover:scale-105 transition-transform">
                         <i class="fa-solid fa-mountain-sun text-white text-2xl"></i>
                     </div>
                     <span class="font-extrabold text-2xl text-white tracking-wide transition-colors duration-300" id="logoText">YOUNG GO</span>
                 </div>
-                <!-- Nav Links -->
                 <div class="hidden md:flex space-x-8 items-center">
                     <a href="#about" class="text-white hover:text-sunset transition font-semibold nav-link">Về chúng tôi</a>
                     <a href="#tours" class="text-white hover:text-sunset transition font-semibold nav-link">Lịch trình</a>
@@ -94,10 +115,12 @@
     </nav>
 
     <header class="hero-bg h-[80vh] min-h-[600px] flex items-center relative">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full mt-16">
             <div class="max-w-2xl">
-                <span class="inline-block py-1 px-3 rounded-full bg-forest-700/80 text-white text-sm font-semibold mb-4 border border-forest-500 fade-in-up">Chuyên gia tổ chức Trekking & Cắm trại</span>
-                <h1 class="text-5xl md:text-6xl font-extrabold text-white mb-6 leading-tight fade-in-up" style="transition-delay: 100ms;">
+                <span class="inline-block py-1.5 px-4 rounded-full bg-forest-700/80 text-white text-sm font-semibold mb-6 border border-forest-500/50 backdrop-blur-sm fade-in-up">
+                    <i class="fa-solid fa-leaf mr-2"></i>Chuyên gia tổ chức Trekking & Cắm trại
+                </span>
+                <h1 class="text-5xl md:text-6xl lg:text-7xl font-extrabold text-white mb-6 leading-tight fade-in-up" style="transition-delay: 100ms;">
                     Đánh Thức <br><span class="text-sunset">Bản Năng Khám Phá</span>
                 </h1>
                 <p class="text-lg md:text-xl text-gray-200 mb-10 max-w-xl fade-in-up" style="transition-delay: 200ms;">
@@ -105,253 +128,389 @@
                 </p>
                 <div class="fade-in-up" style="transition-delay: 300ms;">
                     <a href="#tours" class="inline-flex items-center justify-center gap-2 bg-sunset text-white px-8 py-4 rounded-md text-lg font-bold hover:bg-orange-600 transition shadow-[0_4px_14px_0_rgba(230,126,34,0.39)] hover:shadow-[0_6px_20px_rgba(230,126,34,0.23)] hover:-translate-y-0.5">
-                        Xem Các Cung Đường
+                        Khám Phá Các Cung Đường <i class="fa-solid fa-arrow-right ml-1"></i>
                     </a>
                 </div>
             </div>
         </div>
     </header>
 
-    <section id="about" class="py-16 bg-white relative -mt-16 z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 rounded-t-3xl">
+    <section id="about" class="py-16 bg-white relative -mt-16 z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 rounded-t-3xl shadow-sm">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <!-- Feature 1 -->
             <div class="bg-gray-50 p-8 rounded-xl border border-gray-100 flex flex-col items-center text-center group hover:bg-forest-50 transition-colors duration-300">
                 <div class="w-16 h-16 bg-white rounded-full shadow-sm flex items-center justify-center mb-6 text-forest-700 group-hover:bg-forest-700 group-hover:text-white transition-colors duration-300">
                     <i class="fa-solid fa-map-location-dot text-2xl"></i>
                 </div>
                 <h3 class="text-xl font-bold text-gray-900 mb-3">Lịch trình Độc quyền</h3>
-                <p class="text-gray-600 text-sm">Khảo sát kỹ lưỡng, chọn lọc những cung đường hoang sơ ít người biết, đảm bảo trải nghiệm chân thực.</p>
+                <p class="text-gray-600 text-sm leading-relaxed">Khảo sát kỹ lưỡng, chọn lọc những cung đường hoang sơ ít người biết, đảm bảo trải nghiệm chân thực và khác biệt.</p>
             </div>
             
-            <!-- Feature 2 -->
             <div class="bg-gray-50 p-8 rounded-xl border border-gray-100 flex flex-col items-center text-center group hover:bg-forest-50 transition-colors duration-300">
                 <div class="w-16 h-16 bg-white rounded-full shadow-sm flex items-center justify-center mb-6 text-forest-700 group-hover:bg-forest-700 group-hover:text-white transition-colors duration-300">
                     <i class="fa-solid fa-shield-halved text-2xl"></i>
                 </div>
                 <h3 class="text-xl font-bold text-gray-900 mb-3">An toàn Tuyệt đối</h3>
-                <p class="text-gray-600 text-sm">Đội ngũ guide chuyên nghiệp, trang bị y tế đầy đủ và bảo hiểm du lịch mức cao nhất cho mọi thành viên.</p>
+                <p class="text-gray-600 text-sm leading-relaxed">Đội ngũ guide chuyên nghiệp, trang bị y tế đầy đủ và bảo hiểm du lịch mức cao nhất cho mọi thành viên tham gia.</p>
             </div>
 
-            <!-- Feature 3 -->
             <div class="bg-gray-50 p-8 rounded-xl border border-gray-100 flex flex-col items-center text-center group hover:bg-forest-50 transition-colors duration-300">
                 <div class="w-16 h-16 bg-white rounded-full shadow-sm flex items-center justify-center mb-6 text-forest-700 group-hover:bg-forest-700 group-hover:text-white transition-colors duration-300">
                     <i class="fa-solid fa-fire-burner text-2xl"></i>
                 </div>
                 <h3 class="text-xl font-bold text-gray-900 mb-3">Ẩm thực Giữa Rừng</h3>
-                <p class="text-gray-600 text-sm">Phục vụ các bữa ăn nóng sốt, menu đa dạng từ BBQ đến lẩu, đảm bảo dinh dưỡng để phục hồi thể lực.</p>
+                <p class="text-gray-600 text-sm leading-relaxed">Phục vụ các bữa ăn nóng sốt, menu đa dạng từ BBQ đến lẩu, đảm bảo dinh dưỡng để phục hồi thể lực sau ngày dài.</p>
             </div>
         </div>
     </section>
 
     <section id="tours" class="py-20 bg-gray-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-end mb-10">
+            <div class="flex justify-between items-end mb-12">
                 <div>
-                    <h2 class="text-3xl md:text-4xl font-extrabold text-gray-900 mb-2">Lịch trình Nổi bật</h2>
-                    <div class="w-16 h-1 bg-sunset rounded-full"></div>
+                    <h2 class="text-3xl md:text-4xl font-extrabold text-gray-900 mb-3">Lịch trình Nổi bật</h2>
+                    <div class="w-20 h-1.5 bg-sunset rounded-full"></div>
                 </div>
-                <a href="#" class="hidden md:inline-flex items-center text-forest-700 font-semibold hover:text-forest-900 transition">Xem tất cả <i class="fa-solid fa-chevron-right ml-1 text-sm"></i></a>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Tour 1 -->
-                <div class="tour-card bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-200 flex flex-col h-full">
-                    <div class="card-image-wrapper h-56 relative cursor-pointer" onclick="openBooking('Tà Năng - Phan Dũng', '2.850.000đ')">
-                        <img src="https://images.unsplash.com/photo-1551632811-561732d1e306?q=80&w=2070&auto=format&fit=crop" alt="Tà Năng Phan Dũng" class="card-image w-full h-full object-cover">
-                        <div class="absolute top-4 left-4 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded shadow-md">-15% HOT</div>
-                        <div class="absolute bottom-0 left-0 w-full h-1/2 bg-gradient-to-t from-black/70 to-transparent"></div>
-                        <div class="absolute bottom-4 left-4 text-white">
-                            <div class="text-sm font-semibold mb-1"><i class="fa-solid fa-location-dot mr-1 text-sunset"></i> Lâm Đồng - Bình Thuận</div>
-                        </div>
-                    </div>
-                    <div class="p-5 flex-grow flex flex-col">
-                        <h3 class="text-lg font-bold text-gray-900 mb-2 line-clamp-2 cursor-pointer hover:text-forest-700 transition" onclick="openBooking('Tà Năng - Phan Dũng', '2.850.000đ')">Trekking Xuyên Rừng Tà Năng - Phan Dũng</h3>
-                        
-                        <div class="flex items-center gap-4 text-sm text-gray-600 mb-4">
-                            <span class="flex items-center"><i class="fa-regular fa-clock mr-1.5 text-gray-400"></i> 2N1Đ</span>
-                            <span class="flex items-center"><i class="fa-solid fa-shoe-prints mr-1.5 text-gray-400"></i> Trung bình</span>
-                        </div>
-                        
-                        <p class="text-gray-500 text-sm mb-4 flex-grow line-clamp-3">Trọn gói dịch vụ dẫn đường, porter mang vác đồ, lều trại tiêu chuẩn và thực đơn BBQ giữa đồi cỏ bao la.</p>
-                        
-                        <div class="pt-4 border-t border-gray-100 flex justify-between items-center mt-auto">
-                            <div>
-                                <div class="text-xs text-gray-400 line-through">3.350.000đ</div>
-                                <div class="text-red-600 font-extrabold text-lg">2.850.000đ</div>
-                            </div>
-                            <button onclick="openBooking('Tà Năng - Phan Dũng', '2.850.000đ')" class="bg-forest-700 text-white px-4 py-2 rounded-md text-sm font-semibold hover:bg-forest-800 transition">Đặt Ngay</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Tour 2 -->
-                <div class="tour-card bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-200 flex flex-col h-full">
-                    <div class="card-image-wrapper h-56 relative cursor-pointer" onclick="openBooking('Đỉnh Lảo Thẩn', '3.100.000đ')">
-                        <img src="https://images.unsplash.com/photo-1454496522488-7a8e488e8606?q=80&w=2076&auto=format&fit=crop" alt="Đỉnh Lảo Thẩn" class="card-image w-full h-full object-cover">
-                        <div class="absolute top-4 left-4 bg-forest-500 text-white text-xs font-bold px-2 py-1 rounded shadow-md">MỚI</div>
-                        <div class="absolute bottom-0 left-0 w-full h-1/2 bg-gradient-to-t from-black/70 to-transparent"></div>
-                        <div class="absolute bottom-4 left-4 text-white">
-                            <div class="text-sm font-semibold mb-1"><i class="fa-solid fa-location-dot mr-1 text-sunset"></i> Y Tý, Lào Cai</div>
-                        </div>
-                    </div>
-                    <div class="p-5 flex-grow flex flex-col">
-                        <h3 class="text-lg font-bold text-gray-900 mb-2 line-clamp-2 cursor-pointer hover:text-forest-700 transition" onclick="openBooking('Đỉnh Lảo Thẩn', '3.100.000đ')">Cắm Trại Săn Mây Đỉnh Lảo Thẩn</h3>
-                        
-                        <div class="flex items-center gap-4 text-sm text-gray-600 mb-4">
-                            <span class="flex items-center"><i class="fa-regular fa-clock mr-1.5 text-gray-400"></i> 2N1Đ</span>
-                            <span class="flex items-center"><i class="fa-solid fa-shoe-prints mr-1.5 text-gray-400"></i> Dễ</span>
-                        </div>
-                        
-                        <p class="text-gray-500 text-sm mb-4 flex-grow line-clamp-3">Trải nghiệm ngủ lều giữa biển mây, đón bình minh rực rỡ trên độ cao 2.860m. Lịch trình thiết kế phù hợp cho người mới.</p>
-                        
-                        <div class="pt-4 border-t border-gray-100 flex justify-between items-center mt-auto">
-                            <div>
-                                <div class="text-xs text-transparent">.</div>
-                                <div class="text-red-600 font-extrabold text-lg">3.100.000đ</div>
-                            </div>
-                            <button onclick="openBooking('Đỉnh Lảo Thẩn', '3.100.000đ')" class="border border-forest-700 text-forest-700 px-4 py-2 rounded-md text-sm font-semibold hover:bg-forest-50 transition">Đặt Ngay</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Tour 3 -->
-                <div class="tour-card bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-200 flex flex-col h-full">
-                    <div class="card-image-wrapper h-56 relative cursor-pointer" onclick="openBooking('Cực Đông', '3.500.000đ')">
-                        <img src="https://images.unsplash.com/photo-1505118380757-91f5f5632de0?q=80&w=1952&auto=format&fit=crop" alt="Cực Đông" class="card-image w-full h-full object-cover">
-                        <div class="absolute bottom-0 left-0 w-full h-1/2 bg-gradient-to-t from-black/70 to-transparent"></div>
-                        <div class="absolute bottom-4 left-4 text-white">
-                            <div class="text-sm font-semibold mb-1"><i class="fa-solid fa-location-dot mr-1 text-sunset"></i> Khánh Hòa</div>
-                        </div>
-                    </div>
-                    <div class="p-5 flex-grow flex flex-col">
-                        <h3 class="text-lg font-bold text-gray-900 mb-2 line-clamp-2 cursor-pointer hover:text-forest-700 transition" onclick="openBooking('Cực Đông', '3.500.000đ')">Hành Trình Chinh Phục Cực Đông Mũi Đôi</h3>
-                        
-                        <div class="flex items-center gap-4 text-sm text-gray-600 mb-4">
-                            <span class="flex items-center"><i class="fa-regular fa-clock mr-1.5 text-gray-400"></i> 3N2Đ</span>
-                            <span class="flex items-center"><i class="fa-solid fa-shoe-prints mr-1.5 text-gray-400"></i> Khó</span>
-                        </div>
-                        
-                        <p class="text-gray-500 text-sm mb-4 flex-grow line-clamp-3">Hành trình thử thách thể lực qua cồn cát thiêu đốt và nhảy ghềnh đá để chạm tay vào chóp inox điểm Cực Đông Tổ Quốc.</p>
-                        
-                        <div class="pt-4 border-t border-gray-100 flex justify-between items-center mt-auto">
-                            <div>
-                                <div class="text-xs text-transparent">.</div>
-                                <div class="text-red-600 font-extrabold text-lg">3.500.000đ</div>
-                            </div>
-                            <button onclick="openBooking('Cực Đông', '3.500.000đ')" class="border border-forest-700 text-forest-700 px-4 py-2 rounded-md text-sm font-semibold hover:bg-forest-50 transition">Đặt Ngay</button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="tour-card bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-200 flex flex-col h-full">
-                    <div class="card-image-wrapper h-56 relative cursor-pointer" onclick="openBooking('Hồ Ea Snô', '2.200.000đ')">
-                        <img src="https://images.unsplash.com/photo-1541844053589-346841d0b34c?q=80&w=2070&auto=format&fit=crop" alt="Hồ Ea Snô" class="card-image w-full h-full object-cover">
-                        <div class="absolute top-4 left-4 bg-blue-500 text-white text-xs font-bold px-2 py-1 rounded shadow-md">THƯ GIÃN</div>
-                        <div class="absolute bottom-0 left-0 w-full h-1/2 bg-gradient-to-t from-black/70 to-transparent"></div>
-                        <div class="absolute bottom-4 left-4 text-white">
-                            <div class="text-sm font-semibold mb-1"><i class="fa-solid fa-location-dot mr-1 text-sunset"></i> Đắk Nông</div>
-                        </div>
-                    </div>
-                    <div class="p-5 flex-grow flex flex-col">
-                        <h3 class="text-lg font-bold text-gray-900 mb-2 line-clamp-2 cursor-pointer hover:text-forest-700 transition" onclick="openBooking('Hồ Ea Snô', '2.200.000đ')">Cắm Trại & Chèo SUP Hồ Ea Snô</h3>
-                        
-                        <div class="flex items-center gap-4 text-sm text-gray-600 mb-4">
-                            <span class="flex items-center"><i class="fa-regular fa-clock mr-1.5 text-gray-400"></i> 2N1Đ</span>
-                            <span class="flex items-center"><i class="fa-solid fa-shoe-prints mr-1.5 text-gray-400"></i> Dễ</span>
-                        </div>
-                        
-                        <p class="text-gray-500 text-sm mb-4 flex-grow line-clamp-3">Thả mình giữa làn nước tĩnh lặng của hồ núi lửa tự nhiên, chèo SUP đón hoàng hôn và quây quần bên bếp lửa nướng BBQ trứ danh.</p>
-                        
-                        <div class="pt-4 border-t border-gray-100 flex justify-between items-center mt-auto">
-                            <div>
-                                <div class="text-xs text-gray-400 line-through">2.500.000đ</div>
-                                <div class="text-red-600 font-extrabold text-lg">2.200.000đ</div>
-                            </div>
-                            <button onclick="openBooking('Hồ Ea Snô', '2.200.000đ')" class="bg-forest-700 text-white px-4 py-2 rounded-md text-sm font-semibold hover:bg-forest-800 transition">Đặt Ngay</button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="tour-card bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-200 flex flex-col h-full">
-                    <div class="card-image-wrapper h-56 relative cursor-pointer" onclick="openBooking('Thác K50', '3.890.000đ')">
-                        <img src="https://images.unsplash.com/photo-1432405972618-fc40814d3a0f?q=80&w=2070&auto=format&fit=crop" alt="Thác K50" class="card-image w-full h-full object-cover">
-                        <div class="absolute top-4 left-4 bg-sunset text-white text-xs font-bold px-2 py-1 rounded shadow-md">ĐÁNG TRẢI NGHIỆM</div>
-                        <div class="absolute bottom-0 left-0 w-full h-1/2 bg-gradient-to-t from-black/70 to-transparent"></div>
-                        <div class="absolute bottom-4 left-4 text-white">
-                            <div class="text-sm font-semibold mb-1"><i class="fa-solid fa-location-dot mr-1 text-sunset"></i> K'Bang, Gia Lai</div>
-                        </div>
-                    </div>
-                    <div class="p-5 flex-grow flex flex-col">
-                        <h3 class="text-lg font-bold text-gray-900 mb-2 line-clamp-2 cursor-pointer hover:text-forest-700 transition" onclick="openBooking('Thác K50', '3.890.000đ')">Khám Phá Nàng Tiên Giữa Rừng K50</h3>
-                        
-                        <div class="flex items-center gap-4 text-sm text-gray-600 mb-4">
-                            <span class="flex items-center"><i class="fa-regular fa-clock mr-1.5 text-gray-400"></i> 3N2Đ</span>
-                            <span class="flex items-center"><i class="fa-solid fa-shoe-prints mr-1.5 text-gray-400"></i> Trung bình</span>
-                        </div>
-                        
-                        <p class="text-gray-500 text-sm mb-4 flex-grow line-clamp-3">Băng rừng rậm nhiệt đới Khu bảo tồn Kon Chư Răng, chiêm ngưỡng vẻ đẹp hùng vĩ của một trong những thác nước đẹp nhất Tây Nguyên.</p>
-                        
-                        <div class="pt-4 border-t border-gray-100 flex justify-between items-center mt-auto">
-                            <div>
-                                <div class="text-xs text-transparent">.</div>
-                                <div class="text-red-600 font-extrabold text-lg">3.890.000đ</div>
-                            </div>
-                            <button onclick="openBooking('Thác K50', '3.890.000đ')" class="border border-forest-700 text-forest-700 px-4 py-2 rounded-md text-sm font-semibold hover:bg-forest-50 transition">Đặt Ngay</button>
-                        </div>
-                    </div>
-                </div>
-
+            <!-- Grid Container -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="tourGrid">
+                <!-- Các thẻ Tour sẽ được render bằng Javascript để tái sử dụng Data -->
             </div>
+        </div>
+    </section>
+
+    <footer id="contact" class="bg-gray-900 text-white pt-16 pb-8 border-t-4 border-sunset">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
+                <div>
+                    <div class="flex items-center gap-2 mb-6">
+                        <div class="bg-sunset p-2 rounded-lg"><i class="fa-solid fa-mountain-sun text-white text-xl"></i></div>
+                        <span class="font-extrabold text-2xl text-white tracking-wide">YOUNG GO</span>
+                    </div>
+                    <p class="text-gray-400 text-sm leading-relaxed mb-6">Chúng tôi mang đến những chuyến đi không chỉ là khám phá vùng đất mới, mà còn là hành trình thấu hiểu bản thân.</p>
+                </div>
+                <div>
+                    <h4 class="text-lg font-bold mb-6 text-white uppercase tracking-wider">Liên hệ</h4>
+                    <ul class="space-y-4 text-gray-400 text-sm">
+                        <li class="flex items-start gap-3"><i class="fa-solid fa-location-dot mt-1 text-forest-500"></i> 123 Đường Adventure, Quận 1, TP.HCM</li>
+                        <li class="flex items-center gap-3"><i class="fa-solid fa-phone text-forest-500"></i> Hotline: 090 123 4567</li>
+                        <li class="flex items-center gap-3"><i class="fa-solid fa-envelope text-forest-500"></i> hello@younggo.vn</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-bold mb-6 text-white uppercase tracking-wider">Kết nối</h4>
+                    <div class="flex gap-4">
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-sunset transition"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-sunset transition"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-sunset transition"><i class="fa-brands fa-tiktok"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 pt-8 text-center text-sm text-gray-500">
+                <p>&copy; 2026 Young Go. Đã đăng ký bản quyền.</p>
+            </div>
+        </div>
+    </footer>
+
+    <div id="tourModal" class="fixed inset-0 z-[100] opacity-0 pointer-events-none transition-opacity duration-300 ease-in-out flex items-center justify-center p-4 sm:p-6">
+        <!-- Backdrop -->
+        <div class="absolute inset-0 bg-gray-900/70 backdrop-blur-sm" onclick="closeModal()"></div>
+        
+        <!-- Modal Content Container -->
+        <div id="modalPanel" class="bg-white rounded-2xl w-full max-w-6xl max-h-[95vh] h-full overflow-hidden flex flex-col md:flex-row relative z-10 transform scale-95 translate-y-4 transition-all duration-300 ease-out shadow-2xl">
             
-            <div class="mt-12 text-center">
-                <h3 class="text-xl font-bold mb-1">Yêu Cầu Tư Vấn Lịch Trình</h3>
-                <p class="text-forest-100 text-sm">Vui lòng để lại thông tin, Guide sẽ liên hệ bạn ngay.</p>
-            </div>
-            
-            <div class="p-6">
-                <div class="mb-5 p-3 bg-gray-50 rounded-lg border border-gray-100">
-                    <div class="text-xs text-gray-500 mb-1 uppercase font-semibold">Bạn đang quan tâm:</div>
-                    <div id="modalTourName" class="font-bold text-gray-900">...</div>
-                    <div id="modalTourPrice" class="font-bold text-red-600 mt-1">...</div>
+            <!-- Close Button -->
+            <button onclick="closeModal()" class="absolute top-4 right-4 z-50 w-10 h-10 bg-black/20 hover:bg-black/40 backdrop-blur-md rounded-full flex items-center justify-center text-white transition">
+                <i class="fa-solid fa-xmark text-xl"></i>
+            </button>
+
+            <!-- Cột Trái: Thông tin chi tiết (Scrollable) -->
+            <div class="flex-1 overflow-y-auto custom-scrollbar bg-white relative">
+                <!-- Cover Image -->
+                <div class="h-64 sm:h-72 w-full relative">
+                    <img id="modalImg" src="" alt="Cover" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
+                    <div class="absolute bottom-6 left-6 right-6">
+                        <div class="flex items-center gap-2 text-white/90 text-sm mb-2 font-medium">
+                            <i class="fa-solid fa-location-dot text-sunset"></i>
+                            <span id="modalLocation"></span>
+                        </div>
+                        <h2 id="modalTitle" class="text-3xl sm:text-4xl font-bold text-white"></h2>
+                    </div>
                 </div>
-                
-                <form onsubmit="event.preventDefault(); alert('Cảm ơn bạn! Yêu cầu đặt tour của bạn đã được ghi nhận. Chúng tôi sẽ liên hệ trong 24h tới.'); closeBooking();">
-                    <div class="space-y-4">
+
+                <!-- Info summary -->
+                <div class="p-6 md:p-8">
+                    <div class="flex flex-wrap gap-4 sm:gap-8 mb-8 pb-6 border-b border-gray-100">
+                        <div class="flex items-center gap-3">
+                            <div class="w-12 h-12 rounded-full bg-forest-50 text-forest-700 flex items-center justify-center text-xl"><i class="fa-regular fa-clock"></i></div>
+                            <div>
+                                <p class="text-xs text-gray-500 uppercase font-semibold">Thời gian</p>
+                                <p class="font-bold text-gray-900" id="modalDuration"></p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <div class="w-12 h-12 rounded-full bg-sunset/10 text-sunset flex items-center justify-center text-xl"><i class="fa-solid fa-shoe-prints"></i></div>
+                            <div>
+                                <p class="text-xs text-gray-500 uppercase font-semibold">Độ khó</p>
+                                <p class="font-bold text-gray-900" id="modalLevel"></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tabs Navigation -->
+                    <div class="flex gap-6 border-b border-gray-200 sticky top-0 bg-white z-10 pt-2 mb-6">
+                        <button id="tabBtnItinerary" class="pb-3 text-base font-bold text-forest-700 border-b-2 border-forest-700 transition" onclick="switchTab('itinerary')">Lịch trình chi tiết</button>
+                        <button id="tabBtnPolicy" class="pb-3 text-base font-semibold text-gray-500 hover:text-gray-800 transition border-b-2 border-transparent" onclick="switchTab('policy')">Điều kiện & Chính sách</button>
+                    </div>
+
+                    <!-- Tab Lịch Trình -->
+                    <div id="tabItinerary" class="space-y-6 pb-6">
+                        <!-- Content will be injected by JS -->
+                    </div>
+
+                    <!-- Tab Chính Sách -->
+                    <div id="tabPolicy" class="hidden space-y-8 pb-6">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
+                            <!-- Bao gồm -->
+                            <div class="bg-forest-50/50 p-5 rounded-xl border border-forest-100">
+                                <h4 class="font-bold text-forest-800 mb-4 flex items-center gap-2"><i class="fa-solid fa-circle-check text-forest-500"></i> Tour bao gồm</h4>
+                                <ul class="space-y-2 text-sm text-gray-700" id="modalIncludes"></ul>
+                            </div>
+                            <!-- Không bao gồm -->
+                            <div class="bg-red-50/50 p-5 rounded-xl border border-red-100">
+                                <h4 class="font-bold text-red-800 mb-4 flex items-center gap-2"><i class="fa-solid fa-circle-xmark text-red-500"></i> Không bao gồm</h4>
+                                <ul class="space-y-2 text-sm text-gray-700" id="modalExcludes"></ul>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h4 class="font-bold text-gray-900 text-lg mb-3 border-l-4 border-sunset pl-3">Điều kiện đăng ký</h4>
+                            <p class="text-sm text-gray-600 leading-relaxed bg-gray-50 p-4 rounded-lg" id="modalBookingRule"></p>
+                        </div>
+
+                        <div>
+                            <h4 class="font-bold text-gray-900 text-lg mb-3 border-l-4 border-sunset pl-3">Chính sách hủy Tour</h4>
+                            <p class="text-sm text-gray-600 leading-relaxed bg-gray-50 p-4 rounded-lg whitespace-pre-line" id="modalCancelRule"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cột Phải: Booking Form (Sticky/Fixed Side) -->
+            <div class="w-full md:w-96 bg-gray-50 border-t md:border-t-0 md:border-l border-gray-200 p-6 flex flex-col shrink-0">
+                <div class="mb-6 bg-white p-4 rounded-xl border border-gray-100 shadow-sm text-center md:text-left">
+                    <p class="text-gray-500 text-sm font-medium mb-1">Giá chỉ từ</p>
+                    <div class="flex items-end justify-center md:justify-start gap-3">
+                        <p class="text-3xl font-extrabold text-red-600" id="modalFinalPrice"></p>
+                        <p class="text-sm text-gray-400 line-through mb-1" id="modalOldPrice"></p>
+                    </div>
+                </div>
+
+                <div class="flex-1">
+                    <h3 class="text-lg font-bold text-gray-900 mb-4">Gửi Yêu Cầu Tư Vấn</h3>
+                    <form onsubmit="handleBooking(event)" class="space-y-4">
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-1">Họ và tên *</label>
-                            <input type="text" required class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-forest-500 focus:border-forest-500 outline-none transition text-sm" placeholder="Nhập tên của bạn">
+                            <input type="text" id="custName" required class="w-full px-4 py-2.5 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-forest-500 focus:border-forest-500 outline-none transition text-sm" placeholder="Nhập tên của bạn">
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-1">Số điện thoại *</label>
-                            <input type="tel" required class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-forest-500 focus:border-forest-500 outline-none transition text-sm" placeholder="Ví dụ: 0912345678">
+                            <input type="tel" id="custPhone" required class="w-full px-4 py-2.5 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-forest-500 focus:border-forest-500 outline-none transition text-sm" placeholder="Ví dụ: 0912345678">
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-1">Số khách dự kiến</label>
-                            <select class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-forest-500 focus:border-forest-500 outline-none transition text-sm bg-white">
+                            <select class="w-full px-4 py-2.5 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-forest-500 focus:border-forest-500 outline-none transition text-sm">
                                 <option>1 người</option>
                                 <option>2 - 4 người</option>
                                 <option>5 - 10 người</option>
                                 <option>Trên 10 người</option>
                             </select>
                         </div>
-                    </div>
-                    <button type="submit" class="w-full mt-6 bg-sunset text-white font-bold py-3 rounded-md hover:bg-orange-600 transition shadow-md">
-                        Gửi Yêu Cầu
-                    </button>
-                    <p class="text-center text-xs text-gray-400 mt-3"><i class="fa-solid fa-lock mr-1"></i> Thông tin của bạn được bảo mật an toàn</p>
-                </form>
+                        <button type="submit" class="w-full mt-4 bg-sunset text-white font-bold py-3.5 rounded-lg hover:bg-orange-600 transition shadow-[0_4px_14px_0_rgba(230,126,34,0.39)] hover:shadow-lg active:scale-[0.98] flex items-center justify-center gap-2">
+                            Gửi Yêu Cầu <i class="fa-solid fa-paper-plane text-sm"></i>
+                        </button>
+                        <p class="text-center text-xs text-gray-500 mt-4"><i class="fa-solid fa-shield-halved text-forest-600 mr-1"></i> Thông tin của bạn được bảo mật tuyệt đối</p>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
 
+    <div id="toastMessage" class="fixed bottom-6 right-6 bg-white px-5 py-4 rounded-xl shadow-2xl border-l-4 border-forest-500 transform translate-y-20 opacity-0 pointer-events-none transition-all duration-300 ease-out z-[200] flex items-start gap-4 w-80">
+        <div class="mt-0.5">
+            <i class="fa-solid fa-circle-check text-forest-500 text-2xl"></i>
+        </div>
+        <div>
+            <h4 class="font-bold text-gray-900 text-sm mb-1">Yêu cầu thành công!</h4>
+            <p class="text-xs text-gray-600 leading-relaxed">Cảm ơn bạn. Bộ phận tư vấn của Young Go sẽ liên hệ lại trong thời gian sớm nhất.</p>
+        </div>
+    </div>
+
     <script>
-        // Trigger fade-in animations on load
+        // Data Mẫu Trọn Bộ Các Tour 
+        const tourData = [
+            {
+                id: 'tanang',
+                title: 'Trekking Xuyên Rừng Tà Năng - Phan Dũng',
+                location: 'Lâm Đồng - Bình Thuận',
+                img: 'https://images.unsplash.com/photo-1551632811-561732d1e306?q=80&w=2070&auto=format&fit=crop',
+                badge: { text: '-15% HOT', color: 'bg-red-500' },
+                duration: '2N1Đ',
+                level: 'Trung bình',
+                desc: 'Trọn gói dịch vụ dẫn đường, porter mang vác đồ, lều trại tiêu chuẩn và thực đơn BBQ giữa đồi cỏ bao la.',
+                price: '2.850.000đ',
+                oldPrice: '3.350.000đ',
+                itinerary: [
+                    { day: 'Ngày 1: Chạm ngõ Tà Năng - Đồi Lính', content: '06h00: Tập trung tại điểm hẹn, ăn sáng.\n08h30: Bắt đầu trekking dọc theo các đồi thông, qua đồi trọc.\n12h00: Ăn trưa dã ngoại tại suối nhỏ.\n16h00: Đến bãi hạ trại (Đồi Lính). Ngắm hoàng hôn.\n18h00: Thưởng thức BBQ giữa rừng, giao lưu lửa trại.' },
+                    { day: 'Ngày 2: Đón bình minh - Tiến về Phan Dũng', content: '05h30: Thức dậy săn mây, đón bình minh, uống cà phê sáng.\n07h30: Thu dọn hành lý, tiếp tục trekking đi xuống dốc tiến về khu rừng Khộp rụng lá đặc trưng Phan Dũng.\n12h00: Ăn trưa.\n15h00: Ra khỏi cửa rừng, xe đưa đón về lại TP.HCM.' }
+                ],
+                includes: ['Xe khách giường nằm 2 chiều', 'Xe ôm di chuyển vào bìa rừng', 'Các bữa ăn theo lịch trình (1 sáng, 2 trưa, 1 BBQ tối)', 'Lều trại (2-3 người/lều), túi ngủ', 'Bảo hiểm du lịch (100.000.000đ/vụ)', 'Porter mang đồ chung (3 khách/1 porter)'],
+                excludes: ['Thuế VAT 8%', 'Chi phí cá nhân ngoài chương trình', 'Tiền tip cho Hướng dẫn viên và Porter'],
+                bookingRule: 'Quý khách cần có sức khỏe cơ bản, không mắc các bệnh về tim mạch, huyết áp. Đặt cọc 50% tổng giá trị tour ngay khi chốt đăng ký. Thanh toán 50% còn lại trước ngày khởi hành 3 ngày.',
+                cancelRule: '- Hủy trước 10 ngày: Hoàn 100% tiền cọc.\n- Hủy từ 5 - 9 ngày: Chuyển ngày miễn phí 1 lần hoặc mất cọc.\n- Hủy dưới 5 ngày: Phạt 100% giá trị tour.'
+            },
+            {
+                id: 'laothan',
+                title: 'Cắm Trại Săn Mây Đỉnh Lảo Thẩn',
+                location: 'Y Tý, Lào Cai',
+                img: 'https://images.unsplash.com/photo-1454496522488-7a8e488e8606?q=80&w=2076&auto=format&fit=crop',
+                badge: { text: 'MỚI', color: 'bg-forest-500' },
+                duration: '2N1Đ',
+                level: 'Dễ',
+                desc: 'Trải nghiệm ngủ lều giữa biển mây, đón bình minh rực rỡ trên độ cao 2.860m. Lịch trình thiết kế phù hợp cho người mới.',
+                price: '3.100.000đ',
+                oldPrice: null,
+                itinerary: [
+                    { day: 'Ngày 1: Y Tý - Chân Núi - Bãi Trại 2400m', content: 'Đón khách tại Sapa, di chuyển đi Y Tý. Gặp gỡ Porter, bắt đầu hành trình men theo sườn đồi thoai thoải. Ăn trưa dọc đường. Chiều đến lán nghỉ 2400m. Chụp ảnh hoàng hôn, ăn lẩu cá tầm.' },
+                    { day: 'Ngày 2: Chạm đỉnh Lảo Thẩn (2860m) - Sapa', content: '04h30 thức dậy leo lên đỉnh săn bình minh và biển mây tuyệt đẹp. Check-in chóp Lảo Thẩn. Về lại lán ăn sáng, thu dọn và xuống núi. Chiều tắm lá thuốc người Dao đỏ tại Sapa.' }
+                ],
+                includes: ['Xe giường nằm Hà Nội - Sapa khứ hồi', 'Xe 16 chỗ Sapa - Y Tý', 'Các bữa ăn trên núi', 'Chi phí lán nghỉ (có chăn ấm)', 'Porter vác đồ chung', 'Bảo hiểm'],
+                excludes: ['VAT', 'Chi phí cá nhân', 'Đồ uống gọi thêm'],
+                bookingRule: 'Phù hợp với người mới bắt đầu leo núi. Trang bị quần áo ấm do thời tiết lạnh. Cọc 1.500.000đ/người khi đăng ký.',
+                cancelRule: '- Hủy trước 7 ngày: Hoàn cọc.\n- Hủy dưới 7 ngày: Không hoàn cọc.'
+            },
+            {
+                id: 'cucdong',
+                title: 'Hành Trình Chinh Phục Cực Đông Mũi Đôi',
+                location: 'Vạn Ninh, Khánh Hòa',
+                img: 'https://images.unsplash.com/photo-1505118380757-91f5f5632de0?q=80&w=1952&auto=format&fit=crop',
+                badge: null,
+                duration: '3N2Đ',
+                level: 'Khó',
+                desc: 'Hành trình thử thách thể lực qua cồn cát thiêu đốt và nhảy ghềnh đá để chạm tay vào chóp inox điểm Cực Đông Tổ Quốc.',
+                price: '3.500.000đ',
+                oldPrice: null,
+                itinerary: [
+                    { day: 'Ngày 1: Sài Gòn - Đầm Môn', content: 'Tối tập trung tại bến xe, lên xe giường nằm đi Đầm Môn, Vạn Ninh.' },
+                    { day: 'Ngày 2: Xuyên sa mạc cát - Cắm trại Bãi Rạng', content: 'Ăn sáng. Bắt đầu hành trình trekking qua sa mạc cát dài và nóng. Xuyên qua rừng bụi. Chiều đến Bãi Rạng, cắm trại sát bờ biển, tắm biển trong vắt. Tối BBQ hải sản tươi.' },
+                    { day: 'Ngày 3: Nhảy ghềnh chạm chóp - Tàu cano về', content: '04h00 dậy sớm nhảy qua các ghềnh đá lớn. Đón tia nắng đầu tiên của Tổ quốc tại chóp Cực Đông. Lên cano chạy thẳng về Đầm Môn. Lên xe về TP.HCM.' }
+                ],
+                includes: ['Xe giường nằm 2 chiều', 'Cano chiều về', 'Ăn uống đầy đủ (Hải sản BBQ)', 'Bảo hiểm', 'Lều trại, Y tế cơ bản'],
+                excludes: ['VAT', 'Chi phí cá nhân'],
+                bookingRule: 'Đòi hỏi thể lực tốt, khả năng chịu nắng nóng. Đăng ký trước 10 ngày.',
+                cancelRule: 'Hủy trước 7 ngày hoàn 50%. Hủy dưới 7 ngày mất 100% tiền cọc.'
+            },
+            {
+                id: 'easno',
+                title: 'Cắm Trại & Chèo SUP Hồ Ea Snô',
+                location: 'Krông Nô, Đắk Nông',
+                img: 'https://images.unsplash.com/photo-1527269534026-c86f4009eace?q=80&w=1000&auto=format&fit=crop',
+                badge: { text: 'THƯ GIÃN', color: 'bg-blue-500' },
+                duration: '2N1Đ',
+                level: 'Dễ',
+                desc: 'Thả mình giữa làn nước tĩnh lặng của hồ núi lửa tự nhiên, chèo SUP đón hoàng hôn và quây quần bên bếp lửa nướng BBQ trứ danh.',
+                price: '2.200.000đ',
+                oldPrice: '2.500.000đ',
+                itinerary: [
+                    { day: 'Ngày 1: Rừng cao su - Trại ven hồ', content: 'Khởi hành từ TP.HCM đi Đắk Nông. Đi xe máy cày xuyên rừng cao su vào hồ Ea Snô. Nhận lều trại. Buổi chiều trải nghiệm chèo SUP giữa hồ núi lửa xanh biếc, bơi lội. Tối thưởng thức Gà nướng, cơm lam, rượu cần.' },
+                    { day: 'Ngày 2: Cafe sáng - Về lại phố thị', content: 'Dậy sớm ngắm sương giăng trên mặt hồ. Thưởng thức cafe, ăn sáng. Tự do chèo SUP. Trưa dọn dẹp và lên đường về.' }
+                ],
+                includes: ['Xe di chuyển', 'Xe máy cày vào rừng', 'Thuyền SUP', 'Lều trại Glamping', 'Ăn uống (BBQ đặc sản)', 'Bảo hiểm'],
+                excludes: ['VAT', 'Chi phí cá nhân'],
+                bookingRule: 'Phù hợp gia đình, nhóm bạn trẻ tìm kiếm sự thư giãn. Cọc 50%.',
+                cancelRule: 'Hủy trước 5 ngày hoàn 100%. Hủy dưới 5 ngày mất cọc.'
+            },
+            {
+                id: 'k50',
+                title: 'Khám Phá Nàng Tiên Giữa Rừng K50',
+                location: 'K\'Bang, Gia Lai',
+                img: 'https://images.unsplash.com/photo-1600011689032-8b628b8a8747?q=80&w=1000&auto=format&fit=crop',
+                badge: { text: 'ĐÁNG TRẢI NGHIỆM', color: 'bg-sunset' },
+                duration: '3N2Đ',
+                level: 'Trung bình',
+                desc: 'Băng rừng rậm nhiệt đới Khu bảo tồn Kon Chư Răng, chiêm ngưỡng vẻ đẹp hùng vĩ của một trong những thác nước đẹp nhất Tây Nguyên.',
+                price: '3.890.000đ',
+                oldPrice: null,
+                itinerary: [
+                    { day: 'Ngày 1: Di chuyển - Rừng Cấm', content: 'Tập trung tại bến xe đi Gia Lai. Tới bìa rừng bảo tồn Kon Chư Răng. Trung chuyển bằng xe máy rừng chuyên dụng để tới điểm trekking.' },
+                    { day: 'Ngày 2: Băng rừng - Thác K50', content: 'Trekking băng qua hệ sinh thái rừng rậm. Tới Thác Hang Én (K50). Chiêm ngưỡng cầu vồng qua dòng thác cuồn cuộn. Cắm trại bên suối.' },
+                    { day: 'Ngày 3: Khám phá Hang Én - Về', content: 'Trải nghiệm đi vào trong lòng hang phía sau dòng thác. Ăn trưa, trekking ngược ra bìa rừng. Lên xe về.' }
+                ],
+                includes: ['Xe giường nằm khứ hồi', 'Xe máy rừng trung chuyển', 'Kiểm lâm dẫn đường', 'Ăn uống 3 bữa/ngày', 'Lều trại chuẩn', 'Bảo hiểm'],
+                excludes: ['VAT', 'Chi phí cá nhân'],
+                bookingRule: 'Yêu cầu kiểm tra danh tính để vào khu bảo tồn. Cọc 2.000.000đ',
+                cancelRule: 'Do tính chất xin phép kiểm lâm, hủy tour trước 15 ngày mất 50% cọc. Dưới 10 ngày mất 100% cọc.'
+            }
+        ];
+
+        const tourGrid = document.getElementById('tourGrid');
+        
+        function renderTours() {
+            let html = '';
+            tourData.forEach(tour => {
+                let badgeHtml = tour.badge ? `<div class="absolute top-4 left-4 ${tour.badge.color} text-white text-xs font-bold px-2.5 py-1 rounded shadow-md">${tour.badge.text}</div>` : '';
+                let priceHtml = tour.oldPrice 
+                    ? `<div class="text-xs text-gray-400 line-through">${tour.oldPrice}</div><div class="text-red-600 font-extrabold text-lg">${tour.price}</div>` 
+                    : `<div class="text-xs text-transparent">.</div><div class="text-red-600 font-extrabold text-lg">${tour.price}</div>`;
+
+                html += `
+                <div class="tour-card bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 flex flex-col h-full">
+                    <div class="card-image-wrapper h-56 relative cursor-pointer" onclick="openModal('${tour.id}')">
+                        <img src="${tour.img}" alt="${tour.title}" class="card-image w-full h-full object-cover">
+                        ${badgeHtml}
+                        <div class="absolute bottom-0 left-0 w-full h-[60%] bg-gradient-to-t from-gray-900/90 to-transparent"></div>
+                        <div class="absolute bottom-4 left-4 right-4 text-white">
+                            <div class="text-sm font-semibold mb-1 flex items-center"><i class="fa-solid fa-location-dot mr-1.5 text-sunset"></i> ${tour.location}</div>
+                        </div>
+                    </div>
+                    <div class="p-6 flex-grow flex flex-col">
+                        <h3 class="text-lg font-bold text-gray-900 mb-3 line-clamp-2 cursor-pointer hover:text-forest-700 transition" onclick="openModal('${tour.id}')">${tour.title}</h3>
+                        
+                        <div class="flex items-center gap-5 text-sm text-gray-600 mb-4 font-medium">
+                            <span class="flex items-center"><i class="fa-regular fa-clock mr-1.5 text-forest-600"></i> ${tour.duration}</span>
+                            <span class="flex items-center"><i class="fa-solid fa-shoe-prints mr-1.5 text-sunset"></i> ${tour.level}</span>
+                        </div>
+                        
+                        <p class="text-gray-500 text-sm mb-6 flex-grow line-clamp-3 leading-relaxed">${tour.desc}</p>
+                        
+                        <div class="pt-5 border-t border-gray-100 flex flex-col gap-4 mt-auto">
+                            <div class="flex justify-between items-end">
+                                <div class="text-gray-500 text-xs font-semibold uppercase tracking-wider mb-1">Giá Tour</div>
+                                <div class="text-right">
+                                    ${priceHtml}
+                                </div>
+                            </div>
+                            <!-- Đồng bộ Nút Đặt Ngay -->
+                            <button onclick="openModal('${tour.id}')" class="w-full bg-forest-700 text-white px-4 py-2.5 rounded-lg text-sm font-bold hover:bg-forest-800 transition shadow hover:shadow-md active:scale-95 flex justify-center items-center gap-2">
+                                Xem chi tiết & Đặt <i class="fa-solid fa-arrow-right text-xs"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                `;
+            });
+            tourGrid.innerHTML = html;
+        }
+
+        // Khởi chạy render
+        renderTours();
+
         window.addEventListener('load', () => {
             const elements = document.querySelectorAll('.fade-in-up');
             elements.forEach(el => el.classList.add('visible'));
         });
 
-        // Navbar Scroll Effect (Transparent to White Glassmorphism)
         const navbar = document.getElementById('navbar');
         const logoText = document.getElementById('logoText');
         const navLinks = navbar.querySelectorAll('.nav-link');
@@ -378,41 +537,113 @@
             }
         });
 
-        // Modal Logic
-        const modal = document.getElementById('bookingModal');
-        const modalContent = document.getElementById('modalContent');
-        const mTourName = document.getElementById('modalTourName');
-        const mTourPrice = document.getElementById('modalTourPrice');
+        const modal = document.getElementById('tourModal');
+        const modalPanel = document.getElementById('modalPanel');
+        
+        function openModal(id) {
+            const tour = tourData.find(t => t.id === id);
+            if(!tour) return;
 
-        function openBooking(tourName, price) {
-            mTourName.textContent = tourName;
-            mTourPrice.textContent = price;
+            // Đổ dữ liệu vào Modal
+            document.getElementById('modalImg').src = tour.img;
+            document.getElementById('modalLocation').textContent = tour.location;
+            document.getElementById('modalTitle').textContent = tour.title;
+            document.getElementById('modalDuration').textContent = tour.duration;
+            document.getElementById('modalLevel').textContent = tour.level;
+            document.getElementById('modalFinalPrice').textContent = tour.price;
+            document.getElementById('modalOldPrice').textContent = tour.oldPrice || '';
             
+            // Build Itinerary
+            let itiHtml = '';
+            tour.itinerary.forEach((day, index) => {
+                itiHtml += `
+                    <div class="relative pl-6 sm:pl-8 border-l-2 border-forest-200 ml-3 ${index === tour.itinerary.length - 1 ? '' : 'pb-6'}">
+                        <div class="absolute w-4 h-4 bg-forest-500 rounded-full -left-[9px] top-1 border-4 border-white shadow"></div>
+                        <h4 class="font-bold text-gray-900 text-lg mb-2">${day.day}</h4>
+                        <p class="text-sm text-gray-600 leading-relaxed whitespace-pre-line">${day.content}</p>
+                    </div>
+                `;
+            });
+            document.getElementById('tabItinerary').innerHTML = itiHtml;
+
+            // Build Policy
+            document.getElementById('modalIncludes').innerHTML = tour.includes.map(item => `<li><i class="fa-solid fa-check text-forest-500 mr-2 text-xs"></i> ${item}</li>`).join('');
+            document.getElementById('modalExcludes').innerHTML = tour.excludes.map(item => `<li><i class="fa-solid fa-xmark text-red-500 mr-2 text-xs"></i> ${item}</li>`).join('');
+            document.getElementById('modalBookingRule').textContent = tour.bookingRule;
+            document.getElementById('modalCancelRule').textContent = tour.cancelRule;
+
+            // Reset tab về lịch trình
+            switchTab('itinerary');
+            
+            // Reset form
+            document.getElementById('custName').value = '';
+            document.getElementById('custPhone').value = '';
+
+            // Hiển thị modal với hiệu ứng animation
             modal.classList.remove('hidden');
-            // Small timeout to allow display:block to apply before animating opacity
-            setTimeout(() => {
-                modal.classList.remove('opacity-0');
-                modalContent.classList.remove('scale-95');
-                modalContent.classList.add('scale-100');
-            }, 10);
+            // Force reflow
+            void modal.offsetWidth; 
+            modal.classList.add('modal-active');
+            modalPanel.classList.add('modal-panel-active');
+            
+            document.body.style.overflow = 'hidden'; // Ngăn cuộn trang nền
         }
 
-        function closeBooking() {
-            modal.classList.add('opacity-0');
-            modalContent.classList.remove('scale-100');
-            modalContent.classList.add('scale-95');
+        function closeModal() {
+            modal.classList.remove('modal-active');
+            modalPanel.classList.remove('modal-panel-active');
             
             setTimeout(() => {
                 modal.classList.add('hidden');
+                document.body.style.overflow = '';
             }, 300);
         }
 
-        // Close modal when clicking outside
-        modal.addEventListener('click', (e) => {
-            if (e.target === modal) {
-                closeBooking();
+        // Đóng modal bằng phím ESC
+        document.addEventListener('keydown', function(event) {
+            if (event.key === "Escape" && modal.classList.contains('modal-active')) {
+                closeModal();
             }
         });
+
+        function switchTab(tabName) {
+            const btnIti = document.getElementById('tabBtnItinerary');
+            const btnPol = document.getElementById('tabBtnPolicy');
+            const tabIti = document.getElementById('tabItinerary');
+            const tabPol = document.getElementById('tabPolicy');
+
+            if(tabName === 'itinerary') {
+                btnIti.className = "pb-3 text-base font-bold text-forest-700 border-b-2 border-forest-700 transition";
+                btnPol.className = "pb-3 text-base font-semibold text-gray-500 hover:text-gray-800 transition border-b-2 border-transparent";
+                tabIti.classList.remove('hidden');
+                tabPol.classList.add('hidden');
+            } else {
+                btnPol.className = "pb-3 text-base font-bold text-forest-700 border-b-2 border-forest-700 transition";
+                btnIti.className = "pb-3 text-base font-semibold text-gray-500 hover:text-gray-800 transition border-b-2 border-transparent";
+                tabPol.classList.remove('hidden');
+                tabIti.classList.add('hidden');
+            }
+        }
+
+        function handleBooking(event) {
+            event.preventDefault(); // Chặn hành vi submit mặc định
+            
+            // Đóng Modal hiện tại
+            closeModal();
+
+            // Hiển thị Toast Message
+            const toast = document.getElementById('toastMessage');
+            
+            // Hiện
+            toast.classList.remove('opacity-0', 'translate-y-20', 'pointer-events-none');
+            toast.classList.add('opacity-100', 'translate-y-0');
+
+            // Tự động ẩn sau 4 giây
+            setTimeout(() => {
+                toast.classList.remove('opacity-100', 'translate-y-0');
+                toast.classList.add('opacity-0', 'translate-y-20', 'pointer-events-none');
+            }, 4000);
+        }
     </script>
 </body>
 </html>
